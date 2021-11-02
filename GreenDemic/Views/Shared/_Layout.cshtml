@@ -3,43 +3,87 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - GreenDemic</title>
+    <title>@ViewData["Title"]</title>
+    <link rel="shortcut icon" href="~/images/logo.png" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Navigation -->
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GreenDemic</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+        <nav class="navbar navbar-expand-md navbar-light" style="padding:0; margin-top:2rem; margin-left:6rem;margin-right:7rem;">
+
+            <!-- Logo -->
+            <div class="mr-auto">
+                <img id="logoPic" src="~/images/logo.png" class="img-fluid" width="40" height="40" />
             </div>
+
+            <!-- Links -->
+            <div class="ml-auto">
+                @await Html.PartialAsync("_MainMenu.cshtml")
+            </div>
+
         </nav>
     </header>
+
+    <!--Render Body-->
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!--Footer-->
+    <footer class="d-flex align-items-center justify-content-center" style="background-color: #6C826B; border-top-right-radius: 20px; border-top-left-radius: 20px; color: white;">
         <div class="container">
-            &copy; 2021 - GreenDemic - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="row my-5 px-0">
+
+                <!-- Developer's Names & Links -->
+                <div class="col-6">
+                    GreenDemic <br>
+                    Singapore <br><br>
+                    Think Green with GreenDemic<br>
+                    Follow us <br><br>
+
+                    <a href="https://www.linkedin.com/school/ngee-ann-polytechnic/?originalSubdomain=sg" target="_blank"><img src="~/images/linkedin.svg" alt="LinkedIn logo" width="32" height="32" title="linkedin"></a>
+                    &nbsp;
+                    <a href="https://www.instagram.com/ngeeannpoly/?hl=en" target="_blank"><img src="~/images/instagram.svg" alt="Instagram logo" width="32" height="32" title="instagram"></a>
+                </div>
+
+                <!-- GitHub & API Links -->
+                <div class="col-3">
+                    <b>Developers</b>  <br> <br>
+
+                    <a href="https://linktr.ee/qnant" target="_blank" class="remove-link-deco" style="color:white;">GitHub</a> <br>
+                    <a href="https://type.fit/api/quotes" target="_blank" class="remove-link-deco" style="color:white;">API Links</a> <br>
+                </div>
+
+                <!-- Contact/Feedback Link -->
+                <div class="col-3" id="contact">
+                    <b>Contact</b> <br><br>
+
+
+
+                    <address style="margin: 0px;">
+                        <a href="mailto:tranquilfeedback@gmail.com" class="remove-link-deco" style="color:white;">Email</a>
+                    </address>
+
+                    <a href="tel:82897916" style="color:white;">Telephone</a>
+                </div>
+            </div>
+
+            <!-- Application's Name -->
+            <div class="row my-5">
+                <div class="col-12 text-center" style="font-size: 1rem;">&copy; GreenDemic</div>
+            </div>
         </div>
     </footer>
+
+
+    <!--Scripts-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
