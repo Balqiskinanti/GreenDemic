@@ -115,12 +115,3 @@ C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netc
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\CalculateCalories.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\Index.cshtml.g.cs
-C:\Users\65965\Source\Repos\Balqiskinanti\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.csproj.AssemblyReference.cache
-C:\Users\65965\Source\Repos\Balqiskinanti\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.AssemblyInfoInputs.cache
-C:\Users\65965\Source\Repos\Balqiskinanti\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.AssemblyInfo.cs
-C:\Users\65965\Source\Repos\Balqiskinanti\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.csproj.CoreCompileInputs.cache
-C:\Users\65965\Source\Repos\Balqiskinanti\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\65965\Source\Repos\Balqiskinanti\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.RazorAssemblyInfo.cache
-C:\Users\65965\Source\Repos\Balqiskinanti\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.RazorAssemblyInfo.cs
-C:\Users\65965\Source\Repos\Balqiskinanti\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.dll
-C:\Users\65965\Source\Repos\Balqiskinanti\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.pdb
