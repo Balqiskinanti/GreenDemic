@@ -1,5 +1,51 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model GreenDemic.Models.Account
+
 @{
+    ViewData["Title"] = "Sign Up";
+}
+
+<h1>Sign Up</h1>
+
+<form method="post" asp-controller="Home" asp-action="SignUp" style="width:60%;padding-top:30px;">
+    <fieldset class="loginFieldset">
+        <!--Email-->
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label asp-for="UserName" class="col-form-label"></label>
+                <input class="form-control" required asp-for="UserName" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!--Paswword-->
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label asp-for="Pass_word" class="col-form-label"></label>
+                <input class="form-control" required asp-for="Pass_word" type="password" />
+                <span asp-validation-for="Pass_word" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!--Account Name-->
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label asp-for="AccName" class="col-form-label"></label>
+                <input class="form-control" required asp-for="AccName" />
+                <span asp-validation-for="AccName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!--Button submit-->
+        <div class="form-group row d-flex align-items-center justify-content-center" style="text-align: center;">
+            <div class="col-sm-12">
+                <input type="submit" value="Sign Up"
+                       class="btn btn-primary" />
+            </div>
+        </div>
+
+    </fieldset>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

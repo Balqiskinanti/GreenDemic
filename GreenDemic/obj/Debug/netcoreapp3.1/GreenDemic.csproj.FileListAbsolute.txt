@@ -39,7 +39,6 @@ C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netc
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_MainMenu.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\Main.cshtml.g.cs
-C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\SignUp.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
@@ -115,3 +114,19 @@ C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netc
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\CalculateCalories.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\Index.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\Index.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\Create.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\Edit.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\Delete.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\SignUp.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_UserMenu.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\Create.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\Edit.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\Details.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\Delete.cshtml.g.cs
