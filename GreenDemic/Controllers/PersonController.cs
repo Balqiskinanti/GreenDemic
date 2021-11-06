@@ -1,4 +1,5 @@
-﻿using GreenDemic.Models;
+﻿using GreenDemic.DAL;
+using GreenDemic.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,6 +14,10 @@ namespace GreenDemic.Controllers
     {
 
         private readonly ILogger<PersonController> _logger;
+
+        // Initialise DAL class
+        private PersonDAL personContext = new PersonDAL();
+
         public PersonController(ILogger<PersonController> logger)
         {
             _logger = logger;
@@ -21,13 +26,9 @@ namespace GreenDemic.Controllers
         // GET: UserController
         public ActionResult Index()
         {
-            return View();
-        }
-
-        // GET: UserController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
+            int accID = (int)HttpContext.Session.GetInt32("AccID");
+            List<Person> personList = personContext.GetAllPerson(accID);
+            return View(personList);
         }
 
         // GET: UserController/Create
@@ -39,11 +40,13 @@ namespace GreenDemic.Controllers
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Person person)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                person.UserID = personContext.Add(person);
+                HttpContext.Session.Remove("AMR");
+                return RedirectToAction("Index");
             }
             catch
             {
@@ -52,19 +55,28 @@ namespace GreenDemic.Controllers
         }
 
         // GET: UserController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
-            return View();
+            Person person = personContext.GetDetails(id.Value);
+            return View(person);
         }
 
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Person person)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                if (ModelState.IsValid)
+                {
+                    personContext.Update(person);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(person);
+                }
             }
             catch
             {
@@ -73,23 +85,30 @@ namespace GreenDemic.Controllers
         }
 
         // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            Person person = personContext.GetDetails(id.Value);
+            return View(person);
         }
 
         // POST: UserController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(Person person)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                personContext.Delete(person.UserID);
+                return RedirectToAction("Index");
             }
             catch
             {
-                return View();
+                return View(person);
             }
         }
 
@@ -105,7 +124,6 @@ namespace GreenDemic.Controllers
         {
             try
             {
-                double maxCal = 0;
                 double BMR = 0;
                 if(userCalories.Gender == "Female")
                 {
@@ -115,9 +133,8 @@ namespace GreenDemic.Controllers
                 {
                     BMR = 66.47 + (13.75 * userCalories.Weight) + (5.003 * userCalories.Height) - (6.755 * userCalories.Age);
                 }
-                _logger.LogInformation("Here");
-                _logger.LogInformation(CalculateAMR(BMR,userCalories.ExerciseType).ToString());
-                return RedirectToAction("Index");
+                HttpContext.Session.SetInt32("AMR", (int)CalculateAMR(BMR, userCalories.ExerciseType));
+                return RedirectToAction("Create");
             }
             catch
             {
