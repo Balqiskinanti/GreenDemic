@@ -1,0 +1,60 @@
+﻿@model GreenDemic.Models.ShoppingBag
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<div>
+    <p style="text-align:center;">Are you sure to delete this record?</p>
+    <form asp-action="Delete" style="margin:0px 50px;">
+        <fieldset class="FormContent">
+            <!--Shopping Bag ID-->
+            <div class="form-group row">
+                <label asp-for="ShoppingBagID"
+                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                <div class="col-6">
+                    <input asp-for="ShoppingBagID" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
+
+            <!--Area of Interest ID-->
+            <div class="form-group row">
+                <label asp-for="CreatedAt"
+                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                <div class="col-6">
+                    <input asp-for="CreatedAt" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
+
+            <!--Competition Name-->
+            <div class="form-group row">
+                <label asp-for="BagName"
+                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                <div class="col-6">
+                    <input asp-for="BagName" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
+
+            <!--Start Date-->
+            <div class="form-group row">
+                <label asp-for="BagDescription"
+                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                <div class="col-6">
+                    <input asp-for="BagDescription" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
+
+            <!--Delete Btn-->
+            <div class="col-12" style="text-align:center;">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </fieldset>
+    </form>
+    <div class="col-12" style="text-align:center;"><a asp-action="Index">Back to List</a></div>
+</div>
