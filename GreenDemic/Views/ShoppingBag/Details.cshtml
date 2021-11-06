@@ -1,0 +1,45 @@
+﻿@model GreenDemic.Models.ShoppingBag
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<fieldset style="background-color:white; border-radius:20px;">
+
+    <!--Area of Interest Name-->
+    <div class="form-group row">
+        <label asp-for="ShoppingBagID" class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+        <div class="form-control-plaintext col-6">
+            @Html.Display("ShoppingBagID")
+        </div>
+    </div>
+
+    <!--Competition Name-->
+    <div class="form-group row">
+        <label asp-for="CreatedAt" class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+        <div class="form-control-plaintext col-6">
+            @Html.Display("CreatedAt")
+        </div>
+    </div>
+
+    <!--Start Date-->
+    <div class="form-group row">
+        <label asp-for="BagName" class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+        <div class="form-control-plaintext col-6">
+            @Html.Display("BagName")
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="BagDescription" class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+        <div class="form-control-plaintext col-6">
+            @Html.Display("BagDescription")
+        </div>
+    </div>
+
+</fieldset>
+
+<div style="text-align:center;">
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,5 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@{
+    ViewData["Title"] = "Main";
 }
+
+@{
+    string name = "Unknown";
+
+    if (Context.Session.GetString("AccName") != null)
+    {
+        name = Context.Session.GetString("AccName");
+    }
+}
+
+<h5 style="text-align: center; font-weight: bold;">Hello, @name :)</h5>
+
+<a href="~/Person/Index" style="color: #6C826B; ">View Family Members</a>
+
+<p>Total calories of all family members: @Context.Session.GetInt32("TotalCal") calories</p>

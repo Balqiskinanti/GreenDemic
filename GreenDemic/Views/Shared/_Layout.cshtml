@@ -1,4 +1,21 @@
-﻿<!DOCTYPE html>
+﻿@{
+    string redirectHref = "";
+
+    if (Context.Session.GetString("Role") != null)
+    {
+        if (Context.Session.GetString("Role") == "User")
+        {
+            redirectHref = "/Home/Main";
+        }
+    }
+
+    else
+    {
+        redirectHref = "/Home/Index";
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,14 +35,22 @@
 
             <!-- Logo -->
             <div class="mr-auto">
-                <img id="logoPic" src="~/images/logo.png" class="img-fluid" width="40" height="40" />
+                <a href=@redirectHref>
+                    <img id="logoPic" src="~/images/logo.png" class="img-fluid" width="40" height="40" />
+                </a>
             </div>
 
             <!-- Links -->
             <div class="ml-auto">
-                @await Html.PartialAsync("_MainMenu.cshtml")
+                @if (Context.Session.GetString("Role") == "User")
+                {
+                    @await Html.PartialAsync("_UserMenu.cshtml")
+                }
+                else
+                {
+                    @await Html.PartialAsync("_MainMenu.cshtml")
+                }
             </div>
-
         </nav>
     </header>
 
