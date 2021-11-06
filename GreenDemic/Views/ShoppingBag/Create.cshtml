@@ -1,0 +1,48 @@
+﻿@model GreenDemic.Models.ShoppingBag
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Shopping Bag</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AccID" class="control-label"></label>
+                <input readonly value="@Context.Session.GetInt32("AccID")" asp-for="AccID" class="form-control" />
+                <span asp-validation-for="AccID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedAt" class="control-label"></label>
+                <input asp-for="CreatedAt" class="form-control" />
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BagName" class="control-label"></label>
+                <input asp-for="BagName" class="form-control" />
+                <span asp-validation-for="BagName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BagDescription" class="control-label"></label>
+                <input asp-for="BagDescription" class="form-control" />
+                <span asp-validation-for="BagDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
