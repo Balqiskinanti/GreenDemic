@@ -6,4 +6,14 @@
 
 p {
     color: #6C826B;
-} 
+}
+
+form {
+    padding: 30px;
+    background-color: #6C826B;
+    border-radius: 20px;
+}
+
+.btn {
+    background-color: #D8F3DC;
+}
