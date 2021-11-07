@@ -57,7 +57,7 @@ namespace Greendemic.DAL
             reader.Close();
             //Close the database connection
             conn.Close();
-            return itemList;
+            return itemlist;
         }
         public int Add(ShoppingBagItem item)
         {
