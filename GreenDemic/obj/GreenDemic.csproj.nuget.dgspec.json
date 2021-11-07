@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\65965\\Source\\Repos\\Balqiskinanti\\GreenDemic\\GreenDemic\\GreenDemic.csproj": {}
+    "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 1\\GreenDemic\\GreenDemic\\GreenDemic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\65965\\Source\\Repos\\Balqiskinanti\\GreenDemic\\GreenDemic\\GreenDemic.csproj": {
+    "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 1\\GreenDemic\\GreenDemic\\GreenDemic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\65965\\Source\\Repos\\Balqiskinanti\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
+        "projectUniqueName": "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 1\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
         "projectName": "GreenDemic",
-        "projectPath": "C:\\Users\\65965\\Source\\Repos\\Balqiskinanti\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
-        "packagesPath": "C:\\Users\\65965\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\65965\\Source\\Repos\\Balqiskinanti\\GreenDemic\\GreenDemic\\obj\\",
+        "projectPath": "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 1\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
+        "packagesPath": "C:\\Users\\The Tay Family\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 1\\GreenDemic\\GreenDemic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\65965\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\The Tay Family\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
