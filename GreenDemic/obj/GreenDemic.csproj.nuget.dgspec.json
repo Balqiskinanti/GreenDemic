@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\65965\\Source\\Repos\\Balqiskinanti\\GreenDemic\\GreenDemic\\GreenDemic.csproj": {}
+    "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\65965\\Source\\Repos\\Balqiskinanti\\GreenDemic\\GreenDemic\\GreenDemic.csproj": {
+    "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\65965\\Source\\Repos\\Balqiskinanti\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
+        "projectUniqueName": "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
         "projectName": "GreenDemic",
-        "projectPath": "C:\\Users\\65965\\Source\\Repos\\Balqiskinanti\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
-        "packagesPath": "C:\\Users\\65965\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\65965\\Source\\Repos\\Balqiskinanti\\GreenDemic\\GreenDemic\\obj\\",
+        "projectPath": "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
+        "packagesPath": "C:\\Users\\balqi\\.nuget\\packages\\",
+        "outputPath": "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\65965\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\balqi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,12 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.CodeAnalysis.Analyzers": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.9.4, )"
+            },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.1.5, )"
@@ -67,7 +73,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
