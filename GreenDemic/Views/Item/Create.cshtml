@@ -1,0 +1,48 @@
+﻿@model GreenDemic.Models.ItemViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h4>Person</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" asp-route-id="@ViewData["ShoppingBagId"]">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div hidden class="form-group">
+                <label asp-for="ShoppingBagID" class="control-label"></label>
+                <input asp-for="ShoppingBagID" class="form-control" value="@ViewData["ShoppingBagId"]"/>
+                <span asp-validation-for="ShoppingBagID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemName" class="control-label"></label>
+                <input asp-for="ItemName" class="form-control" />
+                <span asp-validation-for="ItemName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cal" class="control-label"></label>
+                <input asp-for="Cal" class="form-control" />
+                <span asp-validation-for="Cal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Qty" class="control-label"></label>
+                <input asp-for="Qty" class="form-control" />
+                <span asp-validation-for="Qty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    </div>
+
+    <div>
+        <a asp-action="Index" asp-route-id="@ViewData["ShoppingBagId"]">Back to List</a>
+    </div>
+
