@@ -16,3 +16,15 @@
 <a href="~/Person/Index" style="color: #6C826B; ">View Family Members</a>
 
 <p>Total calories of all family members: @Context.Session.GetInt32("TotalCal") calories</p>
+<p>Total calories purchased this month: @ViewData["ThisMonthCals"] calories</p>
+@if (ViewData["ThisMonthCals"] == null)
+{
+    ViewData["ThisMonthCals"] = 0;
+}
+
+@if ((int)ViewData["ThisMonthCals"] > Context.Session.GetInt32("TotalCal"))
+{
+    <div class="alert alert-danger">
+        <strong>Uh Oh!</strong> You have exceeded the recommended maximum calories this month.
+    </div>
+}
