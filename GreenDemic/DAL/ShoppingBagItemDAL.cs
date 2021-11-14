@@ -27,12 +27,13 @@ namespace Greendemic.DAL
             //Connection String read.
             conn = new SqlConnection(strConn);
         }
-        public List<ShoppingBagItem> GetAllItem()
+        public List<ShoppingBagItem> GetAllShoppingBagItem(int shoppingBagID)
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
             //Specify the SELECT SQL statement
-            cmd.CommandText = @"SELECT * FROM ShoppingBagItem ORDER BY ShoppingBagID";
+            cmd.CommandText = @"SELECT * FROM ShoppingBagItem WHERE ShoppingBagID = @selectedShoppingBagID";
+            cmd.Parameters.AddWithValue("@selectedShoppingBagID", shoppingBagID);
             //Open a database connection
             conn.Open();
             //Execute the SELECT SQL through a DataReader
@@ -46,9 +47,9 @@ namespace Greendemic.DAL
                 {
                     ShoppingBagID = reader.GetInt32(0), //0: 1st column
 
-                    ItemID = reader.GetInt32(2), //1: 2nd column
+                    ItemID = reader.GetInt32(1), //1: 2nd column
                                                  //Get the first character of a string
-                    Qty = reader.GetInt32(3), //2: 3rd column
+                    Qty = reader.GetInt32(2), //2: 3rd column
 
                 }
                 );
@@ -59,14 +60,13 @@ namespace Greendemic.DAL
             conn.Close();
             return itemList;
         }
-        public int Add(ShoppingBagItem item)
+        public void Add(ShoppingBagItem item)
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
             //Specify an INSERT SQL statement which will
             //return the auto-generated CompetitionID after insertion
             cmd.CommandText = @"INSERT INTO ShoppingBagItem (ShoppingBagID, ItemID, Qty)
-OUTPUT INSERTED.ShoppingBagID
 VALUES(@shoppingbagID, @itemID, @qty)";
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
@@ -78,13 +78,11 @@ VALUES(@shoppingbagID, @itemID, @qty)";
             conn.Open();
             //ExecuteScalar is used to retrieve the auto-generated
             //CompetitionID after executing the INSERT SQL statement
-            item.ShoppingBagID = (int)cmd.ExecuteScalar();
+            cmd.ExecuteScalar();
             //A connection should be closed after operations.
             conn.Close();
-            //Return id when no error occurs.
-            return item.ShoppingBagID;
         }
-        public List<ShoppingBagItem> GetDetails(int itemID)
+        public ShoppingBagItem GetDetails(int itemID, int shoppingBagID)
         {
             ShoppingBagItem item = new ShoppingBagItem();
             //Create a SqlCommand object from connection object
@@ -92,77 +90,29 @@ VALUES(@shoppingbagID, @itemID, @qty)";
             //Specify the SELECT SQL statement that
             //retrieves all attributes of a admin record.
             cmd.CommandText = @"SELECT * FROM ShoppingBagItem
- WHERE ShoppingBagID = @selectedItemID";
+                                WHERE ShoppingBagID = @selectedShoppingBagID AND ItemID = @selectedItemID";
             //Define the parameter used in SQL statement, value for the
             //parameter is retrieved from the method parameter “compId”.
-            cmd.Parameters.AddWithValue("@selectedItemID", item.ShoppingBagID);
+            cmd.Parameters.AddWithValue("@selectedShoppingBagID", shoppingBagID);
+            cmd.Parameters.AddWithValue("@selectedItemID",itemID);
             //Open a database connection
             conn.Open();
             //Execute SELCT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
-            List<ShoppingBagItem> itemList = new List<ShoppingBagItem>();
             if (reader.HasRows)
             {
-                //Read the record from database
                 while (reader.Read())
                 {
-                    itemList.Add(
-                        new ShoppingBagItem
-                        {
-                            ShoppingBagID = reader.GetInt32(0), //0: 1st column
-
-                            ItemID = reader.GetInt32(2), //1: 2nd column
-                                                         //Get the first character of a string
-                            Qty = reader.GetInt32(3), //2: 3rd column
-                        });
+                    item.ShoppingBagID = !reader.IsDBNull(0) ? reader.GetInt32(0) : (int)0;
+                    item.ItemID = !reader.IsDBNull(1) ? reader.GetInt32(1) : (int)0;
+                    item.Qty = !reader.IsDBNull(2) ? reader.GetInt32(2) : (int)0;
                 }
             }
             //Close data reader
             reader.Close();
             //Close database connection
             conn.Close();
-            return itemList;
-        }
-        public List<ShoppingBagItem> Update(ShoppingBagItem item)
-        {
-            //Create a SqlCommand object from connection object
-            SqlCommand cmd = conn.CreateCommand();
-            //Specify an UPDATE SQL statement
-            cmd.CommandText = @"UPDATE ShoppingBagItem SET ItemID=@itemID,
- Qty=@qty, WHERE ShoppingBagID = @selectedItemID";
-            List<ShoppingBagItem> itemList = new List<ShoppingBagItem>();
-            //Define the parameters used in SQL statement, value for each parameter
-            //is retrieved from respective class's property.
-            cmd.Parameters.AddWithValue("@itemID", item.ItemID);
-            cmd.Parameters.AddWithValue("@qty", item.Qty);
-
-            cmd.Parameters.AddWithValue("@selectedItemID", item.ShoppingBagID);
-            //Open a database connection
-            conn.Open();
-            //ExecuteNonQuery is used for UPDATE and DELETE
-            cmd.ExecuteNonQuery();
-            //Close the database connection
-            conn.Close();
-            return itemList;
-        }
-        public List<ShoppingBagItem> Delete(ShoppingBagItem itemID)
-        {
-            //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
-            //to delete a competition record specified by a Competition ID
-            SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"DELETE FROM ShoppingBagItem
- WHERE ShoppingBagID = @selectedItemID";
-            List<ShoppingBagItem> itemList = new List<ShoppingBagItem>();
-            cmd.Parameters.AddWithValue("@selectedItemID", itemID.ShoppingBagID);
-            //Open a database connection
-            conn.Open();
-            int rowAffected = 0;
-            //Execute the DELETE SQL to remove the competition record
-            rowAffected += cmd.ExecuteNonQuery();
-            //Close database connection
-            conn.Close();
-            //Return number of row of competition record updated or deleted
-            return itemList;
+            return item;
         }
     }
 }

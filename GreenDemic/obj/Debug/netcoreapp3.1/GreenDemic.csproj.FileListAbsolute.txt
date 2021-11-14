@@ -120,7 +120,6 @@ C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netc
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
-C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\Index.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\Create.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\Edit.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\Delete.cshtml.g.cs
@@ -128,5 +127,9 @@ C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netc
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_UserMenu.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\Create.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\Edit.cshtml.g.cs
-C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\Details.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\Delete.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Item\Create.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Item\Index.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\Index.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Item\Delete.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Item\Edit.cshtml.g.cs
