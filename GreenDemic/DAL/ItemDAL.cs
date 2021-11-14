@@ -66,12 +66,11 @@ namespace Greendemic.DAL
             SqlCommand cmd = conn.CreateCommand();
             //Specify an INSERT SQL statement which will
             //return the auto-generated CompetitionID after insertion
-            cmd.CommandText = @"INSERT INTO Item (ItemID, ItemName, Category, Cal)
+            cmd.CommandText = @"INSERT INTO Item (ItemName, Category, Cal)
 OUTPUT INSERTED.ItemID
-VALUES(@itemID, @itemName, @category, @cal)";
+VALUES(@itemName, @category, @cal)";
             //Define the parameters used in SQL statement, value for each parameter
             //is retrieved from respective class's property.
-            cmd.Parameters.AddWithValue("@itemID", item.ItemID);
             cmd.Parameters.AddWithValue("@itemName", item.ItemName);
             cmd.Parameters.AddWithValue("@category", item.Category);
             cmd.Parameters.AddWithValue("@cal", item.Cal);
@@ -86,7 +85,7 @@ VALUES(@itemID, @itemName, @category, @cal)";
             //Return id when no error occurs.
             return item.ItemID;
         }
-        public List<Item> GetDetails(int itemID)
+        public Item GetDetails(int itemID)
         {
             Item item = new Item();
             //Create a SqlCommand object from connection object
@@ -94,79 +93,85 @@ VALUES(@itemID, @itemName, @category, @cal)";
             //Specify the SELECT SQL statement that
             //retrieves all attributes of a admin record.
             cmd.CommandText = @"SELECT * FROM Item
- WHERE ItemID = @selectedItemID";
+                                WHERE ItemID = @selectedItemID";
             //Define the parameter used in SQL statement, value for the
             //parameter is retrieved from the method parameter “compId”.
-            cmd.Parameters.AddWithValue("@selectedItemID", item.ItemID);
+            cmd.Parameters.AddWithValue("@selectedItemID", itemID);
             //Open a database connection
             conn.Open();
             //Execute SELCT SQL through a DataReader
             SqlDataReader reader = cmd.ExecuteReader();
-            List<Item> itemList = new List<Item>();
             if (reader.HasRows)
             {
-                //Read the record from database
                 while (reader.Read())
                 {
-                    itemList.Add(
-                        new Item
-                        {
-                            ItemID = reader.GetInt32(0), //0: 1st column
-
-                            ItemName = reader.GetString(2), //1: 2nd column
-                                                            //Get the first character of a string
-                            Category = reader.GetString(3), //2: 3rd column
-                            Cal = reader.GetInt32(4), //3: 4th column
-                        });
+                    item.ItemID = !reader.IsDBNull(0) ? reader.GetInt32(0) : (int)0;
+                    item.ItemName = !reader.IsDBNull(1) ? reader.GetString(1) : null;
+                    item.Category = !reader.IsDBNull(2) ? reader.GetString(2) : null;
+                    item.Cal = !reader.IsDBNull(3) ? reader.GetInt32(3) : (int)0;
                 }
             }
             //Close data reader
             reader.Close();
             //Close database connection
             conn.Close();
-            return itemList;
+            return item;
         }
-        public List<Item> Update(Item item)
+        public int Update(Item item, ShoppingBagItem shoppingBagItem)
         {
             //Create a SqlCommand object from connection object
             SqlCommand cmd = conn.CreateCommand();
+            SqlCommand cmd2 = conn.CreateCommand();
             //Specify an UPDATE SQL statement
-            cmd.CommandText = @"UPDATE Item SET ItemName=@itemName,
- Category=@category, Cal = @cal, WHERE ItemID = @selectedItemID";
-            List<Item> itemList = new List<Item>();
-            //Define the parameters used in SQL statement, value for each parameter
-            //is retrieved from respective class's property.
-            cmd.Parameters.AddWithValue("@name", item.ItemName);
-            cmd.Parameters.AddWithValue("@startdate", item.Category);
-            cmd.Parameters.AddWithValue("@enddate", item.Cal);
-
+            cmd.CommandText = @"UPDATE Item 
+                                SET ItemName=@itemName, Category=@category, Cal = @cal 
+                                WHERE ItemID = @selectedItemID";
+            cmd2.CommandText = @"UPDATE ShoppingBagItem 
+                                SET Qty=@qty 
+                                WHERE ShoppingBagID = @selectedShoppingBagID AND ItemID = @selectedItemID";
+            cmd.Parameters.AddWithValue("@itemName", item.ItemName);
+            cmd.Parameters.AddWithValue("@cal", item.Cal);
+            cmd.Parameters.AddWithValue("@category", item.Category);
             cmd.Parameters.AddWithValue("@selectedItemID", item.ItemID);
+
+            cmd2.Parameters.AddWithValue("@selectedItemID", shoppingBagItem.ItemID);
+            cmd2.Parameters.AddWithValue("@selectedShoppingBagID", shoppingBagItem.ShoppingBagID);
+            cmd2.Parameters.AddWithValue("@qty", shoppingBagItem.Qty);
             //Open a database connection
             conn.Open();
             //ExecuteNonQuery is used for UPDATE and DELETE
-            cmd.ExecuteNonQuery();
+            int rowAffected = 0;
+            rowAffected += cmd2.ExecuteNonQuery();
+            rowAffected += cmd.ExecuteNonQuery();
+            
             //Close the database connection
             conn.Close();
-            return itemList;
+            return rowAffected;
         }
-        public List<Item> Delete(Item itemID)
+        public int Delete(int itemID, int shoppingBagID)
         {
             //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
             //to delete a competition record specified by a Competition ID
             SqlCommand cmd = conn.CreateCommand();
+            SqlCommand cmd1 = conn.CreateCommand();
             cmd.CommandText = @"DELETE FROM Item
- WHERE ItemID = @selectedItemID";
-            List<Item> itemList = new List<Item>();
-            cmd.Parameters.AddWithValue("@selectedItemID", itemID.ItemID);
+                                WHERE ItemID = @selectedItemID";
+            cmd1.CommandText = @"DELETE FROM ShoppingBagItem
+                                WHERE ItemID = @selectedItemID AND ShoppingBagID = @selectedSBID";
+            cmd.Parameters.AddWithValue("@selectedItemID", itemID);
+            cmd1.Parameters.AddWithValue("@selectedItemID", itemID);
+            cmd1.Parameters.AddWithValue("@selectedSBID", shoppingBagID);
             //Open a database connection
             conn.Open();
             int rowAffected = 0;
             //Execute the DELETE SQL to remove the competition record
+            rowAffected += cmd1.ExecuteNonQuery();
             rowAffected += cmd.ExecuteNonQuery();
+            
             //Close database connection
             conn.Close();
             //Return number of row of competition record updated or deleted
-            return itemList;
+            return rowAffected;
         }
     }
 }

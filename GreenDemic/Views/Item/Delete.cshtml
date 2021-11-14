@@ -1,0 +1,90 @@
+﻿@model GreenDemic.Models.ItemViewModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>Delete</h1>
+
+<div>
+    <p style="text-align:center;">Are you sure to delete this record?</p>
+    <form asp-action="Delete" asp-route-sbID="@ViewData["ShoppingBagId"]" style="margin:0px 50px;">
+        <fieldset class="FormContent">
+            <!--User ID-->
+            <div class="form-group row">
+                <label asp-for="ItemID"
+                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                <div class="col-6">
+                    <input asp-for="ItemID" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
+
+            <!--User ID-->
+            <div class="form-group row">
+                <label asp-for="ShoppingBagID"
+                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                <div class="col-6">
+                    <input asp-for="ShoppingBagID" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
+
+            <!--User Name-->
+            <div class="form-group row">
+                <label asp-for="ItemName"
+                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                <div class="col-6">
+                    <input asp-for="ItemName" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
+
+            <!--Max Calories-->
+            <div class="form-group row">
+                <label asp-for="Category"
+                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                <div class="col-6">
+                    <input asp-for="Category" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
+
+            <!--Max Calories-->
+            <div class="form-group row">
+                <label asp-for="Cal"
+                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                <div class="col-6">
+                    <input asp-for="Cal" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
+
+            <!--User ID-->
+            <div class="form-group row">
+                <label asp-for="Qty"
+                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                <div class="col-6">
+                    <input asp-for="Qty" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
+
+            <!--User ID-->
+            <div class="form-group row">
+                <label asp-for="CalSubTotal"
+                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                <div class="col-6">
+                    <input asp-for="CalSubTotal" readonly
+                           class="form-control-plaintext" />
+                </div>
+            </div>
+
+            <!--Delete Btn-->
+            <div class="col-12" style="text-align:center;">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </fieldset>
+    </form>
+    <div class="col-12" style="text-align:center;"><a asp-action="Index" asp-route-id="@ViewData["ShoppingBagId"]">Back to List</a></div>
+</div>

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<GreenDemic.Models.ItemViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create" asp-route-id="@ViewData["ShoppingBagId"]">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Qty)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CalSubTotal)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ItemName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalSubTotal)
+            </td>
+            <td>
+                <a asp-action="Delete" asp-controller="Item"
+                   asp-route-id="@item.ItemID" asp-route-sbID="@ViewData["ShoppingBagId"]">Delete </a><span>|</span>
+                <a asp-action="Edit" asp-controller="Item"
+                   asp-route-id="@item.ItemID" asp-route-sbID="@ViewData["ShoppingBagId"]">Edit </a><span>|</span>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<p>
+    <a asp-action="Index" asp-route-id="@ViewData["ShoppingBagId"]">Back to list</a>
+</p>
