@@ -27,11 +27,12 @@ namespace GreenDemic.DAL
         }
 
         // Retrieve list of all shopping bags
-        public List<ShoppingBag> GetAllShoppingBags()
+        public List<ShoppingBag> GetAllShoppingBags(int accID)
         {
             List<ShoppingBag> shoppingBagList = new List<ShoppingBag>();
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"SELECT * FROM ShoppingBag ORDER BY ShoppingBagID ASC";
+            cmd.CommandText = @"SELECT * FROM ShoppingBag WHERE AccID = @selectedAccID ORDER BY ShoppingBagID ASC";
+            cmd.Parameters.AddWithValue("@selectedAccID", accID);
 
             conn.Open();
             SqlDataReader reader = cmd.ExecuteReader();
@@ -138,16 +139,70 @@ namespace GreenDemic.DAL
         public int Delete(int shoppingBagID)
         {
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"DELETE FROM ShoppingBag
+            cmd.CommandText = @"IF OBJECT_ID('TempItem') IS NOT NULL
+                                BEGIN
+                                DROP TABLE TempItem
+                                END;";
+
+            SqlCommand cmd1 = conn.CreateCommand();
+            cmd1.CommandText = @"SELECT ItemID INTO TempItem FROM ShoppingBagItem
+                                 WHERE ShoppingBagID = @selectedShoppingBagID";
+            cmd1.Parameters.AddWithValue("@selectedShoppingBagID", shoppingBagID);
+
+            SqlCommand cmd2 = conn.CreateCommand();
+            cmd2.CommandText = @"DELETE FROM ShoppingBagItem
                                 WHERE ShoppingBagID = @selectedShoppingBagID";
-            cmd.Parameters.AddWithValue("@selectedShoppingBagID", shoppingBagID);
+            cmd2.Parameters.AddWithValue("@selectedShoppingBagID", shoppingBagID);
+
+            SqlCommand cmd3 = conn.CreateCommand();
+            cmd3.CommandText = @"DELETE FROM ITEM 
+                                WHERE ItemID IN (
+                                SELECT * FROM TempItem
+                                )";
+
+            SqlCommand cmd4 = conn.CreateCommand();
+            cmd4.CommandText = @"DELETE FROM ShoppingBag
+                                WHERE ShoppingBagID = @selectedShoppingBagID";
+            cmd4.Parameters.AddWithValue("@selectedShoppingBagID", shoppingBagID);
 
             conn.Open();
             int rowAffected = 0;
             rowAffected += cmd.ExecuteNonQuery();
+            rowAffected += cmd1.ExecuteNonQuery();
+            rowAffected += cmd2.ExecuteNonQuery();
+            rowAffected += cmd3.ExecuteNonQuery();
+            rowAffected += cmd4.ExecuteNonQuery();
 
             conn.Close();
             return rowAffected;
+        }
+
+        public List<ShoppingBag> GetThisMonthBags(int accID)
+        {
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT * FROM ShoppingBag WHERE AccID = @selectedAccID AND MONTH(CreatedAt)=MONTH(GETDATE()) 
+                                            AND YEAR(CreatedAt)=YEAR(GETDATE())";
+            cmd.Parameters.AddWithValue("@selectedAccID", accID);
+
+            List<ShoppingBag> shoppingBagList = new List<ShoppingBag>();
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                shoppingBagList.Add(
+                new ShoppingBag
+                {
+                    ShoppingBagID = reader.GetInt32(0),
+                    CreatedAt = reader.GetDateTime(1),
+                    BagName = reader.GetString(2),
+                    BagDescription = !reader.IsDBNull(3) ? reader.GetString(3) : null,
+                    AccID = reader.GetInt32(4)
+                }
+                );
+            }
+            reader.Close();
+            conn.Close();
+            return shoppingBagList;
         }
     }
 }
