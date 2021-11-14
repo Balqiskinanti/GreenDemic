@@ -8,14 +8,16 @@ namespace Greendemic.Models
 {
     public class ShoppingBagItem
     {
+        [Display(Name = "Shopping Bag ID")]
         [Required]
-        [StringLength(10)]
         public int ShoppingBagID { get; set; }
+
+        [Display(Name = "Item ID")]
         [Required]
-        [StringLength(10)]
         public int ItemID { get; set; }
+
+        [Display(Name = "Quantity")]
         [Required]
-        [StringLength(10)]
         public int Qty { get; set; }
     }
 }
