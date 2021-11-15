@@ -4,6 +4,7 @@ using GreenDemic.DAL;
 using GreenDemic.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,24 @@ namespace GreenDemic.Controllers
         public ItemController(ILogger<ItemController> logger)
         {
             _logger = logger;
+        }
+
+        // Return area interest list for dropdown
+        private List<SelectListItem> GetCategory()
+        {
+            List<SelectListItem> categoryList = new List<SelectListItem>();
+            List<String> myCategoryList = new List<string>() { "Snack","Meat","Seafood","Dairy","Grains","Fruit","Vegetable","Others" };
+
+            foreach (String cat in myCategoryList)
+            {
+                categoryList.Add(
+                    new SelectListItem
+                    {
+                        Value = cat,
+                        Text = cat
+                    });
+            }
+            return categoryList;
         }
 
         public List<ItemViewModel> MapToItemVM(int shoppingBagID)
@@ -81,6 +100,7 @@ namespace GreenDemic.Controllers
         public ActionResult Create(int? id)
         {
             ViewData["ShoppingBagId"] = id.Value;
+            ViewData["CategoryList"] = GetCategory();
             return View();
         }
 
@@ -103,6 +123,7 @@ namespace GreenDemic.Controllers
             shoppingBagItemContext.Add(shoppingBagItem);
 
             ViewData["ShoppingBagId"] = id.Value;
+            ViewData["CategoryList"] = GetCategory();
             return RedirectToAction("Index","Item", new { id = ViewData["ShoppingBagId"] });
         }
 
@@ -110,6 +131,7 @@ namespace GreenDemic.Controllers
         public ActionResult Edit(int? id, int? sbID)
         {
             ViewData["ShoppingBagId"] = sbID.Value;
+            ViewData["CategoryList"] = GetCategory();
             ItemViewModel itemViewModel = MapToItemVM(sbID.Value, id.Value);
             return View(itemViewModel);
         }
@@ -133,6 +155,7 @@ namespace GreenDemic.Controllers
             itemContext.Update(item, shoppingBagItem);
 
             ViewData["ShoppingBagId"] = itemVM.ShoppingBagID;
+            ViewData["CategoryList"] = GetCategory();
             return RedirectToAction("Index", "Item", new { id = ViewData["ShoppingBagId"] });
         }
 
