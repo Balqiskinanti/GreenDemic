@@ -15,8 +15,12 @@
 
 <a href="~/Person/Index" style="color: #6C826B; ">View Family Members</a>
 
+@{int calPercentage = ((int)@ViewData["ThisMonthCals"] * 100 / (int)@Context.Session.GetInt32("TotalCal")); }
+@{List<int> thisYearCalList = (List<int>)ViewData["ThisYearCals"];}
+
 <p>Total calories of all family members: @Context.Session.GetInt32("TotalCal") calories</p>
 <p>Total calories purchased this month: @ViewData["ThisMonthCals"] calories</p>
+
 @if (ViewData["ThisMonthCals"] == null)
 {
     ViewData["ThisMonthCals"] = 0;
@@ -24,7 +28,123 @@
 
 @if ((int)ViewData["ThisMonthCals"] > Context.Session.GetInt32("TotalCal"))
 {
+    <h1>😲</h1>
     <div class="alert alert-danger">
         <strong>Uh Oh!</strong> You have exceeded the recommended maximum calories this month.
-    </div>
+    </div>  
+}
+else { 
+    <h1>@calPercentage %</h1>
+}
+
+<div class="progress">
+    <div class="progress-bar" role="progressbar" style="" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<div>
+    <canvas id="myChart" width="800" height="450"></canvas>
+</div>
+<div>
+    <canvas id="line-chart" width="800" height="450"></canvas>
+</div>
+
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var newprogress = @calPercentage;
+            var snack = @ViewData["Snack"];
+            var meat = @ViewData["Meat"];
+            var seafood = @ViewData["Seafood"];
+            var dairy = @ViewData["Dairy"];
+            var grains = @ViewData["Grains"];
+            var fruit = @ViewData["Fruit"];
+            var vegetable = @ViewData["Vegetable"];
+            var others = @ViewData["Others"];
+
+            $('.progress-bar').attr('aria-valuenow', newprogress).css('width', newprogress + '%');
+            if (@ViewData["ThisMonthCals"] < @Context.Session.GetInt32("TotalCal")) {
+                if (@calPercentage < 50) {
+                    $(".progress-bar").addClass("bg-success");
+                }
+                else if (50 <= @calPercentage < 75) {
+                    $(".progress-bar").addClass("bg-warning");
+                }
+                else if (@calPercentage >= 75) {
+                    $(".progress-bar").addClass("bg-danger");
+                }
+            }
+            else {
+                $(".progress-bar").addClass("bg-danger");
+            }
+
+            var pieChart = new Chart(document.getElementById("myChart"), {
+                type: 'doughnut',
+                data: {
+                    labels: ["Snack", "Meat", "Seafood", "Dairy", "Grains", "Fruit", "Vegetable", "Others"],
+                    datasets: [
+                        {
+                            label: "Percentage (%)",
+                            backgroundColor: ["#C6D57E", "#D57E7E", "#A2CDCD", "#FFE1AF", "#CEE5D0", "#F3F0D7", "#FED2AA", "#FFBF86"],
+                            data: [snack, meat, seafood, dairy, grains, fruit, vegetable, others]
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        display: true
+                    },
+                    title: {
+                        display: true,
+                        text: 'Total calories by categories'
+                    }
+                }
+            });
+            handleZeroData(pieChart);
+
+            var lineChart = new Chart(document.getElementById("line-chart"), {
+                type: 'line',
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct","Nov","Dec"],
+                    datasets: [{
+                        data: [@thisYearCalList[0],@thisYearCalList[1],@thisYearCalList[2],@thisYearCalList[3],@thisYearCalList[4],@thisYearCalList[5],@thisYearCalList[6],@thisYearCalList[7],@thisYearCalList[8],@thisYearCalList[9],@thisYearCalList[10],@thisYearCalList[11]],
+                        label: "This month calories",
+                        borderColor: "#3e95cd",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    title: {
+                        display: true,
+                        text: 'Total calories by month'
+                    }
+                }
+            });
+            handleZeroData(lineChart);
+        });
+
+        function handleZeroData(myChart) {
+            var dataArray = myChart.data.datasets[0].data;
+            var sum = dataArray.reduce((a, b) => a + b, 0);
+            console.log(sum);
+            Chart.plugins.register({
+                afterDraw: function (chart) {
+                    if (sum == 0) {
+                        myChart.data.datasets[0].hidden = true;
+                        var ctx = myChart.chart.ctx;
+                        var width = myChart.chart.width;
+                        var height = myChart.chart.height
+
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.font = "20px 'Helvetica'";
+                        ctx.fillText('No data to display', width / 2, height / 2);
+                    }
+                }
+            });
+        }
+    </script>
 }

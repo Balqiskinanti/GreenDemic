@@ -17,7 +17,7 @@ namespace GreenDemic.Models
         [Required]
         public string UserName { get; set; }
 
-        [Display(Name = "Maximum Calories")]
+        [Display(Name = "Maximum Calories / day")]
         public int MaxCal { get; set; }
 
         [Display(Name = "Account ID")]

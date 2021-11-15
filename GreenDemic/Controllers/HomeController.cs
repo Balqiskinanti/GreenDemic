@@ -161,22 +161,125 @@ namespace GreenDemic.Controllers
             int totalCal = CalculateTotalCalories(personList);
             HttpContext.Session.SetInt32("TotalCal",totalCal);
 
-
             //This month's total calories
-            int cal = 0;
             List<ShoppingBag> bagList = shoppingBagContext.GetThisMonthBags(accID);
-            List<ShoppingBagViewModel> shoppingBagViewModelList = new List<ShoppingBagViewModel>();
-            foreach (ShoppingBag bag in bagList)
-            {
-                ShoppingBagViewModel shoppingBagVM = MapToShoppingBagVM(bag);
-                shoppingBagViewModelList.Add(shoppingBagVM);
-            }
-            foreach (ShoppingBagViewModel bag in shoppingBagViewModelList)
-            {
-                cal += bag.totalCals;
-            }
-            ViewData["ThisMonthCals"] = cal;
+            int thisMonthCal = CalculateMonthCalories(bagList);
+            ViewData["ThisMonthCals"] = thisMonthCal;
 
+            //Get total calories of each categories this month
+            List<ShoppingBagItem> sbItemList = new List<ShoppingBagItem>();
+            List<int> sbIDList = new List<int>();
+            List<int> itemIDList = new List<int>();
+            int snackCals = 0;
+            int meatCals = 0;
+            int seafoodCals = 0;
+            int dairyCals = 0;
+            int grainsCals = 0;
+            int fruitCals = 0;
+            int vegeCals = 0;
+            int othersCals = 0;
+
+
+            foreach (ShoppingBag s in bagList)
+            {
+                sbIDList.Add(s.ShoppingBagID);
+            }
+
+            foreach(int sbID in sbIDList)
+            {
+                sbItemList = shoppingBagItemContext.GetAllShoppingBagItem(sbID);
+            }
+
+            foreach(ShoppingBagItem sbItem in sbItemList)
+            {
+                itemIDList.Add(sbItem.ItemID);
+            }
+
+            foreach(ShoppingBagItem s in sbItemList)
+            {
+                Item item = itemContext.GetDetails(s.ItemID);
+                if(item.Category == "Snack")
+                {
+                    snackCals += (item.Cal * s.Qty);
+                }
+                else if(item.Category == "Meat")
+                {
+                    meatCals += (item.Cal * s.Qty);
+                }
+                else if (item.Category == "Seafood")
+                {
+                    seafoodCals += (item.Cal * s.Qty);
+                }
+                else if (item.Category == "Dairy")
+                {
+                    dairyCals += (item.Cal * s.Qty);
+                }
+                else if (item.Category == "Grains")
+                {
+                    grainsCals += (item.Cal * s.Qty);
+                }
+                else if (item.Category == "Fruit")
+                {
+                    fruitCals += (item.Cal * s.Qty);
+                }
+                else if (item.Category == "Vegetable")
+                {
+                    vegeCals += (item.Cal * s.Qty);
+                }
+                else if (item.Category == "Others")
+                {
+                    othersCals += (item.Cal * s.Qty);
+                }
+            }
+            ViewData["Snack"] = snackCals;
+            ViewData["Meat"] = meatCals;
+            ViewData["Seafood"] = seafoodCals;
+            ViewData["Dairy"] = dairyCals;
+            ViewData["Grains"] = grainsCals;
+            ViewData["Fruit"] = fruitCals;
+            ViewData["Vegetable"] = vegeCals;
+            ViewData["Others"] = othersCals;
+
+            // Get total calories of items across the months for the year
+            List<ShoppingBag> bagListJan = shoppingBagContext.GetBagsOfMonth(accID, 1);
+            int janCal = CalculateMonthCalories(bagListJan);
+
+            List<ShoppingBag> bagListFeb = shoppingBagContext.GetBagsOfMonth(accID, 2);
+            int febCal = CalculateMonthCalories(bagListFeb);
+
+            List<ShoppingBag> bagListMar = shoppingBagContext.GetBagsOfMonth(accID, 3);
+            int marCal = CalculateMonthCalories(bagListMar);
+
+            List<ShoppingBag> bagListApr = shoppingBagContext.GetBagsOfMonth(accID, 4);
+            int aprCal = CalculateMonthCalories(bagListApr);
+
+            List<ShoppingBag> bagListMay = shoppingBagContext.GetBagsOfMonth(accID, 5);
+            int mayCal = CalculateMonthCalories(bagListMay);
+
+            List<ShoppingBag> bagListJun = shoppingBagContext.GetBagsOfMonth(accID, 6);
+            int junCal = CalculateMonthCalories(bagListJun);
+
+            List<ShoppingBag> bagListJul = shoppingBagContext.GetBagsOfMonth(accID, 7);
+            int julCal = CalculateMonthCalories(bagListJul);
+
+            List<ShoppingBag> bagListAug = shoppingBagContext.GetBagsOfMonth(accID, 8);
+            int augCal = CalculateMonthCalories(bagListAug);
+
+            List<ShoppingBag> bagListSept = shoppingBagContext.GetBagsOfMonth(accID, 9);
+            int septCal = CalculateMonthCalories(bagListSept);
+
+            List<ShoppingBag> bagListOct = shoppingBagContext.GetBagsOfMonth(accID, 10);
+            int octCal = CalculateMonthCalories(bagListOct);
+
+            List<ShoppingBag> bagListNov = shoppingBagContext.GetBagsOfMonth(accID, 11);
+            int novCal = CalculateMonthCalories(bagListNov);
+
+            List<ShoppingBag> bagListDec = shoppingBagContext.GetBagsOfMonth(accID, 12);
+            int decCal = CalculateMonthCalories(bagListDec);
+
+            List<int> calForTheYearList = new List<int>() { janCal, febCal, marCal, aprCal, mayCal, junCal, julCal, augCal, septCal, octCal, novCal, decCal };
+            ViewData["ThisYearCals"] = calForTheYearList;
+             
             return View();
         }
 
@@ -195,8 +298,26 @@ namespace GreenDemic.Controllers
             {
                 totalCals += p.MaxCal;
             }
-            return totalCals;
+
+            DateTime today = new DateTime();
+            int totalDaysThisMonth = DateTime.DaysInMonth(today.Year, today.Month);
+            return totalCals * totalDaysThisMonth;
         }
 
+        private int CalculateMonthCalories(List<ShoppingBag> bagList)
+        {
+            int cal = 0;
+            List<ShoppingBagViewModel> shoppingBagViewModelList = new List<ShoppingBagViewModel>();
+            foreach (ShoppingBag bag in bagList)
+            {
+                ShoppingBagViewModel shoppingBagVM = MapToShoppingBagVM(bag);
+                shoppingBagViewModelList.Add(shoppingBagVM);
+            }
+            foreach (ShoppingBagViewModel bag in shoppingBagViewModelList)
+            {
+                cal += bag.totalCals;
+            }
+            return cal;
+        }
     }
 }

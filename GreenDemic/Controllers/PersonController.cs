@@ -2,6 +2,7 @@
 using GreenDemic.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,42 @@ namespace GreenDemic.Controllers
         public PersonController(ILogger<PersonController> logger)
         {
             _logger = logger;
+        }
+
+        // Return area interest list for dropdown
+        private List<SelectListItem> GetGender()
+        {
+            List<SelectListItem> genderList = new List<SelectListItem>();
+            List<String> myGenderList = new List<string>() { "Female", "Male" };
+
+            foreach (String g in myGenderList)
+            {
+                genderList.Add(
+                    new SelectListItem
+                    {
+                        Value = g,
+                        Text = g
+                    });
+            }
+            return genderList;
+        }
+
+        // Return area interest list for dropdown
+        private List<SelectListItem> GetExType()
+        {
+            List<SelectListItem> exTypeList = new List<SelectListItem>();
+            List<String> myExTypeList = new List<string>() { "Sedentary", "Lightly Active", "Moderately Active", "Active", "Very Active" };
+            List<String> myExDescList = new List<String>() { "little-no exercie", "exercise 1–3 days/week", "exercise 3–5 days/week", "exercise 6–7 days/week", "hard exercise 6–7 days/week" };
+            for(int i=0; i<myExTypeList.Count; i++)
+            {
+                exTypeList.Add(
+                    new SelectListItem
+                    {
+                        Value = myExTypeList[i],
+                        Text = myExTypeList[i] + " (" + myExDescList[i] + ")"
+                    });
+            }
+            return exTypeList;
         }
 
         // GET: UserController
@@ -114,6 +151,8 @@ namespace GreenDemic.Controllers
 
         public IActionResult CalculateCalories()
         {
+            ViewData["GenderList"] = GetGender();
+            ViewData["ExTypeList"] = GetExType();
             return View();
         }
 
@@ -125,15 +164,25 @@ namespace GreenDemic.Controllers
             try
             {
                 double BMR = 0;
-                if(userCalories.Gender == "Female")
+                int age = 0;
+                age = DateTime.Now.Year - userCalories.BirthDay.Year;
+                if (DateTime.Now.DayOfYear < userCalories.BirthDay.DayOfYear)
                 {
-                    BMR = 655.1 + (9.563 * userCalories.Weight) + (1.850 * userCalories.Height) - (4.676 * userCalories.Age);
+                    age--;
+                }
+
+                if (userCalories.Gender == "Female")
+                {
+                    BMR = 655.1 + (9.563 * userCalories.Weight) + (1.850 * userCalories.Height) - (4.676 * age);
                 }
                 else
                 {
-                    BMR = 66.47 + (13.75 * userCalories.Weight) + (5.003 * userCalories.Height) - (6.755 * userCalories.Age);
+                    BMR = 66.47 + (13.75 * userCalories.Weight) + (5.003 * userCalories.Height) - (6.755 * age);
                 }
                 HttpContext.Session.SetInt32("AMR", (int)CalculateAMR(BMR, userCalories.ExerciseType));
+
+                ViewData["GenderList"] = GetGender();
+                ViewData["ExTypeList"] = GetExType();
                 return RedirectToAction("Create");
             }
             catch
