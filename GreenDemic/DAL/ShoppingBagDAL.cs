@@ -204,5 +204,34 @@ namespace GreenDemic.DAL
             conn.Close();
             return shoppingBagList;
         }
+
+        public List<ShoppingBag> GetBagsOfMonth(int accID, int month)
+        {
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT * FROM ShoppingBag WHERE AccID = @selectedAccID AND MONTH(CreatedAt)=@selectedMonth 
+                                            AND YEAR(CreatedAt)=YEAR(GETDATE())";
+            cmd.Parameters.AddWithValue("@selectedAccID", accID);
+            cmd.Parameters.AddWithValue("@selectedMonth", month);
+
+            List<ShoppingBag> shoppingBagList = new List<ShoppingBag>();
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                shoppingBagList.Add(
+                new ShoppingBag
+                {
+                    ShoppingBagID = reader.GetInt32(0),
+                    CreatedAt = reader.GetDateTime(1),
+                    BagName = reader.GetString(2),
+                    BagDescription = !reader.IsDBNull(3) ? reader.GetString(3) : null,
+                    AccID = reader.GetInt32(4)
+                }
+                );
+            }
+            reader.Close();
+            conn.Close();
+            return shoppingBagList;
+        }
     }
 }
