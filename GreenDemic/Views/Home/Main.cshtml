@@ -14,26 +14,38 @@
 <h5 style="text-align: center; font-weight: bold;">Hello, @name :)</h5>
 
 <a href="~/Person/Index" style="color: #6C826B; ">View Family Members</a>
+@if (ViewData["ThisMonthCals"] == null)
+{
+    ViewData["ThisMonthCals"] = 0;
+}
 
-@{int calPercentage = ((int)@ViewData["ThisMonthCals"] * 100 / (int)@Context.Session.GetInt32("TotalCal")); }
+@{
+    int calPercentage = 0;
+    if (Context.Session.GetInt32("TotalCal") == 0)
+    {
+        calPercentage = 0;
+    }
+    else
+    {
+        calPercentage = ((int)@ViewData["ThisMonthCals"] * 100 / (int)@Context.Session.GetInt32("TotalCal"));
+    }
+}
 @{List<int> thisYearCalList = (List<int>)ViewData["ThisYearCals"];}
 
 <p>Total calories of all family members: @Context.Session.GetInt32("TotalCal") calories</p>
 <p>Total calories purchased this month: @ViewData["ThisMonthCals"] calories</p>
 
-@if (ViewData["ThisMonthCals"] == null)
-{
-    ViewData["ThisMonthCals"] = 0;
-}
+
 
 @if ((int)ViewData["ThisMonthCals"] > Context.Session.GetInt32("TotalCal"))
 {
     <h1>😲</h1>
     <div class="alert alert-danger">
         <strong>Uh Oh!</strong> You have exceeded the recommended maximum calories this month.
-    </div>  
+    </div>
 }
-else { 
+else
+{
     <h1>@calPercentage %</h1>
 }
 
