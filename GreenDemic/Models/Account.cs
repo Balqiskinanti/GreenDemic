@@ -17,8 +17,8 @@ namespace GreenDemic.Models
         [Required]
         public string AccName { get; set; }
 
-        [Display(Name = "User Name")]
-        [StringLength(50, ErrorMessage = "UserName cannot exceed 50 characters")]
+        [Display(Name = "Email Address")]
+        [StringLength(50, ErrorMessage = "Email address cannot exceed 50 characters")]
         [Required]
         public string UserName { get; set; }
 
