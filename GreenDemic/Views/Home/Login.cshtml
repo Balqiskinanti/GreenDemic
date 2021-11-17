@@ -2,14 +2,14 @@
     ViewData["Title"] = "Login";
 }
 
-<h1>Login</h1>
+<h1 style="margin-left: auto; margin-right: auto; text-align: center;">Login</h1>
 
-<form method="post" asp-controller="Home" asp-action="Login" style="width:60%;padding-top:30px;">
+<form method="post" asp-controller="Home" asp-action="Login" style="width: 60%; padding-top: 30px; margin-left: auto; margin-right: auto; ">
     <fieldset class="loginFieldset">
         <!--Email-->
         <div class="form-group row d-flex align-items-center justify-content-center">
             <div class="col-sm-9">
-                <label for="txtEmail" class="col-form-label">Email</label>
+                <label for="txtEmail" class="col-form-label" style=" color: azure">Email</label>
                 <input type="email" name="txtEmail" id="txtEmail" class="form-control" required />
             </div>
         </div>
@@ -17,7 +17,7 @@
         <!--Password-->
         <div class="form-group row d-flex align-items-center justify-content-center">
             <div class="col-sm-9">
-                <label for="txtPassword" class="col-form-label">Password</label>
+                <label for="txtPassword" class="col-form-label" style=" color: azure">Password</label>
                 <input type="password" name="txtPassword" id="txtPassword" class="form-control" required />
             </div>
         </div>
@@ -25,7 +25,7 @@
         <!--Submit Button-->
         <div class="form-group row d-flex align-items-center justify-content-center">
             <div class="col-sm-9">
-                <input type="submit" value="Login" class="btn btn-primary"/>
+                <input type="submit" value="Login" class="btn btn-primary" style="color: #FF8C00;"/>
             </div>
         </div>
 

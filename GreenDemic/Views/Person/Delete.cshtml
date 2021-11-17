@@ -4,14 +4,14 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1 style="margin-left: auto; margin-right: auto; text-align: center;">Delete</h1>
 
 <div>
     <p style="text-align:center;">Are you sure to delete this record?</p>
     <form asp-action="Delete" style="margin:0px 50px;">
         <fieldset class="FormContent">
             <!--User ID-->
-            <div class="form-group row">
+            <div class="form-group row" hidden>
                 <label asp-for="UserID"
                        class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
                 <div class="col-6">
@@ -23,28 +23,28 @@
             <!--User Name-->
             <div class="form-group row">
                 <label asp-for="UserName"
-                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                       class="col-form-label col-6 font-weight-bold" style="text-align: end; color: azure;"></label>
                 <div class="col-6">
                     <input asp-for="UserName" readonly
-                           class="form-control-plaintext" />
+                           class="form-control-plaintext" style=" color: #FFBF86;" />
                 </div>
             </div>
 
             <!--Max Calories-->
             <div class="form-group row">
                 <label asp-for="MaxCal"
-                       class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
+                       class="col-form-label col-6 font-weight-bold" style="text-align: end; color: azure;"></label>
                 <div class="col-6">
                     <input asp-for="MaxCal" readonly
-                           class="form-control-plaintext" />
+                           class="form-control-plaintext" style=" color: #FFBF86;" />
                 </div>
             </div>
 
             <!--Delete Btn-->
             <div class="col-12" style="text-align:center;">
-                <input type="submit" value="Delete" class="btn btn-danger" />
+                <input type="submit" value="Delete" class="btn btn-danger" style="color: #FF8C00;" />
             </div>
         </fieldset>
     </form>
-    <div class="col-12" style="text-align:center;"><a asp-action="Index">Back to List</a></div>
+    <div class="col-12" style="margin-left: auto; margin-right: auto; text-align: center;"><a asp-action="Index">Back to View Family Members</a></div>
 </div>

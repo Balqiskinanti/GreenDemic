@@ -13,17 +13,18 @@ namespace GreenDemic.Controllers
 {
     public class PersonController : Controller
     {
-        // DAL context
+
+        private readonly ILogger<PersonController> _logger;
+
+        // Initialise DAL class
         private PersonDAL personContext = new PersonDAL();
 
-        // Logging
-        private readonly ILogger<PersonController> _logger;
         public PersonController(ILogger<PersonController> logger)
         {
             _logger = logger;
         }
 
-        // Return gender for dropdown list
+        // Return area interest list for dropdown
         private List<SelectListItem> GetGender()
         {
             List<SelectListItem> genderList = new List<SelectListItem>();
@@ -41,12 +42,12 @@ namespace GreenDemic.Controllers
             return genderList;
         }
 
-        // Return exercise type for dropdown list
+        // Return area interest list for dropdown
         private List<SelectListItem> GetExType()
         {
             List<SelectListItem> exTypeList = new List<SelectListItem>();
             List<String> myExTypeList = new List<string>() { "Sedentary", "Lightly Active", "Moderately Active", "Active", "Very Active" };
-            List<String> myExDescList = new List<String>() { "little-no exercie", "exercise 1–3 days/week", "exercise 3–5 days/week", "exercise 6–7 days/week", "hard exercise 6–7 days/week" };
+            List<String> myExDescList = new List<String>() { "little-no exercise", "exercise 1–3 days/week", "exercise 3–5 days/week", "exercise 6–7 days/week", "hard exercise 6–7 days/week" };
             for(int i=0; i<myExTypeList.Count; i++)
             {
                 exTypeList.Add(
@@ -59,89 +60,49 @@ namespace GreenDemic.Controllers
             return exTypeList;
         }
 
-        // GET: PersonController
+        // GET: UserController
         public ActionResult Index()
         {
-            // Authenticate user
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "User"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             int accID = (int)HttpContext.Session.GetInt32("AccID");
             List<Person> personList = personContext.GetAllPerson(accID);
             return View(personList);
         }
 
-        // GET: PersonController/Create
+        // GET: UserController/Create
         public ActionResult Create()
         {
-            // Authenticate user
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "User"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            ViewData["IsFailed"] = false;
             return View();
         }
 
-        // POST: PersonController/Create
+        // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(Person person)
         {
-            ViewData["IsFailed"] = false;
             try
             {
-                if (ModelState.IsValid)
-                {
-                    person.UserID = personContext.Add(person);
-                    HttpContext.Session.Remove("AMR");
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return View(person);
-                }
+                person.UserID = personContext.Add(person);
+                HttpContext.Session.Remove("AMR");
+                return RedirectToAction("Index");
             }
             catch
             {
-                ViewData["IsFailed"] = true;
-                return View(person);
+                return View();
             }
         }
 
-        // GET: PersonController/Edit/5
+        // GET: UserController/Edit/5
         public ActionResult Edit(int? id)
         {
-            // Authenticate user
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "User"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            
-            // No ID supplied
-            if(id == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            ViewData["IsFailed"] = false;
             Person person = personContext.GetDetails(id.Value);
             return View(person);
         }
 
-        // POST: PersonController/Edit/5
+        // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Person person)
         {
-            ViewData["IsFailed"] = false;
-            // Update person details
             try
             {
                 if (ModelState.IsValid)
@@ -154,31 +115,20 @@ namespace GreenDemic.Controllers
                     return View(person);
                 }
             }
-            // Shows error message
             catch
             {
-                ViewData["IsFailed"] = true;
-                return View(person);
+                return View();
             }
         }
 
-        // GET: PersonController/Delete/5
+        // GET: UserController/Delete/5
         public ActionResult Delete(int? id)
         {
-            // Authenticate user
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "User"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            // No ID supplied
             if (id == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index");
             }
 
-            ViewData["IsFailed"] = false;
             Person person = personContext.GetDetails(id.Value);
             return View(person);
         }
@@ -188,100 +138,59 @@ namespace GreenDemic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(Person person)
         {
-            ViewData["IsFailed"] = false;
-            // Delete person 
             try
             {
-                if (ModelState.IsValid)
-                {
-                    personContext.Delete(person.UserID);
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return View(person);
-                }
+                personContext.Delete(person.UserID);
+                return RedirectToAction("Index");
             }
-            // Shows error message
             catch
             {
-                ViewData["IsFailed"] = true;
                 return View(person);
             }
         }
 
-        // GET: PersonController/CalculateCalories
         public IActionResult CalculateCalories()
         {
-            // Authenticate user
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "User"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             ViewData["GenderList"] = GetGender();
             ViewData["ExTypeList"] = GetExType();
-            ViewData["IsFailed"] = false;
             return View();
         }
 
-        // POST: PersonController/CalculateCalories
+        // POST: UserController/CalculateCalories
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CalculateCalories(UserCalories userCalories)
         {
-            ViewData["IsFailed"] = false;
-            // calculate user calories 
             try
             {
-                if (ModelState.IsValid)
+                double BMR = 0;
+                int age = 0;
+                age = DateTime.Now.Year - userCalories.BirthDay.Year;
+                if (DateTime.Now.DayOfYear < userCalories.BirthDay.DayOfYear)
                 {
-                    double BMR = 0;
+                    age--;
+                }
 
-                    // Calculate age based on birth year
-                    int age = 0;
-                    age = DateTime.Now.Year - userCalories.BirthDay.Year;
-                    if (DateTime.Now.DayOfYear < userCalories.BirthDay.DayOfYear)
-                    {
-                        age--;
-                    }
-
-                    // Calculate basal metabolic rate based on
-                    // Gender, weight, height, and age
-                    if (userCalories.Gender == "Female")
-                    {
-                        BMR = 655.1 + (9.563 * userCalories.Weight) + (1.850 * userCalories.Height) - (4.676 * age);
-                    }
-                    else
-                    {
-                        BMR = 66.47 + (13.75 * userCalories.Weight) + (5.003 * userCalories.Height) - (6.755 * age);
-                    }
-
-                    // Calculate active metabolic rate based on BMR and current exercise/ activity level
-                    int bmr = (int)CalculateAMR(BMR, userCalories.ExerciseType);
-
-
-                    HttpContext.Session.SetInt32("AMR", bmr);
-                    ViewData["GenderList"] = GetGender();
-                    ViewData["ExTypeList"] = GetExType();
-                    return RedirectToAction("Create");
+                if (userCalories.Gender == "Female")
+                {
+                    BMR = 655.1 + (9.563 * userCalories.Weight) + (1.850 * userCalories.Height) - (4.676 * age);
                 }
                 else
                 {
-                    return View(userCalories);
+                    BMR = 66.47 + (13.75 * userCalories.Weight) + (5.003 * userCalories.Height) - (6.755 * age);
                 }
+                HttpContext.Session.SetInt32("AMR", (int)CalculateAMR(BMR, userCalories.ExerciseType));
+
+                ViewData["GenderList"] = GetGender();
+                ViewData["ExTypeList"] = GetExType();
+                return RedirectToAction("Create");
             }
-            //Shows error message
             catch
             {
-                ViewData["IsFailed"] = true;
-                return View(userCalories);
+                return View();
             }
         }
 
-        // Return AMR 
-        // AMR represents the number of calories to consume to stay at your current weight
         private double CalculateAMR(double BMR, string exerciseType)
         {
             double AMR = 0;

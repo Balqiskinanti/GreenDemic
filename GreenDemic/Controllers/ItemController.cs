@@ -15,19 +15,16 @@ namespace GreenDemic.Controllers
 {
     public class ItemController : Controller
     {
-        // DAL context
+        private readonly ILogger<ItemController> _logger;
         private ItemDAL itemContext = new ItemDAL();
         private ShoppingBagItemDAL shoppingBagItemContext = new ShoppingBagItemDAL();
         private ShoppingBagDAL shoppingBagContext = new ShoppingBagDAL();
-
-        // Logging 
-        private readonly ILogger<ItemController> _logger;
         public ItemController(ILogger<ItemController> logger)
         {
             _logger = logger;
         }
 
-        // Return category of food for dropdown list
+        // Return area interest list for dropdown
         private List<SelectListItem> GetCategory()
         {
             List<SelectListItem> categoryList = new List<SelectListItem>();
@@ -45,7 +42,6 @@ namespace GreenDemic.Controllers
             return categoryList;
         }
 
-        //Returns list of itemviewmodel based on shopping bag ID
         public List<ItemViewModel> MapToItemVM(int shoppingBagID)
         {
             List<ItemViewModel> itemVMList = new List<ItemViewModel>();
@@ -69,7 +65,6 @@ namespace GreenDemic.Controllers
             return itemVMList;
         }
 
-        //Return itemviewmodel based on a shopping bag and item ID
         public ItemViewModel MapToItemVM(int shoppingBagID, int itemID)
         {
             Item item = itemContext.GetDetails(itemID);
@@ -90,43 +85,22 @@ namespace GreenDemic.Controllers
         // GET: ItemController
         public ActionResult Index(int? id)
         {
-            // Authenticate user
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "User"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            // If ID is not supplied
-            if(id == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             List<ItemViewModel> itemVMList = MapToItemVM(id.Value);
-            ViewData["ShoppingBagId"] = id.Value; //for create and delete item 
+            ViewData["ShoppingBagId"] = id.Value;
             return View(itemVMList);
+        }
+
+        // GET: ItemController/Details/5
+        public ActionResult Details(int id)
+        {
+            return View();
         }
 
         // GET: ItemController/Create
         public ActionResult Create(int? id)
         {
-            // Authenticate user
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "User"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            // If ID is not supplied
-            if (id == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             ViewData["ShoppingBagId"] = id.Value;
             ViewData["CategoryList"] = GetCategory();
-            ViewData["IsFailed"] = false;
             return View();
         }
 
@@ -135,66 +109,27 @@ namespace GreenDemic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(ItemViewModel model, int? id)
         {
-            ViewData["IsFailed"] = false;
+            Item item = new Item();
+            item.ItemID = model.ItemID;
+            item.ItemName = model.ItemName;
+            item.Category = model.Category;
+            item.Cal = model.Cal;
+            int itemID = itemContext.Add(item);
+
+            ShoppingBagItem shoppingBagItem = new ShoppingBagItem();
+            shoppingBagItem.ItemID = itemID;
+            shoppingBagItem.Qty = model.Qty;
+            shoppingBagItem.ShoppingBagID = model.ShoppingBagID;
+            shoppingBagItemContext.Add(shoppingBagItem);
+
             ViewData["ShoppingBagId"] = id.Value;
             ViewData["CategoryList"] = GetCategory();
-
-            // Adding new item in shopping bag
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    Item item = new Item();
-                    item.ItemID = model.ItemID;
-                    item.ItemName = model.ItemName;
-                    item.Category = model.Category;
-                    item.Cal = model.Cal;
-                    int itemID = itemContext.Add(item);
-
-                    ShoppingBagItem shoppingBagItem = new ShoppingBagItem();
-                    shoppingBagItem.ItemID = itemID;
-                    shoppingBagItem.Qty = model.Qty;
-                    shoppingBagItem.ShoppingBagID = model.ShoppingBagID;
-                    shoppingBagItemContext.Add(shoppingBagItem);
-                    return RedirectToAction("Index", "Item", new { id = ViewData["ShoppingBagId"] });
-                }
-                else
-                {
-                    return View(model);
-                }
-                    
-            }
-            // Shows error message
-            catch
-            {
-                ViewData["IsFailed"] = true;
-                return View(model);
-            }
+            return RedirectToAction("Index","Item", new { id = ViewData["ShoppingBagId"] });
         }
 
         // GET: ItemController/Edit/5
         public ActionResult Edit(int? id, int? sbID)
         {
-            // Authenticate user
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "User"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            // If ID is not supplied
-            if (id == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            // If sbID is not supplid
-            if(sbID == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            ViewData["IsFailed"] = false;
             ViewData["ShoppingBagId"] = sbID.Value;
             ViewData["CategoryList"] = GetCategory();
             ItemViewModel itemViewModel = MapToItemVM(sbID.Value, id.Value);
@@ -206,65 +141,28 @@ namespace GreenDemic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ItemViewModel itemVM)
         {
+            Item item = new Item();
+            item.ItemID = itemVM.ItemID;
+            item.ItemName = itemVM.ItemName;
+            item.Cal = itemVM.Cal;
+            item.Category = itemVM.Category;
+
+            ShoppingBagItem shoppingBagItem = new ShoppingBagItem();
+            shoppingBagItem.ShoppingBagID = itemVM.ShoppingBagID;
+            shoppingBagItem.ItemID = itemVM.ItemID;
+            shoppingBagItem.Qty = itemVM.Qty;
+
+            itemContext.Update(item, shoppingBagItem);
+
             ViewData["ShoppingBagId"] = itemVM.ShoppingBagID;
             ViewData["CategoryList"] = GetCategory();
-            ViewData["IsFailed"] = false;
-
-            // Update item view model (shopping bag + item)
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    Item item = new Item();
-                    item.ItemID = itemVM.ItemID;
-                    item.ItemName = itemVM.ItemName;
-                    item.Cal = itemVM.Cal;
-                    item.Category = itemVM.Category;
-
-                    ShoppingBagItem shoppingBagItem = new ShoppingBagItem();
-                    shoppingBagItem.ShoppingBagID = itemVM.ShoppingBagID;
-                    shoppingBagItem.ItemID = itemVM.ItemID;
-                    shoppingBagItem.Qty = itemVM.Qty;
-                    itemContext.Update(item, shoppingBagItem);
-                    return RedirectToAction("Index", "Item", new { id = ViewData["ShoppingBagId"] });
-                }
-                else
-                {
-                    return View(itemVM);
-                } 
-            }
-            // Shows error messages
-            catch
-            {
-                ViewData["IsFailed"] = true;
-                return View(itemVM);
-            }
+            return RedirectToAction("Index", "Item", new { id = ViewData["ShoppingBagId"] });
         }
 
         // GET: ItemController/Delete/5
         public ActionResult Delete(int? id, int? sbID)
         {
-            // Authenticate user
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "User"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            // If id is not supplied
-            if(id == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            // IF sbID is not supplied
-            if(sbID == null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             ViewData["ShoppingBagId"] = sbID.Value;
-            ViewData["IsFailed"] = false;
             ItemViewModel itemVM = MapToItemVM(sbID.Value, id.Value);
             return View(itemVM);
         }
@@ -274,26 +172,8 @@ namespace GreenDemic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(ItemViewModel itemVM)
         {
-            ViewData["IsFailed"] = false;
-            // Delete item from the bag
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    itemContext.Delete(itemVM.ItemID, itemVM.ShoppingBagID);
-                    return RedirectToAction("Index", "ShoppingBag");
-                }
-                else
-                {
-                    return View(itemVM);
-                }
-            }
-            // Shows error message
-            catch
-            {
-                ViewData["IsFailed"] = true;
-                return View(itemVM);
-            }
+            itemContext.Delete(itemVM.ItemID, itemVM.ShoppingBagID);
+            return RedirectToAction("Index", "ShoppingBag");
         }
     }
 }

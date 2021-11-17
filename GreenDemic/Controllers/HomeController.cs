@@ -15,43 +15,38 @@ namespace GreenDemic.Controllers
 {
     public class HomeController : Controller
     {
-        // DAL context
+        private readonly ILogger<HomeController> _logger;
+
+        // Initialise DAL class
         private AccountDAL accountContext = new AccountDAL();
         private PersonDAL personContext = new PersonDAL();
         private ItemDAL itemContext = new ItemDAL();
         private ShoppingBagItemDAL shoppingBagItemContext = new ShoppingBagItemDAL();
         private ShoppingBagDAL shoppingBagContext = new ShoppingBagDAL();
 
-        //Logging
-        private readonly ILogger<HomeController> _logger;
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
-        // Index
         public IActionResult Index()
         {
             return View();
         }
 
-        // Privacy
         public IActionResult Privacy()
         {
             return View();
         }
 
-        // Error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        // GET: HomeController/Login
         public IActionResult Login()
         {
-            ViewData["IsFailed"] = false;
             return View();
         }
 
@@ -63,45 +58,35 @@ namespace GreenDemic.Controllers
             string username = formData["txtEmail"].ToString().ToLower();
             string password = formData["txtPassword"].ToString();
 
-            ViewData["IsFailed"] = false;
             bool isUser = false;
-            try
-            {
-                foreach (Account a in accountContext.GetAllAccounts())
-                {
-                    if (username == a.UserName.ToLower() && password == a.Pass_word)
-                    {
-                        HttpContext.Session.SetString("AccName", a.AccName);
-                        HttpContext.Session.SetInt32("AccID", a.AccID);
-                        HttpContext.Session.SetString("Role", "User");
 
-                        isUser = true;
-                        break;
-                    }
-                }
-                // if user
-                if (isUser == true)
+            foreach (Account a in accountContext.GetAllAccounts())
+            {
+                if (username == a.UserName.ToLower() && password == a.Pass_word)
                 {
-                    return RedirectToAction("Main");
-                }
-                // if not a user (wrong credentials)
-                else
-                {
-                    TempData["Message"] = "Invalid Login Credentials!";
-                    return RedirectToAction("Login");
+                    HttpContext.Session.SetString("AccName", a.AccName);
+                    HttpContext.Session.SetInt32("AccID", a.AccID);
+                    HttpContext.Session.SetString("Role", "User");
+
+                    isUser = true;
+                    break;
                 }
             }
-            catch
+
+            if (isUser == true)
             {
-                ViewData["IsFailed"] = true;
+                return RedirectToAction("Main");
+            }
+
+            else
+            {
+                TempData["Message"] = "Invalid Login Credentials!";
                 return RedirectToAction("Login");
             }
         }
 
-        //GET: HomeController/SignUp
         public IActionResult SignUp()
         {
-            ViewData["IsFailed"] = false;
             return View();
         }
 
@@ -110,41 +95,71 @@ namespace GreenDemic.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SignUp(Account account)
         {
-            ViewData["IsFailed"] = false;
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
-                {
-                    account.AccID = accountContext.Add(account);
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    return View(account);
-                }
+                account.AccID = accountContext.Add(account);
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                ViewData["IsFailed"] = true;
                 return View(account);
             }
+        }
+        private int CalculateCalTotal(List<ItemViewModel> itemVMList)
+        {
+            int totalCal = 0;
+            foreach (ItemViewModel i in itemVMList)
+            {
+                int calSubTotal = i.CalSubTotal;
+                totalCal += calSubTotal;
+            }
+            return totalCal;
+        }
+        public List<ItemViewModel> MapToItemVM(int shoppingBagID)
+        {
+            List<ItemViewModel> itemVMList = new List<ItemViewModel>();
+            List<ShoppingBagItem> shoppingBagItemList = shoppingBagItemContext.GetAllShoppingBagItem(shoppingBagID);
+            foreach (ShoppingBagItem s in shoppingBagItemList)
+            {
+                int itemID = s.ItemID;
+                Item item = itemContext.GetDetails(itemID);
+                ItemViewModel itemViewModel = new ItemViewModel
+                {
+                    ItemID = item.ItemID,
+                    ShoppingBagID = s.ShoppingBagID,
+                    ItemName = item.ItemName,
+                    Category = item.Category,
+                    Cal = item.Cal,
+                    Qty = s.Qty,
+                    CalSubTotal = item.Cal * s.Qty
+                };
+                itemVMList.Add(itemViewModel);
+            }
+            return itemVMList;
+        }
+        public ShoppingBagViewModel MapToShoppingBagVM(ShoppingBag shoppingBag)
+        {
+            List<ItemViewModel> itemVMList = MapToItemVM(shoppingBag.ShoppingBagID);
+            ShoppingBagViewModel shoppingBagViewModel = new ShoppingBagViewModel
+            {
+                ShoppingBagID = shoppingBag.ShoppingBagID,
+                BagName = shoppingBag.BagName,
+                CreatedAt = shoppingBag.CreatedAt,
+                BagDescription = shoppingBag.BagDescription,
+                totalCals = CalculateCalTotal(itemVMList)
+            };
+
+            return shoppingBagViewModel;
         }
 
         // GET: HomeController/Main
         public IActionResult Main()
         {
-            // Authenticate user
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "User"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
             //Account users' total calories
             int accID = (int)HttpContext.Session.GetInt32("AccID");
             List<Person> personList = personContext.GetAllPerson(accID);
             int totalCal = CalculateTotalCalories(personList);
-            HttpContext.Session.SetInt32("TotalCal", totalCal);
+            HttpContext.Session.SetInt32("TotalCal",totalCal);
 
             //This month's total calories
             List<ShoppingBag> bagList = shoppingBagContext.GetThisMonthBags(accID);
@@ -170,24 +185,24 @@ namespace GreenDemic.Controllers
                 sbIDList.Add(s.ShoppingBagID);
             }
 
-            foreach (int sbID in sbIDList)
+            foreach(int sbID in sbIDList)
             {
                 sbItemList = shoppingBagItemContext.GetAllShoppingBagItem(sbID);
             }
 
-            foreach (ShoppingBagItem sbItem in sbItemList)
+            foreach(ShoppingBagItem sbItem in sbItemList)
             {
                 itemIDList.Add(sbItem.ItemID);
             }
 
-            foreach (ShoppingBagItem s in sbItemList)
+            foreach(ShoppingBagItem s in sbItemList)
             {
                 Item item = itemContext.GetDetails(s.ItemID);
-                if (item.Category == "Snack")
+                if(item.Category == "Snack")
                 {
                     snackCals += (item.Cal * s.Qty);
                 }
-                else if (item.Category == "Meat")
+                else if(item.Category == "Meat")
                 {
                     meatCals += (item.Cal * s.Qty);
                 }
@@ -264,7 +279,7 @@ namespace GreenDemic.Controllers
 
             List<int> calForTheYearList = new List<int>() { janCal, febCal, marCal, aprCal, mayCal, junCal, julCal, augCal, septCal, octCal, novCal, decCal };
             ViewData["ThisYearCals"] = calForTheYearList;
-
+             
             return View();
         }
 
@@ -276,33 +291,19 @@ namespace GreenDemic.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // Calculate total calories from all shopping bag
-        private int CalculateCalTotal(List<ItemViewModel> itemVMList)
-        {
-            int totalCal = 0;
-            foreach (ItemViewModel i in itemVMList)
-            {
-                int calSubTotal = i.CalSubTotal;
-                totalCal += calSubTotal;
-            }
-            return totalCal;
-        }
-
-        // Calculate calories of each person
         private int CalculateTotalCalories(List<Person> personList)
         {
             int totalCals = 0;
-            foreach (Person p in personList)
+            foreach(Person p in personList)
             {
                 totalCals += p.MaxCal;
             }
 
-            DateTime today = DateTime.Today;
+            DateTime today = new DateTime();
             int totalDaysThisMonth = DateTime.DaysInMonth(today.Year, today.Month);
             return totalCals * totalDaysThisMonth;
         }
 
-        // calculate the calories of the month from the shopping bags
         private int CalculateMonthCalories(List<ShoppingBag> bagList)
         {
             int cal = 0;
@@ -317,46 +318,6 @@ namespace GreenDemic.Controllers
                 cal += bag.totalCals;
             }
             return cal;
-        }
-
-
-        // Return item view model list from shopping bag ID
-        public List<ItemViewModel> MapToItemVM(int shoppingBagID)
-        {
-            List<ItemViewModel> itemVMList = new List<ItemViewModel>();
-            List<ShoppingBagItem> shoppingBagItemList = shoppingBagItemContext.GetAllShoppingBagItem(shoppingBagID);
-            foreach (ShoppingBagItem s in shoppingBagItemList)
-            {
-                int itemID = s.ItemID;
-                Item item = itemContext.GetDetails(itemID);
-                ItemViewModel itemViewModel = new ItemViewModel
-                {
-                    ItemID = item.ItemID,
-                    ShoppingBagID = s.ShoppingBagID,
-                    ItemName = item.ItemName,
-                    Category = item.Category,
-                    Cal = item.Cal,
-                    Qty = s.Qty,
-                    CalSubTotal = item.Cal * s.Qty
-                };
-                itemVMList.Add(itemViewModel);
-            }
-            return itemVMList;
-        }
-
-        // Return shopping bag view model from shopping bag
-        public ShoppingBagViewModel MapToShoppingBagVM(ShoppingBag shoppingBag)
-        {
-            List<ItemViewModel> itemVMList = MapToItemVM(shoppingBag.ShoppingBagID);
-            ShoppingBagViewModel shoppingBagViewModel = new ShoppingBagViewModel
-            {
-                ShoppingBagID = shoppingBag.ShoppingBagID,
-                BagName = shoppingBag.BagName,
-                CreatedAt = shoppingBag.CreatedAt,
-                BagDescription = shoppingBag.BagDescription,
-                totalCals = CalculateCalTotal(itemVMList)
-            };
-            return shoppingBagViewModel;
         }
     }
 }

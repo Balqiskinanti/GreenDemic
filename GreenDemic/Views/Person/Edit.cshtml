@@ -4,42 +4,41 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1 style="margin-left: auto; margin-right: auto; text-align: center;">Edit Person</h1>
 
-<h4>Person</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-left: auto; margin-right: auto; position: center">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="UserID" class="control-label"></label>
+            <div class="form-group" hidden>
+                <label asp-for="UserID" class="control-label" style=" color: azure"></label>
                 <input readonly asp-for="UserID" class="form-control" />
                 <span asp-validation-for="UserID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="UserName" class="control-label"></label>
+                <label asp-for="UserName" class="control-label" style=" color: azure"></label>
                 <input asp-for="UserName" class="form-control" />
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MaxCal" class="control-label"></label>
+                <label asp-for="MaxCal" class="control-label" style=" color: azure"></label>
                 <input asp-for="MaxCal" class="form-control" />
                 <span asp-validation-for="MaxCal" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group" hidden>
                 <label asp-for="AccID" class="control-label"></label>
                 <input readonly asp-for="AccID" class="form-control" />
                 <span asp-validation-for="AccID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" style="color: #FF8C00;"/>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div style="margin-left: auto; margin-right: auto; text-align: center;">
+    <a asp-action="Index">Back to View Family Members</a>
 </div>
 
