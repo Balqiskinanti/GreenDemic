@@ -1,5 +1,5 @@
 # GreenDemic
-GreenDemic is for families and individuals who want to keep track of their household food intake. Unlike other no-waste () which only tracks the items in the fridge, our () helps reduce food wastage through counting calories.
+GreenDemic is for families and individuals who want to keep track of their household food intake. Unlike other no-waste websites which only track the items in the fridge, our website helps reduce food wastage through counting calories.
 
 By :
 * Zafeerah : s10205175
