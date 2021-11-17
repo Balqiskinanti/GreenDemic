@@ -9,42 +9,55 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaxCal)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+<div class="table-responsive">
+    <table id="myTable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MaxCal)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
 
-@foreach (var item in Model)
-{
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxCal)
-            </td>
-            <td>
-                <a asp-action="Delete" asp-controller="Person"
-                   asp-route-id="@item.UserID">Delete </a><span>|</span>
-                <a asp-action="Edit" asp-controller="Person"
-                   asp-route-id="@item.UserID">Edit </a><span>|</span>
-            </td>
-        </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaxCal)
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-controller="Person"
+                           asp-route-id="@item.UserID">Delete </a><span>|</span>
+                        <a asp-action="Edit" asp-controller="Person"
+                           asp-route-id="@item.UserID">Edit </a><span>|</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+<script>
+    $('#myTable').DataTable({
+        "columnDefs": [
+            { "orderable": false, "targets": 3 }
+        ]
+    });
+</script>
 }
-    </tbody>
-</table>
+    

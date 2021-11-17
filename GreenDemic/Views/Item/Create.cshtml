@@ -12,12 +12,15 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div hidden class="form-group">
                 <label asp-for="ShoppingBagID" class="control-label"></label>
-                <input asp-for="ShoppingBagID" class="form-control" value="@ViewData["ShoppingBagId"]"/>
+                <input asp-for="ShoppingBagID" class="form-control" value="@ViewData["ShoppingBagId"]" />
                 <span asp-validation-for="ShoppingBagID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="ItemName" class="control-label"></label>
-                <input asp-for="ItemName" class="form-control" />
+                <input asp-for="ItemName" class="form-control item"/>
+                <div class="form-group">
+                    <input type="button" value="Find Calories" class="btn btn-primary" id="search"/>
+                </div>
                 <span asp-validation-for="ItemName" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -32,6 +35,7 @@
                 <label asp-for="Cal" class="control-label"></label>
                 <input asp-for="Cal" class="form-control" />
                 <span asp-validation-for="Cal" class="text-danger"></span>
+                <span id="noCal" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Qty" class="control-label"></label>
@@ -43,9 +47,38 @@
             </div>
         </form>
     </div>
-    </div>
+</div>
 
-    <div>
-        <a asp-action="Index" asp-route-id="@ViewData["ShoppingBagId"]">Back to List</a>
-    </div>
+<div>
+    <a asp-action="Index" asp-route-id="@ViewData["ShoppingBagId"]">Back to List</a>
+</div>
 
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#search").click(function (event) {
+                event.preventDefault();
+                var itemName = $(".item")[0].value;
+                $.ajax({
+                    method: "GET",
+                    url: 'https://api.calorieninjas.com/v1/nutrition?query=' + itemName,
+                    headers: { 'X-Api-Key': 'GkP31QNr+2bUUQsCDJr8eQ==knB1XBRH5zeg25s6' },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        try {
+                            var cal = Math.round(result.items[0].calories);
+                            console.log(result.items[0].calories);
+                            $("#Cal").val(cal);
+                        }
+                        catch {
+                            $("#noCal").text("We cannot find your item in the database. Please try another one.");
+                        }
+                    },
+                    error: function ajaxError(jqXHR) {
+                        console.error('Error: ', jqXHR.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+}
