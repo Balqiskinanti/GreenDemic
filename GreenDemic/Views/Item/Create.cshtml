@@ -4,27 +4,27 @@
     ViewData["Title"] = "Create";
 }
 
-<h4>Person</h4>
+<h4 style="margin-left: auto; margin-right: auto; text-align: center;">Shopping Bag Item</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-4" style="margin-left: auto; margin-right: auto; position: center">
         <form asp-action="Create" asp-route-id="@ViewData["ShoppingBagId"]">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div hidden class="form-group">
-                <label asp-for="ShoppingBagID" class="control-label"></label>
+                <label asp-for="ShoppingBagID" class="control-label" style=" color: azure"></label>
                 <input asp-for="ShoppingBagID" class="form-control" value="@ViewData["ShoppingBagId"]" />
                 <span asp-validation-for="ShoppingBagID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ItemName" class="control-label"></label>
+                <label asp-for="ItemName" class="control-label" style=" color: azure"></label>
                 <input asp-for="ItemName" class="form-control item"/>
                 <div class="form-group">
-                    <input type="button" value="Find Calories" class="btn btn-primary" id="search"/>
+                    <input type="button" value="Find Calories" class="btn btn-primary" id="search" style="color: #FF8C00;"/>
                 </div>
                 <span asp-validation-for="ItemName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
+                <label asp-for="Category" class="control-label" style=" color: azure"></label>
                 <select asp-for="Category"
                         asp-items="@ViewData["CategoryList"] as List<SelectListItem>"
                         class="form-control">
@@ -32,24 +32,24 @@
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Cal" class="control-label"></label>
+                <label asp-for="Cal" class="control-label" style=" color: azure"></label>
                 <input asp-for="Cal" class="form-control" />
                 <span asp-validation-for="Cal" class="text-danger"></span>
                 <span id="noCal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Qty" class="control-label"></label>
+                <label asp-for="Qty" class="control-label" style=" color: azure"></label>
                 <input asp-for="Qty" class="form-control" />
                 <span asp-validation-for="Qty" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" style="color: #FF8C00;" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
+<div style="margin-left: auto; margin-right: auto; text-align: center;">
     <a asp-action="Index" asp-route-id="@ViewData["ShoppingBagId"]">Back to List</a>
 </div>
 

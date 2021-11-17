@@ -47,7 +47,7 @@ namespace GreenDemic.Controllers
         {
             List<SelectListItem> exTypeList = new List<SelectListItem>();
             List<String> myExTypeList = new List<string>() { "Sedentary", "Lightly Active", "Moderately Active", "Active", "Very Active" };
-            List<String> myExDescList = new List<String>() { "little-no exercie", "exercise 1–3 days/week", "exercise 3–5 days/week", "exercise 6–7 days/week", "hard exercise 6–7 days/week" };
+            List<String> myExDescList = new List<String>() { "little-no exercise", "exercise 1–3 days/week", "exercise 3–5 days/week", "exercise 6–7 days/week", "hard exercise 6–7 days/week" };
             for(int i=0; i<myExTypeList.Count; i++)
             {
                 exTypeList.Add(
