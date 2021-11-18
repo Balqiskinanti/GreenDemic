@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
         "packagesPath": "C:\\Users\\balqi\\.nuget\\packages\\",
         "outputPath": "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\obj\\",
+=======
+    "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 1 v4\\GreenDemic\\GreenDemic.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 1 v4\\GreenDemic\\GreenDemic.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 1 v4\\GreenDemic\\GreenDemic.csproj",
+        "projectName": "GreenDemic",
+        "projectPath": "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 1 v4\\GreenDemic\\GreenDemic.csproj",
+        "packagesPath": "C:\\Users\\The Tay Family\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 1 v4\\GreenDemic\\obj\\",
+>>>>>>> 18835a65e8e7fbfda669e015991c5e9f57a31591
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\balqi\\AppData\\Roaming\\NuGet\\NuGet.Config",

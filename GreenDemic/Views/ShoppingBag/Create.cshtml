@@ -22,19 +22,19 @@
                 <span asp-validation-for="AccID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <div><label asp-for="BagName" class="control-label"></label><span style="color: #FF8C00;">*</span></div>
+                <div><label asp-for="BagName" class="control-label"></label><span style="color: yellow;">*</span></div>
                 <input asp-for="BagName" class="form-control" />
-                <span asp-validation-for="BagName" class="text-danger"></span>
+                <span asp-validation-for="BagName" style="color: yellow;"></span>
             </div>
             <div class="form-group">
-                <div><label asp-for="CreatedAt" class="control-label"></label><span style="color: #FF8C00;">*</span></div>
+                <div><label asp-for="CreatedAt" class="control-label"></label><span style="color: yellow;">*</span></div>
                 <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+                <span asp-validation-for="CreatedAt" style="color: yellow;"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BagDescription" class="control-label"></label>
                 <input asp-for="BagDescription" class="form-control" />
-                <span asp-validation-for="BagDescription" class="text-danger"></span>
+                <span asp-validation-for="BagDescription" style="color: yellow;"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" style="color: #FF8C00;" />

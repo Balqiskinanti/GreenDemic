@@ -22,12 +22,12 @@
             <div class="form-group">
                 <div><label asp-for="UserName" class="control-label" style=" color: azure"></label><span style="color: yellow;">*</span></div>
                 <input asp-for="UserName" class="form-control" />
-                <span asp-validation-for="UserName" class="text-danger"></span>
+                <span asp-validation-for="UserName" style="color: yellow;"></span>
             </div>
             <div class="form-group">
                 <div><label asp-for="MaxCal" class="control-label" style=" color: azure"></label><span style="color: yellow;">*</span></div>
                 <input asp-for="MaxCal" class="form-control" value="@amr" />
-                <span asp-validation-for="MaxCal" class="text-danger"></span>
+                <span asp-validation-for="MaxCal" style="color: yellow;"></span>
                 <p style="color: #fff;"><a style="text-decoration: underline; color: yellow;" href="~/Person/CalculateCalories">Click here</a> to calculate the calories you need.</p>
             </div>
             <div class="form-group" hidden>

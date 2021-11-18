@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <span asp-validation-for="ItemName" class="text-danger"></span>
+                <span asp-validation-for="ItemName" style="color: yellow;"></span>
             </div>
             <div class="form-group">
                 <div><label asp-for="Category" class="control-label" style=" color: azure"></label><span style="color: yellow;">*</span></div>
@@ -46,22 +46,22 @@
                         asp-items="@ViewData["CategoryList"] as List<SelectListItem>"
                         class="form-control">
                 </select>
-                <span asp-validation-for="Category" class="text-danger"></span>
+                <span asp-validation-for="Category" style="color: yellow;"></span>
             </div>
             <div class="form-group">
                 <div><label asp-for="Cal" class="control-label" style=" color: azure"></label><span style="color: yellow;">*</span></div>
                 <input asp-for="Cal" class="form-control" />
-                <span asp-validation-for="Cal" class="text-danger"></span>
+                <span asp-validation-for="Cal" style="color: yellow;"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Qty" class="control-label" style=" color: azure"></label>
                 <input asp-for="Qty" class="form-control" />
-                <span asp-validation-for="Qty" class="text-danger"></span>
+                <span asp-validation-for="Qty" style="color: yellow;"></span>
             </div>
             <div hidden class="form-group">
                 <label asp-for="CalSubTotal" class="control-label" style=" color: azure"></label>
                 <input asp-for="CalSubTotal" class="form-control" />
-                <span asp-validation-for="CalSubTotal" class="text-danger"></span>
+                <span asp-validation-for="CalSubTotal" style="color: yellow;"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn" style="color: #FF8C00;" />
