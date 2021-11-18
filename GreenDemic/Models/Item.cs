@@ -17,6 +17,7 @@ namespace Greendemic.Models
         [StringLength(50, ErrorMessage = "Item Name cannot exceed 50 characters")]
         public string ItemName { get; set; }
 
+        [Display(Name = "Category")]
         [Required]
         [StringLength(50, ErrorMessage = "Category cannot exceed 50 characters")]
         public string Category { get; set; }
