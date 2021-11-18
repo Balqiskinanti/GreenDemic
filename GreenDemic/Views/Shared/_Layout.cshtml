@@ -31,8 +31,8 @@
 </head>
 <body>
     <!-- Navigation -->
-    <header>
-        <nav class="navbar navbar-expand-md navbar-light" style="padding:0; margin-top:2rem; margin-left:6rem;margin-right:7rem;">
+    <header class="sticky-top" style="padding: 0; margin-top: 2rem; padding-left: 6rem; padding-right: 7rem; background-color: white; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px; ">
+        <nav class="navbar navbar-expand-md navbar-light">
 
             <!-- Logo -->
             <div class="mr-auto">
@@ -56,7 +56,7 @@
     </header>
 
     <!--Render Body-->
-    <div class="container">
+    <div class="container-fluid" style="padding:0px;">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -71,20 +71,19 @@
                 <div class="col-6">
                     GreenDemic <br>
                     Singapore <br><br>
-                    Think Green with GreenDemic<br>
+                    Today's food waste, tomorrow's shortage<br>
                     Follow us <br><br>
 
-                    <a href="https://www.linkedin.com/school/ngee-ann-polytechnic/?originalSubdomain=sg" target="_blank"><img src="~/images/linkedin.svg" alt="LinkedIn logo" width="32" height="32" title="linkedin"></a>
-                    &nbsp;
-                    <a href="https://www.instagram.com/ngeeannpoly/?hl=en" target="_blank"><img src="~/images/instagram.svg" alt="Instagram logo" width="32" height="32" title="instagram"></a>
+                    <a href="https://www.instagram.com/greendemic21/" target="_blank"><img src="~/images/instagram.svg" alt="Instagram logo" width="32" height="32" title="instagram"></a>
                 </div>
 
                 <!-- GitHub & API Links -->
                 <div class="col-3">
-                    <b>Developers</b>  <br> <br>
+                    <b>Links</b>  <br> <br>
 
-                    <a href="https://linktr.ee/qnant" target="_blank" class="remove-link-deco" style="color:white;">GitHub</a> <br>
-                    <a href="https://type.fit/api/quotes" target="_blank" class="remove-link-deco" style="color:white;">API Links</a> <br>
+                    <a target="_blank" href="https://linktr.ee/GreenDemic" class="remove-link-deco" style="color:white;">Articles</a> <br>
+                    <a href="~/Home/AboutUs" class="remove-link-deco" style="color:white;">About Us</a> <br>
+                    <a href="~/Home/Privacy" class="remove-link-deco" style="color:white;">Privacy</a> <br>
                 </div>
 
                 <!-- Contact/Feedback Link -->
@@ -94,10 +93,8 @@
 
 
                     <address style="margin: 0px;">
-                        <a href="mailto:tranquilfeedback@gmail.com" class="remove-link-deco" style="color:white;">Email</a>
+                        <a href="mailto:contact.greendemic@gmail.com" class="remove-link-deco" style="color:white;">Email</a>
                     </address>
-
-                    <a href="tel:82897916" style="color:white;">Telephone</a>
                 </div>
             </div>
 
