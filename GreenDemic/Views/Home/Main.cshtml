@@ -4,7 +4,6 @@
 
 @{
     string name = "Unknown";
-    int newCalPercentage = 0;
 
     if (Context.Session.GetString("AccName") != null)
     {
@@ -17,16 +16,12 @@
     }
 
     int calDiff = 0;
-    int calPercentage = 0;
-    if ((Context.Session.GetInt32("TotalCal") == 0 && (int)@ViewData["ThisMonthCals"] == 0) ||
-        (Context.Session.GetInt32("TotalCal") == 0))
+    if ((Context.Session.GetInt32("TotalCal") == 0 && (int)@ViewData["ThisMonthCals"] == 0))
     {
         calDiff = 0;
-        calPercentage = 0;
     }
     else
     {
-        calPercentage = ((int)@ViewData["ThisMonthCals"] * 100) / (int)@Context.Session.GetInt32("TotalCal");
         calDiff = Math.Abs((int)@Context.Session.GetInt32("TotalCal") - (int)@ViewData["ThisMonthCals"]);
     }
 
@@ -38,7 +33,7 @@
 
 <!--Calories Summary-->
 <div class="container-fluid" style="padding:50px 90px">
-    <div class="row">
+    <div class="row" style="margin-right:0;">
         <div class="col-sm-6">
             <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
                 <div class="card-body">
@@ -85,9 +80,20 @@
                         </div>
                     </div>
                 }
+                else if ((int)ViewData["ThisMonthCals"] == 0 && Context.Session.GetInt32("TotalCal") == 0)
+                {
+                    <div class="card" style="background-color: #fcf8e3; border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1); ">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <img src="https://img.icons8.com/ios/50/000000/thinking-bubble.png" />
+                                You are left with exactly <mark style="background-color: #D8F3DC;">0</mark> calories of food to purchase. New user?
+                            </h5>
+                            <p class="card-text">Start by going to the 2 different pages from the 2 green buttons above. Fill up the details required and I will change accordingly.</p>
+                        </div>
+                    </div>
+                }
                 else
                 {
-                    newCalPercentage = ((int)@Context.Session.GetInt32("TotalCal") * 100) / (int)@ViewData["ThisMonthCals"];
                     <div class="card" style="background-color: #dda4a4; border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -150,8 +156,6 @@
 @section Scripts {
     <script>
         $(document).ready(function () {
-            var newprogress = @calPercentage;
-            console.log(newprogress);
             var snack = @ViewData["Snack"];
             var meat = @ViewData["Meat"];
             var seafood = @ViewData["Seafood"];
