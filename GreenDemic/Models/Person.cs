@@ -12,7 +12,7 @@ namespace GreenDemic.Models
         [Required]
         public int UserID { get; set; }
 
-        [Display(Name = "User Name")]
+        [Display(Name = "Family Member Name")]
         [StringLength(255, ErrorMessage = "Name cannot exceed 255 characters")]
         [Required]
         public string UserName { get; set; }
