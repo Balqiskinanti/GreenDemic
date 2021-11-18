@@ -16,4 +16,13 @@ form {
 
 .btn {
     background-color: #D8F3DC;
+    color: #FF8C00;
+}
+
+.text-danger {
+    color: #FF8C00!important;
+}
+
+form label {
+    color: azure
 }
