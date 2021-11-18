@@ -4,11 +4,17 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1 style="margin-left: auto; margin-right: auto; text-align: center;">Delete</h1>
+<h1 style="padding-top: 100px; text-align: center;">Delete Member</h1>
+<p style="text-align: center; padding-bottom: 50px;">Are you sure to delete this record?</p>
 
 <div>
-    <p style="text-align:center;">Are you sure to delete this record?</p>
     <form asp-action="Delete" style="margin:0px 50px;">
+        @if ((bool)ViewData["IsFailed"])
+        {
+            <div class="alert alert-danger">
+                <strong>Uh Oh!</strong> Something went wrong. Please try again later
+            </div>
+        }
         <fieldset class="FormContent">
             <!--User ID-->
             <div class="form-group row" hidden>
@@ -42,9 +48,9 @@
 
             <!--Delete Btn-->
             <div class="col-12" style="text-align:center;">
-                <input type="submit" value="Delete" class="btn btn-danger" style="color: #FF8C00;" />
+                <input type="submit" value="Delete" class="btn" style="color: #FF8C00;" />
             </div>
         </fieldset>
     </form>
-    <div class="col-12" style="margin-left: auto; margin-right: auto; text-align: center;"><a asp-action="Index">Back to View Family Members</a></div>
+    <div class="col-12" style="margin-left: auto; margin-right: auto; text-align: center;"><a asp-action="Index">Back to list</a></div>
 </div>
