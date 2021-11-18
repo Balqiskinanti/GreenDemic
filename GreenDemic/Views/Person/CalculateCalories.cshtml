@@ -4,15 +4,21 @@
     ViewData["Title"] = "CalculateCalories";
 }
 
-<h1 style="margin-left: auto; margin-right: auto; text-align: center;">Calculate Calories</h1>
+<h1 style="padding-top: 100px; margin-left: auto; margin-right: auto; text-align: center;">Calculate Calories You Need</h1>
+<p style="text-align: center; padding-bottom: 50px;">This test uses <a target="_blank" href="https://manytools.org/handy/bmr-calculator/go/">Harris-Benedict formula</a>. Studies have indicated the formula is about 90% accurate around 60% of the time.</p>
 
-<hr />
-<div class="row">
+<div class="row" style="margin-right:0;">
     <div class="col-md-4" style="margin-left: auto; margin-right: auto; position: center">
         <form asp-action="CalculateCalories">
+            @if ((bool)ViewData["IsFailed"])
+            {
+                <div class="alert alert-danger">
+                    <strong>Uh Oh!</strong> Something went wrong. Please try again later
+                </div>
+            }
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Gender" class="control-label" style=" color: azure"></label>
+                <div><label asp-for="Gender" class="control-label" style=" color: azure"></label><span style="color: #FF8C00;">*</span></div>
                 <select asp-for="Gender"
                         asp-items="@ViewData["GenderList"] as List<SelectListItem>"
                         class="form-control">
@@ -20,22 +26,22 @@
                 <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Weight" class="control-label" style=" color: azure"></label>
+                <div><label asp-for="Weight" class="control-label" style=" color: azure"></label><span style="color: #FF8C00;">*</span></div>
                 <input asp-for="Weight" class="form-control" />
                 <span asp-validation-for="Weight" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Height" class="control-label" style=" color: azure"></label>
+                <div><label asp-for="Height" class="control-label" style=" color: azure"></label><span style="color: #FF8C00;">*</span></div>
                 <input asp-for="Height" class="form-control" />
                 <span asp-validation-for="Height" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="BirthDay" class="control-label" style=" color: azure"></label>
+                <div><label asp-for="BirthDay" class="control-label" style=" color: azure"></label><span style="color: #FF8C00;">*</span></div>
                 <input asp-for="BirthDay" class="form-control" />
                 <span asp-validation-for="BirthDay" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ExerciseType" class="control-label" style=" color: azure"></label>
+                <div><label asp-for="ExerciseType" class="control-label" style=" color: azure"></label><span style="color: #FF8C00;">*</span></div>
                 <select asp-for="ExerciseType"
                         asp-items="@ViewData["ExTypeList"] as List<SelectListItem>"
                         class="form-control">
