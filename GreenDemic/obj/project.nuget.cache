@@ -1,14 +1,8 @@
 {
   "version": 2,
-<<<<<<< HEAD
   "dgSpecHash": "ON+H+jWxX0nLbLOzpHEubYoWMH29z1iP4kpM4VDBuFSMqjZVhvofIwTx72soGtVRtvQU/O9PrTLJeDAmoIRHnQ==",
   "success": true,
   "projectFilePath": "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
-=======
-  "dgSpecHash": "eSrBBgrK2DeEpS/3Yn4Sf9EFRFQeBPe5xobJAwZUolQeAt3dC6RDdrjn+7pL6togKvWfJSsIvxNYqjeUFVaUcw==",
-  "success": true,
-  "projectFilePath": "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 1 v4\\GreenDemic\\GreenDemic.csproj",
->>>>>>> 18835a65e8e7fbfda669e015991c5e9f57a31591
   "expectedPackageFiles": [
     "C:\\Users\\balqi\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\balqi\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
@@ -126,5 +120,12 @@
     "C:\\Users\\balqi\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\balqi\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }

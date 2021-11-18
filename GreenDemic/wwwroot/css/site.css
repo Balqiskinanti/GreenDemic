@@ -20,7 +20,7 @@ form {
 }
 
 .text-danger {
-    color: yellow
+    color: yellow!important
 }
 
 form label {

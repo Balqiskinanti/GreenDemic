@@ -98,7 +98,7 @@
                         <div class="card-body">
                             <h5 class="card-title">
                                 <img src="https://img.icons8.com/ios/50/000000/poor-quality.png" />
-                                You have exceeded by <mark style="background: pink;">@calDiff</mark> calories.
+                                You have exceeded by <mark style="background: red; color:white;">@calDiff</mark> calories.
                             </h5>
                             <p style="color:black;" class="card-text">Are you sure you needed the extra calories? Did you finish all the food you bought? Check out your monthly dashboard below to see which category contributes to the highest calories.  </p>
                         </div>
@@ -220,7 +220,7 @@
                         datasets: [
                             {
                                 label: "Calories total",
-                                backgroundColor: ["rgba(255, 205, 86, 0.2)", "rgba(255, 159, 64, 0.2)"],
+                                backgroundColor: ["rgba(255, 205, 86, 0.2)", "rgb(255,0,0)"],
                                 data: [@Context.Session.GetInt32("TotalCal"), @ViewData["ThisMonthCals"]]
                             }
                         ]
