@@ -4,14 +4,20 @@
     ViewData["Title"] = "Delete";
 }
 
-<h1>Delete</h1>
+<h1 style="padding-top: 100px;text-align:center;">Delete Item</h1>
+<p style="text-align: center; padding-bottom: 50px;">Are you sure to delete this record?</p>
 
 <div>
-    <p style="text-align:center;">Are you sure to delete this record?</p>
     <form asp-action="Delete" asp-route-sbID="@ViewData["ShoppingBagId"]" style="margin:0px 50px;">
+        @if ((bool)ViewData["IsFailed"])
+        {
+            <div class="alert alert-danger">
+                <strong>Uh Oh!</strong> Something went wrong. Please try again later
+            </div>
+        }
         <fieldset class="FormContent">
             <!--User ID-->
-            <div class="form-group row">
+            <div hidden class="form-group row">
                 <label asp-for="ItemID"
                        class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
                 <div class="col-6">
@@ -21,7 +27,7 @@
             </div>
 
             <!--User ID-->
-            <div class="form-group row">
+            <div hidden class="form-group row">
                 <label asp-for="ShoppingBagID"
                        class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
                 <div class="col-6">
@@ -36,7 +42,7 @@
                        class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
                 <div class="col-6">
                     <input asp-for="ItemName" readonly
-                           class="form-control-plaintext" />
+                           class="form-control-plaintext" style=" color: #FFBF86;" />
                 </div>
             </div>
 
@@ -46,7 +52,7 @@
                        class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
                 <div class="col-6">
                     <input asp-for="Category" readonly
-                           class="form-control-plaintext" />
+                           class="form-control-plaintext" style=" color: #FFBF86;" />
                 </div>
             </div>
 
@@ -56,7 +62,7 @@
                        class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
                 <div class="col-6">
                     <input asp-for="Cal" readonly
-                           class="form-control-plaintext" />
+                           class="form-control-plaintext" style=" color: #FFBF86;" />
                 </div>
             </div>
 
@@ -66,7 +72,7 @@
                        class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
                 <div class="col-6">
                     <input asp-for="Qty" readonly
-                           class="form-control-plaintext" />
+                           class="form-control-plaintext" style=" color: #FFBF86;" />
                 </div>
             </div>
 
@@ -76,13 +82,13 @@
                        class="col-form-label col-6 font-weight-bold" style="text-align:end;"></label>
                 <div class="col-6">
                     <input asp-for="CalSubTotal" readonly
-                           class="form-control-plaintext" />
+                           class="form-control-plaintext" style=" color: #FFBF86;" />
                 </div>
             </div>
 
             <!--Delete Btn-->
             <div class="col-12" style="text-align: center; color: #FF8C00;">
-                <input type="submit" value="Delete" class="btn btn-danger" />
+                <input type="submit" value="Delete" class="btn" />
             </div>
         </fieldset>
     </form>
