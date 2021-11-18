@@ -158,6 +158,7 @@ namespace GreenDemic.Controllers
             ViewData["ThisMonthCals"] = thisMonthCal;
 
             //Get total calories of each categories this month
+            List<ShoppingBagItem> sbItemList_indiv = new List<ShoppingBagItem>();
             List<ShoppingBagItem> sbItemList = new List<ShoppingBagItem>();
             List<int> sbIDList = new List<int>();
             List<int> itemIDList = new List<int>();
@@ -173,14 +174,20 @@ namespace GreenDemic.Controllers
 
             foreach (ShoppingBag s in bagList)
             {
-                sbIDList.Add(s.ShoppingBagID);
+                sbIDList.Add(s.ShoppingBagID); // get shopping bag ID list
             }
+            _logger.LogInformation(bagList[0].BagName);
 
             foreach (int sbID in sbIDList)
             {
-                sbItemList = shoppingBagItemContext.GetAllShoppingBagItem(sbID);
+                sbItemList_indiv = shoppingBagItemContext.GetAllShoppingBagItem(sbID); // get list of shopping bag item
+                foreach(ShoppingBagItem sbi in sbItemList_indiv)
+                {
+                    sbItemList.Add(sbi);
+                }
+                _logger.LogInformation(sbItemList.Count().ToString());
             }
-
+            
             foreach (ShoppingBagItem sbItem in sbItemList)
             {
                 itemIDList.Add(sbItem.ItemID);
