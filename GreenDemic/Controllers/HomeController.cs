@@ -176,7 +176,6 @@ namespace GreenDemic.Controllers
             {
                 sbIDList.Add(s.ShoppingBagID); // get shopping bag ID list
             }
-            _logger.LogInformation(bagList[0].BagName);
 
             foreach (int sbID in sbIDList)
             {
@@ -185,7 +184,6 @@ namespace GreenDemic.Controllers
                 {
                     sbItemList.Add(sbi);
                 }
-                _logger.LogInformation(sbItemList.Count().ToString());
             }
             
             foreach (ShoppingBagItem sbItem in sbItemList)
