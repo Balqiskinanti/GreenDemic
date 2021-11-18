@@ -4,67 +4,154 @@
 
 @{
     string name = "Unknown";
+    int newCalPercentage = 0;
 
     if (Context.Session.GetString("AccName") != null)
     {
         name = Context.Session.GetString("AccName");
     }
-}
 
-<h5 style="text-align: center; font-weight: bold;">Hello, @name :)</h5>
-
-@if (ViewData["ThisMonthCals"] == null)
-{
-    ViewData["ThisMonthCals"] = 0;
-}
-
-@{
-    int calPercentage = 0;
-    if (Context.Session.GetInt32("TotalCal") == 0)
+    if (ViewData["ThisMonthCals"] == null)
     {
+        ViewData["ThisMonthCals"] = 0;
+    }
+
+    int calDiff = 0;
+    int calPercentage = 0;
+    if ((Context.Session.GetInt32("TotalCal") == 0 && (int)@ViewData["ThisMonthCals"] == 0) ||
+        (Context.Session.GetInt32("TotalCal") == 0))
+    {
+        calDiff = 0;
         calPercentage = 0;
     }
     else
     {
-        calPercentage = ((int)@ViewData["ThisMonthCals"] * 100 / (int)@Context.Session.GetInt32("TotalCal"));
+        calPercentage = ((int)@ViewData["ThisMonthCals"] * 100) / (int)@Context.Session.GetInt32("TotalCal");
+        calDiff = Math.Abs((int)@Context.Session.GetInt32("TotalCal") - (int)@ViewData["ThisMonthCals"]);
     }
+
+    List<int> thisYearCalList = (List<int>)ViewData["ThisYearCals"];
 }
-@{List<int> thisYearCalList = (List<int>)ViewData["ThisYearCals"];}
 
-<p>Total calories of all family members: @Context.Session.GetInt32("TotalCal") calories</p>
-<p>Total calories purchased this month: @ViewData["ThisMonthCals"] calories</p>
+<!--Greetings-->
+<h1 style="text-align: center; font-weight: bold;padding-top:100px;">Hello, @name </h1>
 
-
-
-@if ((int)ViewData["ThisMonthCals"] > Context.Session.GetInt32("TotalCal"))
-{
-    <h1>😲</h1>
-    <div class="alert alert-danger">
-        <strong>Uh Oh!</strong> You have exceeded the recommended maximum calories this month.
+<!--Calories Summary-->
+<div class="container-fluid" style="padding:50px 90px">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
+                            <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
+                        </svg>
+                        You need <mark>@Context.Session.GetInt32("TotalCal")</mark> calories
+                    </h5>
+                    <p class="card-text">In total this month, you and your family members (if any), need @Context.Session.GetInt32("TotalCal") calories to maintain your current weight.</p>
+                    <a href="~/Person/Index" class="btn">Manage members</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                            <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                        </svg>
+                        You have <mark>@ViewData["ThisMonthCals"]</mark> calories
+                    </h5>
+                    <p class="card-text">In total this month, you have @ViewData["ThisMonthCals"] calories of food in your house. </p>
+                    <a href="~/ShoppingBag/Index" class="btn">Manage inventories</a>
+                </div>
+            </div>
+        </div>
     </div>
-}
-else
-{
-    <h1>@calPercentage %</h1>
-}
 
-<div class="progress">
-    <div class="progress-bar" role="progressbar" style="" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <!--Alert message if exceed max calories-->
+    <div class="row">
+        <div class="col-sm-12" style="margin-top:10px;">
+            @{
+                if ((int)ViewData["ThisMonthCals"] < Context.Session.GetInt32("TotalCal"))
+                {
+                    <div class="card" style="background-color: #D8F3DC; border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <img src="https://img.icons8.com/ios/50/000000/good-quality--v1.png" />
+                                You are left with <mark>@calDiff</mark> calories of food to purchase.
+                            </h5>
+                            <p class="card-text">You are still on track. Remember to think twice before you purchase any food items so there's no unnecessary waste. We are proud of you!</p>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    newCalPercentage = ((int)@Context.Session.GetInt32("TotalCal") * 100) / (int)@ViewData["ThisMonthCals"];
+                    <div class="card" style="background-color: #dda4a4; border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <img src="https://img.icons8.com/ios/50/000000/poor-quality.png" />
+                                You have exceeded by <mark style="background: pink;">@calDiff</mark> calories.
+                            </h5>
+                            <p style="color:black;" class="card-text">Are you sure you needed the extra calories? Did you finish all the food you bought? Check out your monthly dashboard below to see which category contributes to the highest calories.  </p>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </div>
-<div>
-    <canvas id="myChart" width="800" height="450"></canvas>
+
+<!--Header-->
+<h1 class="container-fluid" style="text-align:center; background-color: #6C826B; color: #fff; padding: 150px 90px;">@DateTime.Today.ToString("MMMM") Dashboard</h1>
+
+<!--Monthly charts-->
+<div class="container-fluid" style="padding:90px;">
+    <div class="row">
+
+        <!--Pie chart of calories by categories-->
+        <div class="col-sm-6">
+            <div style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                <canvas id="myChart" width="800" height="450"></canvas>
+            </div>
+        </div>
+
+        <!--Horizontal bar chart for recommended vs (actual / exceeded) calories-->
+        <div class="col-sm-6">
+            @{
+                if ((int)ViewData["ThisMonthCals"] < Context.Session.GetInt32("TotalCal"))
+                {
+                    <div style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1); ">
+                        <canvas id="bar-chart-not-exceed" width="800" height="450"></canvas>
+                    </div>
+                }
+                else
+                {
+                    <div style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                        <canvas id="bar-chart" width="800" height="450"></canvas>
+                    </div>
+                }
+            }
+        </div>
+    </div>
 </div>
-<div>
-    <canvas id="line-chart" width="800" height="450"></canvas>
+
+<!--Header-->
+<h1 class="container-fluid" style="text-align:center; background-color: #6C826B; color: #fff; padding: 150px 90px;"> @DateTime.Today.Year Summary</h1>
+
+<!--Line chart-->
+<div class="container-fluid" style="padding:150px;">
+    <div style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+        <canvas id="line-chart" width="800" height="450"></canvas>
+    </div>
 </div>
-
-
-
 
 @section Scripts {
     <script>
         $(document).ready(function () {
             var newprogress = @calPercentage;
+            console.log(newprogress);
             var snack = @ViewData["Snack"];
             var meat = @ViewData["Meat"];
             var seafood = @ViewData["Seafood"];
@@ -74,29 +161,13 @@ else
             var vegetable = @ViewData["Vegetable"];
             var others = @ViewData["Others"];
 
-            $('.progress-bar').attr('aria-valuenow', newprogress).css('width', newprogress + '%');
-            if (@ViewData["ThisMonthCals"] < @Context.Session.GetInt32("TotalCal")) {
-                if (@calPercentage < 50) {
-                    $(".progress-bar").addClass("bg-success");
-                }
-                else if (50 <= @calPercentage < 75) {
-                    $(".progress-bar").addClass("bg-warning");
-                }
-                else if (@calPercentage >= 75) {
-                    $(".progress-bar").addClass("bg-danger");
-                }
-            }
-            else {
-                $(".progress-bar").addClass("bg-danger");
-            }
-
             var pieChart = new Chart(document.getElementById("myChart"), {
                 type: 'doughnut',
                 data: {
                     labels: ["Snack", "Meat", "Seafood", "Dairy", "Grains", "Fruit", "Vegetable", "Others"],
                     datasets: [
                         {
-                            label: "Percentage (%)",
+                            label: "Calories total",
                             backgroundColor: ["#C6D57E", "#D57E7E", "#A2CDCD", "#FFE1AF", "#CEE5D0", "#F3F0D7", "#FED2AA", "#FFBF86"],
                             data: [snack, meat, seafood, dairy, grains, fruit, vegetable, others]
                         }
@@ -109,7 +180,7 @@ else
                     },
                     title: {
                         display: true,
-                        text: 'Total calories by categories'
+                        text: 'Total Calories by Categories'
                     }
                 }
             });
@@ -121,20 +192,86 @@ else
                     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct","Nov","Dec"],
                     datasets: [{
                         data: [@thisYearCalList[0],@thisYearCalList[1],@thisYearCalList[2],@thisYearCalList[3],@thisYearCalList[4],@thisYearCalList[5],@thisYearCalList[6],@thisYearCalList[7],@thisYearCalList[8],@thisYearCalList[9],@thisYearCalList[10],@thisYearCalList[11]],
-                        label: "This month calories",
+                        label: "This month's calories",
                         borderColor: "#3e95cd",
                         fill: false
                     }
                     ]
                 },
                 options: {
+                    responsive: true,
                     title: {
                         display: true,
-                        text: 'Total calories by month'
+                        text: 'Total Calories by Month'
                     }
                 }
             });
             handleZeroData(lineChart);
+
+            try {
+                var barChart = new Chart(document.getElementById("bar-chart"), {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: ["Recommended", "What You Bought"],
+                        datasets: [
+                            {
+                                label: "Calories total",
+                                backgroundColor: ["rgba(255, 205, 86, 0.2)", "rgba(255, 159, 64, 0.2)"],
+                                data: [@Context.Session.GetInt32("TotalCal"), @ViewData["ThisMonthCals"]]
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Recommended Calories'
+                        },
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+                handleZeroData(barChart);
+            }
+            catch {
+                var barChart2 = new Chart(document.getElementById("bar-chart-not-exceed"), {
+                    type: 'horizontalBar',
+                    data: {
+                        labels: ["Recommended", "What You Bought"],
+                        datasets: [
+                            {
+                                label: "Calories",
+                                backgroundColor: ["rgba(255, 205, 86, 0.2)", "rgba(108,130,107, 0.2)"],
+                                data: [@Context.Session.GetInt32("TotalCal"), @ViewData["ThisMonthCals"]]
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        legend: { display: false },
+                        title: {
+                            display: true,
+                            text: 'Recommended Calories'
+                        },
+                        scales: {
+                            xAxes: [{
+                                display: true,
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+                handleZeroData(barChart2);
+            }
         });
 
         function handleZeroData(myChart) {

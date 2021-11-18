@@ -4,28 +4,32 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1 style="padding-top: 100px; padding-bottom: 50px;text-align:center;">Create Shopping Bag</h1>
 
-<h4>Shopping Bag</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="row" style="margin-right:0;">
+    <div class="col-md-4" style="margin-left: auto; margin-right: auto; position: center;">
         <form asp-action="Create">
+            @if ((bool)ViewData["IsFailed"])
+            {
+                <div class="alert alert-danger">
+                    <strong>Uh Oh!</strong> Something went wrong. Please try again later
+                </div>
+            }
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="AccID" class="control-label"></label>
                 <input readonly value="@Context.Session.GetInt32("AccID")" asp-for="AccID" class="form-control" />
                 <span asp-validation-for="AccID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CreatedAt" class="control-label"></label>
-                <input asp-for="CreatedAt" class="form-control" />
-                <span asp-validation-for="CreatedAt" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BagName" class="control-label"></label>
+                <div><label asp-for="BagName" class="control-label"></label><span style="color: #FF8C00;">*</span></div>
                 <input asp-for="BagName" class="form-control" />
                 <span asp-validation-for="BagName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div><label asp-for="CreatedAt" class="control-label"></label><span style="color: #FF8C00;">*</span></div>
+                <input asp-for="CreatedAt" class="form-control" />
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="BagDescription" class="control-label"></label>
@@ -33,14 +37,14 @@
                 <span asp-validation-for="BagDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" style="color: #FF8C00;"/>
+                <input type="submit" value="Create" class="btn btn-primary" style="color: #FF8C00;" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
+<div style="text-align:center;">
+    <a asp-action="Index" >Back to List</a>
 </div>
 
 @section Scripts {

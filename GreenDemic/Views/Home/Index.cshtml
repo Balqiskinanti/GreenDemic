@@ -2,19 +2,66 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="container-fluid d-flex align-items-center"  style="height:100vh;">
+<div class="container-fluid d-flex align-items-center" style="padding:7rem;height:100vh;">
     <div class="row">
         <div class="col-md-6">
             <h1>GreenDemic</h1>
             <p>
-                Today's waste, tomorrow's shortage. GreenDemic helps you to keep track of your household food intake so you don't have to worry about overbuyying food you don't need.
+                Today's food waste, tomorrow's shortage. GreenDemic helps you to keep track of your household food intake so you don't have to worry about overbuyying food you don't need.
             </p>
-            <div class="form-group">
-                <input type="submit" value="Learn More" class="btn btn-primary" style="background-color: #6C826B; padding:20px 50px; border-radius:20px;" />
-            </div>
+            <a href="#features" class="form-group">
+                <input  type="submit" value="Learn More" class="btn" style="background-color: #6C826B; padding:20px 50px; border-radius:20px; color:white;" />
+            </a>
         </div>
         <div class="col-md-6" style="text-align:end;">
-            <img src="https://cdn.dribbble.com/users/973442/screenshots/5370348/grocery_shopping_eezy_rmpl-01_1x.jpg"/>
+            <img src="https://cdn.dribbble.com/users/973442/screenshots/5370348/grocery_shopping_eezy_rmpl-01_1x.jpg" />
+        </div>
+    </div>
+</div>
+
+<h1 class="container-fluid" style="text-align:center; background-color: #6C826B; color: #fff; padding: 150px 90px;">Our Features</h1>
+
+<div class="container-fluid d-flex align-items-center" style="padding:7rem;" id="features">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                <div class="card-body">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calculator" viewBox="0 0 16 16">
+                        <path d="M12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h8zM4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H4z" />
+                        <path d="M4 2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-2zm0 4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm3-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1zm0 3a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-4z" />
+                    </svg>
+                    <h5 class="card-title">
+                        Calculate your recommended calories
+                    </h5>
+                    <p class="card-text">Simply input your weight, height, birthday, gender and activity level to calculate the number of calories you need to consume, to maintain your weight.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                <div class="card-body">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
+                        <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
+                    </svg>
+                    <h5 class="card-title">
+                        Calculate calories of food you purchased
+                    </h5>
+                    <p class="card-text">Create new shopping bag and input the food item you bought. Try out our search feature where you can simply input the food name and we will fill up the calories for you. Magic!</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                <div class="card-body">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
+                        <path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z" />
+                    </svg>
+                    <h5 class="card-title">
+                        View monthly and yearly dashboard
+                    </h5>
+                    <p class="card-text">We hate looking at rows of numbers too... We got your back fam! GreenDemic gives you visual overviews of your calories such as the breakdown by categories and more. </p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -4,31 +4,44 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1 style="margin-left: auto; margin-right: auto; text-align: center;">Edit</h1>
+<h1 style="padding-top: 100px; padding-bottom: 50px; margin-left: auto; margin-right: auto; text-align: center; ">Edit Item</h1>
 
-<h4>ItemViewModel</h4>
-<hr />
-<div class="row">
+<div class="row" style="margin-right:0;">
     <div class="col-md-4" style="margin-left: auto; margin-right: auto; position: center">
         <form asp-action="Edit">
+            @if ((bool)ViewData["IsFailed"])
+            {
+                <div class="alert alert-danger">
+                    <strong>Uh Oh!</strong> Something went wrong. Please try again later
+                </div>
+            }
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="ItemID" class="control-label" style=" color: azure"></label>
                 <input asp-for="ItemID" class="form-control" readonly />
                 <span asp-validation-for="ItemID" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="ShoppingBagID" class="control-label" style=" color: azure"></label>
                 <input asp-for="ShoppingBagID" class="form-control" readonly />
                 <span asp-validation-for="ShoppingBagID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ItemName" class="control-label" style=" color: azure"></label>
-                <input asp-for="ItemName" class="form-control" />
+                <div><label asp-for="ItemName" class="control-label" style=" color: azure"></label><span style="color: #FF8C00;">*</span></div>
+                <div class="row">
+                    <div class="col-sm-9">
+                        <input asp-for="ItemName" class="form-control item" />
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <input type="button" value="Search" class="btn btn-primary" id="search" style="color: #FF8C00;" />
+                        </div>
+                    </div>
+                </div>
                 <span asp-validation-for="ItemName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Category" class="control-label" style=" color: azure"></label>
+                <div><label asp-for="Category" class="control-label" style=" color: azure"></label><span style="color: #FF8C00;">*</span></div>
                 <select asp-for="Category"
                         asp-items="@ViewData["CategoryList"] as List<SelectListItem>"
                         class="form-control">
@@ -36,7 +49,7 @@
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Cal" class="control-label" style=" color: azure"></label>
+                <div><label asp-for="Cal" class="control-label" style=" color: azure"></label><span style="color: #FF8C00;">*</span></div>
                 <input asp-for="Cal" class="form-control" />
                 <span asp-validation-for="Cal" class="text-danger"></span>
             </div>
@@ -45,13 +58,13 @@
                 <input asp-for="Qty" class="form-control" />
                 <span asp-validation-for="Qty" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div hidden class="form-group">
                 <label asp-for="CalSubTotal" class="control-label" style=" color: azure"></label>
                 <input asp-for="CalSubTotal" class="form-control" />
                 <span asp-validation-for="CalSubTotal" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" style="color: #FF8C00;"/>
+                <input type="submit" value="Save" class="btn" style="color: #FF8C00;" />
             </div>
         </form>
     </div>
@@ -66,6 +79,30 @@
             });
             $('#Cal').change(function () {
                 $('#CalSubTotal').val($('#Qty').val() * $('#Cal').val());
+            });
+
+            $("#search").click(function (event) {
+                event.preventDefault();
+                var itemName = $(".item")[0].value;
+                $.ajax({
+                    method: "GET",
+                    url: 'https://api.calorieninjas.com/v1/nutrition?query=' + itemName,
+                    headers: { 'X-Api-Key': 'GkP31QNr+2bUUQsCDJr8eQ==knB1XBRH5zeg25s6' },
+                    contentType: 'application/json',
+                    success: function (result) {
+                        try {
+                            var cal = Math.round(result.items[0].calories);
+                            console.log(result.items[0].calories);
+                            $("#Cal").val(cal);
+                        }
+                        catch {
+                            $("#noCal").text("We cannot find your item in the database. Please try another one.");
+                        }
+                    },
+                    error: function ajaxError(jqXHR) {
+                        console.error('Error: ', jqXHR.responseText);
+                    }
+                });
             });
         });
     </script>
