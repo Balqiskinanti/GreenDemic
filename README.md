@@ -20,7 +20,7 @@ By :
 * As a user, I wish to be able to add my family members' data such as their maximum calories so that I can take into account their calories when I shop.
 * As a user, I want to track my food inventory so that I can plan on the amount of food that I would need.
 * As a user, I wish to know my performance so that I know if I exceeded my recommended calories.
-* As a user, I wish to be able to calculate my recommended maximum calories so that I don't overbuy food that I don't need..
+* As a user, I wish to be able to calculate my recommended maximum calories so that I don't overbuy food that I don't need.
 
 ## Features
 ### Existing Features Implemented
