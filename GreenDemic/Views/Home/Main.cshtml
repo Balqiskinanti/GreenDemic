@@ -28,14 +28,25 @@
     List<int> thisYearCalList = (List<int>)ViewData["ThisYearCals"];
 }
 
-<!--Greetings-->
-<h1 style="text-align: center; font-weight: bold;padding-top:100px;">Hello, @name </h1>
+<!--Pop up for tips-->
+<div class="popup-box" id="hid" style="display: block; visibility: hidden">
+    <div class="transparent-layer"></div>
+    <div class="popup-inner" style="">
+        <div class="popup-msg" style="text-decoration:underline;">Tip of the day.</div>
+        <br />
+        <div class="popup-msg" id="text">This is supposed to be a tip.</div>
+
+        <button class="next-step-btn" id="btnClick">Cool!</button>
+    </div>
+</div>
+
+<h1 style="padding-top:100px; padding-bottom:50px; text-align:center;">Hello, @name 👋</h1>
 
 <!--Calories Summary-->
 <div class="container-fluid" style="padding:50px 90px">
     <div class="row" style="margin-right:0;">
         <div class="col-sm-6">
-            <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+            <div class="card" style="border-radius: 30px; padding: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
                 <div class="card-body">
                     <h5 class="card-title">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
@@ -49,7 +60,7 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+            <div class="card" style="border-radius: 30px; padding: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
                 <div class="card-body">
                     <h5 class="card-title">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
@@ -70,25 +81,27 @@
             @{
                 if ((int)ViewData["ThisMonthCals"] < Context.Session.GetInt32("TotalCal"))
                 {
-                    <div class="card" style="background-color: #D8F3DC; border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <img src="https://img.icons8.com/ios/50/000000/good-quality--v1.png" />
-                                You are left with <mark>@calDiff</mark> calories of food to purchase.
-                            </h5>
-                            <p class="card-text">You are still on track. Remember to think twice before you purchase any food items so there's no unnecessary waste. We are proud of you!</p>
+                        <div class="card" style="background-color: #D8F3DC; border-radius: 30px; padding: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <img src="https://img.icons8.com/ios/50/000000/good-quality--v1.png" />
+                                    You are left with <mark>@calDiff</mark> calories of food to purchase.
+                                </h5>
+                                <p class="card-text">You are still on track. Remember to think twice before you purchase any food items so there's no unnecessary waste. We are proud of you!</p>
+                                <a href="~/Home/Dashboard" class="btn" style="text-align: left; padding: 0;text-decoration:underline;">Go To Dashboard</a>
+                            </div>
                         </div>
-                    </div>
                 }
                 else if ((int)ViewData["ThisMonthCals"] == 0 && Context.Session.GetInt32("TotalCal") == 0)
                 {
-                    <div class="card" style="background-color: #fcf8e3; border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1); ">
+                    <div class="card" style="background-color: #fcf8e3; border-radius: 30px; padding: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1); ">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <img src="https://img.icons8.com/ios/50/000000/thinking-bubble.png" />
                                 You are left with exactly <mark style="background-color: #D8F3DC;">0</mark> calories of food to purchase. New user?
                             </h5>
                             <p class="card-text">Start by going to the 2 different pages from the 2 green buttons above. Fill up the details required and I will change accordingly.</p>
+                            <a href="~/Home/Dashboard" class="btn" style="background-color: transparent; color: black; text-align: left; padding: 0; text-decoration: underline; ">Go To Dashboard</a>
                         </div>
                     </div>
                 }
@@ -101,6 +114,7 @@
                                 You have exceeded by <mark style="background: red; color:white;">@calDiff</mark> calories.
                             </h5>
                             <p style="color:black;" class="card-text">Are you sure you needed the extra calories? Did you finish all the food you bought? Check out your monthly dashboard below to see which category contributes to the highest calories.  </p>
+                            <a href="~/Home/Dashboard" class="btn" style="background-color:transparent; color: black; text-align: left; padding: 0; text-decoration: underline;">Go To Dashboard</a>
                         </div>
                     </div>
                 }
@@ -152,6 +166,14 @@
         <canvas id="line-chart" width="800" height="450"></canvas>
     </div>
 </div>
+<a href="~/Home/Quiz">
+    <div class="fab-wrapper">
+        <label class="fab" for="fabCheckbox" style="display: flex; justify-content: center; align-items: center;">
+            <img src="~/images/games.svg" alt="Instagram logo" width="32" height="32" title="instagram">
+        </label>
+    </div>
+</a>
+
 
 @section Scripts {
     <script>
@@ -276,6 +298,33 @@
                 });
                 handleZeroData(barChart2);
             }
+
+            if (localStorage.getItem('click') != "yes") {
+                setTimeout(function () {
+                    document.getElementById("hid").style.visibility = "visible";
+
+                    var header = document.getElementById("header");
+                    header.style.backgroundColor = "";
+                }, 3000); // after 3 seconds
+            }
+            var btn = document.getElementById("btnClick");
+            btn.onclick = function () {
+                document.getElementById("hid").style.visibility = "hidden";
+                localStorage.setItem('click', "yes");
+            }
+
+            fetch("/res/tips.json")
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    var text = document.getElementById("text");
+                    var num = Math.floor(Math.random() * data.tips.length);
+                    console.log(num);
+                    console.log(data);
+                    console.log(data.tips);
+                    text.innerHTML = data.tips[num];
+                });
         });
 
         function handleZeroData(myChart) {
