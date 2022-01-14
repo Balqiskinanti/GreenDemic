@@ -45,9 +45,14 @@ namespace GreenDemic.DAL
                 {
                     UserID = reader.GetInt32(0),
                     UserName = reader.GetString(1),
-                    MaxCal = reader.GetInt32(2),
-                    AccID = reader.GetInt32(3)
-                }
+                    MaxCal = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0,
+                    AccID = reader.GetInt32(3),
+                    Height = reader.GetInt32(4),
+                    Weight = reader.GetInt32(5),
+                    Birthday = reader.GetDateTime(6),
+                    Gender = reader.GetByte(7),
+                    ExType = reader.GetByte(8)
+            }
                 );
             }
             reader.Close();
@@ -59,12 +64,24 @@ namespace GreenDemic.DAL
         public int Add(Person person)
         {
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"INSERT INTO Person (UserName, MaxCal, AccID)
+            cmd.CommandText = @"INSERT INTO Person (UserName, MaxCal, AccID, Height, Weight, Birthday, Gender, ExType)
                                 OUTPUT INSERTED.UserID
-                                VALUES(@userName, @maxCal, @accID)";
+                                VALUES(@userName, @maxCal, @accID, @height, @weight, @birthday, @gender, @extype)";
             cmd.Parameters.AddWithValue("@username", person.UserName);
-            cmd.Parameters.AddWithValue("@maxCal", person.MaxCal);
+            if(person.MaxCal is null)
+            {
+                cmd.Parameters.AddWithValue("@maxCal", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@maxCal", person.MaxCal);
+            }
             cmd.Parameters.AddWithValue("@accID", person.AccID);
+            cmd.Parameters.AddWithValue("@height", person.Height);
+            cmd.Parameters.AddWithValue("@weight", person.Weight);
+            cmd.Parameters.AddWithValue("@birthday", person.Birthday);
+            cmd.Parameters.AddWithValue("@gender", person.Gender);
+            cmd.Parameters.AddWithValue("@extype", person.ExType);
 
             conn.Open();
             person.UserID = (int)cmd.ExecuteScalar();
@@ -90,8 +107,13 @@ namespace GreenDemic.DAL
                 {
                     person.UserID = reader.GetInt32(0);
                     person.UserName = reader.GetString(1);
-                    person.MaxCal = reader.GetInt32(2);
+                    person.MaxCal = !reader.IsDBNull(2) ? reader.GetInt32(2) : 0;
                     person.AccID = reader.GetInt32(3);
+                    person.Height = reader.GetInt32(4);
+                    person.Weight = reader.GetInt32(5);
+                    person.Birthday = reader.GetDateTime(6);
+                    person.Gender = reader.GetByte(7);
+                    person.ExType = reader.GetByte(8);
                 }
             }
             reader.Close();
@@ -104,11 +126,23 @@ namespace GreenDemic.DAL
         {
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"UPDATE Person SET UserName=@userName,
-                                MaxCal=@maxCal
+                                MaxCal=@maxCal, Height=@height, Weight=@weight, Birthday=@birthday, Gender=@gender, ExType=@extype
                                 WHERE UserID = @selectedUserID";
             cmd.Parameters.AddWithValue("@userName", person.UserName);
-            cmd.Parameters.AddWithValue("@maxCal", person.MaxCal);
+            if (person.MaxCal is null)
+            {
+                cmd.Parameters.AddWithValue("@maxCal", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@maxCal", person.MaxCal);
+            }
             cmd.Parameters.AddWithValue("@selectedUserID", person.UserID);
+            cmd.Parameters.AddWithValue("@height", person.Height);
+            cmd.Parameters.AddWithValue("@weight", person.Weight);
+            cmd.Parameters.AddWithValue("@birthday", person.Birthday);
+            cmd.Parameters.AddWithValue("@gender", person.Gender);
+            cmd.Parameters.AddWithValue("@extype", person.ExType);
 
             conn.Open();
             int count = cmd.ExecuteNonQuery();
