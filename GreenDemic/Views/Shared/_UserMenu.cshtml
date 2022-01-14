@@ -1,4 +1,12 @@
-﻿<!-- Toggle/Collapsible Button-->
+﻿@{
+    string name = "Unknown";
+
+    if (Context.Session.GetString("AccName") != null)
+    {
+        name = Context.Session.GetString("AccName");
+    }
+}
+<!-- Toggle/Collapsible Button-->
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar">
     <span class="navbar-toggler-icon"></span>
 </button>
@@ -7,26 +15,44 @@
 <div class="collapse navbar-collapse" id="mainNavbar">
     <ul class="navbar-nav">
 
-        <!-- Sign Up -->
+        <!-- Member -->
         <li class="nav-item ">
             <a href="~/Person/Index" class="dropdown-item">
-                View/Add Family Members
+                Family Members
             </a>
         </li>
 
-        <!-- Sign Up -->
+        <!-- Food/Bag -->
         <li class="nav-item ">
             <a href="~/ShoppingBag/Index" class="dropdown-item">
-                View/Customize Your Bag
+                Food
             </a>
         </li>
 
-        <!-- Login -->
+        <!-- Settings -->
         <li class="nav-item ">
+            <a href="~/Home/Settings" class="dropdown-item">
+                Settings
+            </a>
+        </li>
+
+        <!-- Logout -->
+        <li class="nav-item " id="logout">
             <a href="~/Home/LogOut" class="dropdown-item">
                 Log Out
             </a>
         </li>
 
+        <li class="nav-item ">
+            <a class="dropdown-item" style="color: white; background: #6C826B;">@name</a>
+        </li>
+
     </ul>
 </div>
+
+<script>
+    var logout = document.getElementById("logout");
+    logout.onclick = function () {
+        localStorage.clear();
+    }
+</script>
