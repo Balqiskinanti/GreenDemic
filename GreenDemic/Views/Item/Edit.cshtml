@@ -70,7 +70,17 @@
     </div>
 </div>
 <div style="margin-left: auto; margin-right: auto; text-align: center;">
-    <a asp-action="Index">Back to List</a>
+
+    @{
+        if ((string)ViewData["IsPreset"] == "true")
+        {
+            <a asp-action="ShowPresetItems" asp-route-id="@Model.ShoppingBagID">Back to List</a>
+        }
+        else
+        {
+            <a asp-action="Index" asp-route-id="@Model.ShoppingBagID">Back to List</a>
+        }
+    }
 </div>
 
 @section Scripts {
