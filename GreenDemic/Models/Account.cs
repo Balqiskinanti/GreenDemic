@@ -26,5 +26,19 @@ namespace GreenDemic.Models
         [StringLength(255, ErrorMessage = "Password cannot exceed 255 characters")]
         [Required]
         public string Pass_word { get; set; }
+
+        public string Bio { get; set; }
+
+        [Display(Name = "Mute Notifications")]
+        [Required]
+        public bool IsMuted { get; set; }
+
+        [Display(Name = "Health Points")]
+        [Required]
+        public int Health { get; set; }
+
+        [Display(Name = "Quiz Points")]
+        [Required]
+        public int QuizPoints { get; set; }
     }
 }
