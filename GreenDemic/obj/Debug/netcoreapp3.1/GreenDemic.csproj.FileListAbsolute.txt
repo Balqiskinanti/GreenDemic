@@ -112,7 +112,6 @@ C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netc
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
-C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\CalculateCalories.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Person\Index.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
@@ -539,3 +538,40 @@ C:\Users\The Tay Family\Documents\Yik Yong\PFD\Assignment 1 v4\GreenDemic\obj\De
 C:\Users\The Tay Family\Documents\Yik Yong\PFD\Assignment 1 v4\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.dll
 C:\Users\The Tay Family\Documents\Yik Yong\PFD\Assignment 1 v4\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.pdb
 C:\Users\The Tay Family\Documents\Yik Yong\PFD\Assignment 1 v4\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.genruntimeconfig.cache
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Memory.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Binder.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Options.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\Microsoft.Identity.Client.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\Microsoft.Data.SqlClient.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\ShoppingBag\ShowPresetBags.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Item\ShowPresetItems.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Item\Barcode.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\Settings.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\Dashboard.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\Quiz.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\AdminMain.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_AdminMenu.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\SendMail.cshtml.g.cs
