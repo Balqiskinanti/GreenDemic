@@ -1,0 +1,28 @@
+﻿<!-- Toggle/Collapsible Button-->
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar">
+    <span class="navbar-toggler-icon"></span>
+</button>
+
+<!-- Links in the navbar, displayed as drop-down list when collapsed -->
+<div class="collapse navbar-collapse" id="mainNavbar">
+    <ul class="navbar-nav">
+
+        <!-- Sign Up -->
+        <li class="nav-item ">
+            <a href="~/Home/SendMail" class="dropdown-item">
+                Send Mail
+            </a>
+        </li>
+
+        <!-- Logout -->
+        <li class="nav-item " id="logout">
+            <a href="~/Home/LogOut" class="dropdown-item">
+                Log Out
+            </a>
+        </li>
+
+        <li class="nav-item ">
+            <a class="dropdown-item" style="color: white; background: #6C826B;">Admin</a>
+        </li>
+    </ul>
+</div>
