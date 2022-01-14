@@ -72,7 +72,9 @@ namespace GreenDemic.Controllers
                 BagName = shoppingBag.BagName,
                 CreatedAt = shoppingBag.CreatedAt,
                 BagDescription = shoppingBag.BagDescription,
-                totalCals = CalculateCalTotal(itemVMList)
+                totalCals = CalculateCalTotal(itemVMList),
+                Location = shoppingBag.Location,
+                IsPreset = shoppingBag.IsPreset
             };
 
             return shoppingBagViewModel;
@@ -95,6 +97,37 @@ namespace GreenDemic.Controllers
             {
                 ShoppingBagViewModel shoppingBagVM = MapToShoppingBagVM(bag);
                 shoppingBagViewModelList.Add(shoppingBagVM);
+            }
+            return View(shoppingBagViewModelList);
+        }
+
+        // GET: ShoppingBagController/ShowPresetBags/5 
+        public ActionResult ShowPresetBags(int? id, string fromIndex)
+        {
+            // Authenticate user
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "User"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            int accID = (int)HttpContext.Session.GetInt32("AccID");
+            List<ShoppingBag> bagList = shoppingBagContext.GetPresets(accID);
+            List<ShoppingBagViewModel> shoppingBagViewModelList = new List<ShoppingBagViewModel>();
+            foreach (ShoppingBag bag in bagList)
+            {
+                ShoppingBagViewModel shoppingBagVM = MapToShoppingBagVM(bag);
+                shoppingBagViewModelList.Add(shoppingBagVM);
+            }
+
+            ViewData["Index"] = false;
+            if(fromIndex != null)
+            {
+                ViewData["Index"] = true;
+            }
+            if(id != null)
+            {
+                ViewData["ShoppingBagId"] = id.Value;
             }
             return View(shoppingBagViewModelList);
         }
@@ -166,6 +199,7 @@ namespace GreenDemic.Controllers
         public ActionResult Edit(ShoppingBag bag)
         {
             ViewData["IsFailed"] = false;
+            
             try
             {
                 if (ModelState.IsValid)
@@ -211,8 +245,8 @@ namespace GreenDemic.Controllers
         public ActionResult Delete(ShoppingBag bag)
         {
             ViewData["IsFailed"] = false;
-            try
-            {
+            //try
+            //{
                 if (ModelState.IsValid)
                 {
                     shoppingBagContext.Delete(bag.ShoppingBagID);
@@ -222,12 +256,28 @@ namespace GreenDemic.Controllers
                 {
                     return View(bag);
                 }
-            }
-            catch
+            //}
+            //catch
+            //{
+            //    ViewData["IsFailed"] = true;
+            //    return View(bag);
+            //}
+        }
+
+        public ActionResult Preset(int? id, int? ispreset)
+        {
+            ShoppingBag sb = shoppingBagContext.GetDetails(id.Value);
+            if (ispreset == 0)
             {
-                ViewData["IsFailed"] = true;
-                return View(bag);
+                sb.IsPreset = true;
+                shoppingBagContext.Update(sb);
             }
+            else
+            {
+                sb.IsPreset = false;
+                shoppingBagContext.Update(sb);
+            }
+            return RedirectToAction("Index");
         }
     }
 }
