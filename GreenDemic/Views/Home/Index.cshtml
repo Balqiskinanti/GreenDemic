@@ -10,7 +10,7 @@
                 Today's food waste, tomorrow's shortage. GreenDemic helps you to keep track of your household food intake so you don't have to worry about overbuyying food you don't need.
             </p>
             <a href="#features" class="form-group">
-                <input  type="submit" value="Learn More" class="btn" style="background-color: #6C826B; padding:20px 50px; border-radius:20px; color:white;" />
+                <input type="submit" value="Learn More" class="btn" style="background-color: #6C826B; padding:20px 50px; border-radius:20px; color:white;" />
             </a>
         </div>
         <div class="col-md-6" style="text-align:end;">
@@ -65,3 +65,112 @@
         </div>
     </div>
 </div>
+
+<h1 class="container-fluid" style="text-align:center; background-color: #6C826B; color: #fff; padding: 150px 90px;">Leaderboard</h1>
+
+<div class="container-fluid" style="width:80%; padding:7rem 0;">
+    <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4 centralise">
+                    <lottie-player src="https://assets10.lottiefiles.com/packages/lf20_8udmnhsx.json" background="transparent" speed="1" style="width: 250px; height: 250px;" loop autoplay></lottie-player>
+                </div>
+                <div class="col-md-8 centralise flex-column py-3" id="leaderboard-bg">
+                    <div class="row centralise">
+                        <div class="col-2 centralise">
+                            <p style="font-family: 'Yeseva One', cursive; font-size:30px;">#01</p>
+                        </div>
+                        <div class="col-6 centralise">
+                            <p id="leaderboard-name-1"><b>@ViewData["FirstName"]</b></p>
+                            <p id="leaderboard-points-1">@ViewData["FirstData"]</p>
+                        </div>
+                        <div class="col-4 centralise">
+                            <img src="~/images/top-3-badge.png" style="width:50px;" />
+                            @{
+                                if (ViewData["Streak1"].ToString() == "1")
+                                {
+                                    <img src="~/images/12-health-badge.png" style="width:50px;" />
+                                }
+                                if (ViewData["Badge1"].ToString() == "1")
+                                {
+                                    <img src="~/images/good-points-badge.png" style="width:50px;" />
+                                }
+                                else if (ViewData["Badge1"].ToString() == "2")
+                                {
+                                    <img src="~/images/very-good-points-badge.png" style="width:50px;" />
+                                }
+                                if (ViewData["Badge1"].ToString() == "3")
+                                {
+                                    <img src="~/images/excellent-points-badge.png" style="width:50px;" />
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="row centralise">
+                        <div class="col-2 centralise">
+                            <p style="font-family: 'Yeseva One', cursive; font-size: 30px;">#02</p>
+                        </div>
+                        <div class="col-6 centralise">
+                            <p id="leaderboard-name-2"><b>@ViewData["SecondName"]</b></p>
+                            <p id="leaderboard-points-2">@ViewData["SecondData"]</p>
+                        </div>
+                        <div class="col-4 centralise">
+                            <img src="~/images/top-3-badge.png" style="width:50px;" />
+                            @{
+                                if (ViewData["Streak2"].ToString() == "1")
+                                {
+                                    <img src="~/images/12-health-badge.png" style="width:50px;" />
+                                }
+                                if (ViewData["Badge2"].ToString() == "1")
+                                {
+                                    <img src="~/images/good-points-badge.png" style="width:50px;" />
+                                }
+                                else if (ViewData["Badge2"].ToString() == "2")
+                                {
+                                    <img src="~/images/very-good-points-badge.png" style="width:50px;" />
+                                }
+                                if (ViewData["Badge2"].ToString() == "3")
+                                {
+                                    <img src="~/images/excellent-points-badge.png" style="width:50px;" />
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="row centralise">
+                        <div class="col-2 centralise">
+                            <p style="font-family: 'Yeseva One', cursive; font-size: 30px;">#03</p>
+                        </div>
+                        <div class="col-6 centralise">
+                            <p id="leaderboard-name-3"><b>@ViewData["ThirdName"]</b></p>
+                            <p id="leaderboard-points-3">@ViewData["ThirdData"]</p>
+                        </div>
+                        <div class="col-4 centralise">
+                            <img src="~/images/top-3-badge.png" style="width:50px;" />
+                            @{
+                                if (ViewData["Streak3"].ToString() == "1")
+                                {
+                                    <img src="~/images/12-health-badge.png" style="width:50px;" />
+                                }
+                                if (ViewData["Badge3"].ToString() == "1")
+                                {
+                                    <img src="~/images/good-points-badge.png" style="width:50px;" />
+                                }
+                                else if (ViewData["Badge3"].ToString() == "2")
+                                {
+                                    <img src="~/images/very-good-points-badge.png" style="width:50px;" />
+                                }
+                                if (ViewData["Badge3"].ToString() == "3")
+                                {
+                                    <img src="~/images/excellent-points-badge.png" style="width:50px;" />
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+
+
