@@ -114,5 +114,21 @@ VALUES(@shoppingbagID, @itemID, @qty)";
             conn.Close();
             return item;
         }
+        // Update record
+        public int Update(int sbID, int iID, int newQty)
+        {
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"UPDATE ShoppingBagItem SET Qty = @qty
+                                WHERE ShoppingBagID = @selectedShoppingBagID AND ItemID = @selectedItemID";
+            cmd.Parameters.AddWithValue("@qty", newQty);
+            cmd.Parameters.AddWithValue("@selectedShoppingBagID", sbID);
+            cmd.Parameters.AddWithValue("@selectedItemID", iID);
+
+            conn.Open();
+            int count = cmd.ExecuteNonQuery();
+
+            conn.Close();
+            return count;
+        }
     }
 }
