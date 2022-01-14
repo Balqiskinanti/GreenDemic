@@ -1,0 +1,151 @@
+﻿@{
+    List<int> thisYearCalList = (List<int>)ViewData["ThisYearCals"];
+    List<String> monthList = new List<string>() { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+
+    int max = thisYearCalList.Max();
+    int maxMonth = thisYearCalList.IndexOf(max);
+    string month = monthList[maxMonth];
+    string maxDesc = month + " : " + max;
+
+    int min = thisYearCalList.Min();
+    int minMonth = thisYearCalList.IndexOf(min);
+    month = monthList[minMonth];
+    string minDesc = month + " : " + min;
+
+    double avg = thisYearCalList.Average();
+    string avgResult = string.Format("{0:0.00}", avg);
+}
+<h1 style="padding-top:100px; padding-bottom:50px; text-align:center;">Hello, Admin 👋</h1>
+
+<div class="container-fluid">
+    <div class="row" style="justify-content:space-evenly;">
+        <div class="col-4">
+            <div class="row" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1); background: #D8F3DC;">
+                <div class="col-6">
+                    <p style="font-family: 'Yeseva One', cursive; font-size: 20px;">Top Performing Accounts</p>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div>
+                            <p id="leaderboard-name-3"><b>@ViewData["FirstName"]</b></p>
+                            <p id="leaderboard-points-3">@ViewData["FirstData"]</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <p id="leaderboard-name-3"><b>@ViewData["SecondName"]</b></p>
+                            <p id="leaderboard-points-3">@ViewData["SecondData"]</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <p id="leaderboard-name-3"><b>@ViewData["ThirdName"]</b></p>
+                            <p id="leaderboard-points-3">@ViewData["ThirdData"]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1); background: #dda4a4; margin-top:30px;">
+                <div class="col-6">
+                    <p style="font-family: 'Yeseva One', cursive; font-size: 20px; color: #CD1818;">Worst Performing Accounts</p>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div>
+                            <p style="color: #CD1818;" id="leaderboard-name-3"><b>@ViewData["BottomFirstName"]</b></p>
+                            <p style="color: #CD1818;" id="leaderboard-points-3">@ViewData["BottomFirstData"]</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <p style="color: #CD1818;" id="leaderboard-name-3"><b>@ViewData["BottomSecondName"]</b></p>
+                            <p style="color: #CD1818;" id="leaderboard-points-3">@ViewData["BottomSecondData"]</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <p style="color: #CD1818;" id="leaderboard-name-3"><b>@ViewData["BottomThirdName"]</b></p>
+                            <p style="color: #CD1818;" id="leaderboard-points-3">@ViewData["BottomThirdData"]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="row" style="margin-bottom:50px; justify-content:space-evenly;">
+                <div class="col-3" style="background-color: antiquewhite; padding: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1); border-radius:20px;">
+                    <p><b>Highest</b></p>
+                    <p>@maxDesc</p>
+                </div>
+                <div class="col-3" style="background-color: antiquewhite; padding: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1); border-radius:20px;">
+                    <p><b>Lowest</b></p>
+                    <p>@minDesc</p>
+                </div>
+                <div class="col-3" style="background-color: antiquewhite; padding: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1); border-radius:20px;">
+                    <p><b>Average</b></p>
+                    <p>@avgResult</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--Line chart-->
+                <div class="container-fluid">
+                    <div style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                        <canvas id="line-chart" width="800" height="450"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+
+            var lineChart = new Chart(document.getElementById("line-chart"), {
+                type: 'line',
+                data: {
+                    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct","Nov","Dec"],
+                    datasets: [{
+                        data: [@thisYearCalList[0],@thisYearCalList[1],@thisYearCalList[2],@thisYearCalList[3],@thisYearCalList[4],@thisYearCalList[5],@thisYearCalList[6],@thisYearCalList[7],@thisYearCalList[8],@thisYearCalList[9],@thisYearCalList[10],@thisYearCalList[11]],
+                        label: "This month's calories",
+                        borderColor: "#3e95cd",
+                        fill: false
+                    }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Total Calories by Month'
+                    }
+                }
+            });
+    handleZeroData(lineChart);
+
+    function handleZeroData(myChart) {
+        var dataArray = myChart.data.datasets[0].data;
+        var sum = dataArray.reduce((a, b) => a + b, 0);
+        console.log(sum);
+        Chart.plugins.register({
+            afterDraw: function (chart) {
+                if (sum == 0) {
+                    myChart.data.datasets[0].hidden = true;
+                    var ctx = myChart.chart.ctx;
+                    var width = myChart.chart.width;
+                    var height = myChart.chart.height
+
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.font = "20px 'Helvetica'";
+                    ctx.fillText('No data to display', width / 2, height / 2);
+                }
+            }
+        });
+    }
+    </script>
+}
