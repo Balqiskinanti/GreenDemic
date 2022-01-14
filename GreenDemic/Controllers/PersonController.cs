@@ -21,23 +21,27 @@ namespace GreenDemic.Controllers
         public PersonController(ILogger<PersonController> logger)
         {
             _logger = logger;
+            //List<Person> pList = personContext.GetAllPerson(1);
+            //logger.LogInformation(pList[2].DerivedMaxCal.ToString());
+            //logger.LogInformation(pList[2].CalculateBMR().ToString());
         }
 
         // Return gender for dropdown list
         private List<SelectListItem> GetGender()
         {
             List<SelectListItem> genderList = new List<SelectListItem>();
-            List<String> myGenderList = new List<string>() { "Female", "Male" };
-
-            foreach (String g in myGenderList)
-            {
-                genderList.Add(
-                    new SelectListItem
-                    {
-                        Value = g,
-                        Text = g
-                    });
-            }
+            genderList.Add(
+                new SelectListItem
+                {
+                    Value = "0",
+                    Text = "Female"
+                });
+            genderList.Add(
+                new SelectListItem
+                {
+                    Value = "1",
+                    Text = "Male"
+                });
             return genderList;
         }
 
@@ -52,7 +56,7 @@ namespace GreenDemic.Controllers
                 exTypeList.Add(
                     new SelectListItem
                     {
-                        Value = myExTypeList[i],
+                        Value = i.ToString(),
                         Text = myExTypeList[i] + " (" + myExDescList[i] + ")"
                     });
             }
@@ -71,7 +75,26 @@ namespace GreenDemic.Controllers
 
             int accID = (int)HttpContext.Session.GetInt32("AccID");
             List<Person> personList = personContext.GetAllPerson(accID);
-            return View(personList);
+            List<PersonViewModel> personVMList = MapToPersonVM(personList);
+            return View(personVMList);
+        }
+
+        public List<PersonViewModel> MapToPersonVM(List<Person> personList)
+        {
+            List<PersonViewModel> personVMList = new List<PersonViewModel>();
+            foreach (Person person in personList)
+            {
+                PersonViewModel personVM = new PersonViewModel
+                {
+                    UserID = person.UserID,
+                    UserName = person.UserName,
+                    Age = person.GetAge(),
+                    DerivedMaxCal = person.CalculateBMR(),
+                    MaxCal = person.MaxCal.Value
+                };
+                personVMList.Add(personVM);
+            }
+            return personVMList;
         }
 
         // GET: PersonController/Create
@@ -83,7 +106,8 @@ namespace GreenDemic.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
+            ViewData["GenderList"] = GetGender();
+            ViewData["ExTypeList"] = GetExType();
             ViewData["IsFailed"] = false;
             return View();
         }
@@ -93,13 +117,17 @@ namespace GreenDemic.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Person person)
         {
+            ViewData["GenderList"] = GetGender();
+            ViewData["ExTypeList"] = GetExType();
             ViewData["IsFailed"] = false;
             try
             {
+                person.MaxCal = null;
+                person.Gender = (int)person.Gender;
+                person.ExType = (int)person.ExType;
                 if (ModelState.IsValid)
                 {
                     person.UserID = personContext.Add(person);
-                    HttpContext.Session.Remove("AMR");
                     return RedirectToAction("Index");
                 }
                 else
@@ -132,6 +160,8 @@ namespace GreenDemic.Controllers
 
             ViewData["IsFailed"] = false;
             Person person = personContext.GetDetails(id.Value);
+            ViewData["GenderList"] = GetGender();
+            ViewData["ExTypeList"] = GetExType();
             return View(person);
         }
 
@@ -141,11 +171,14 @@ namespace GreenDemic.Controllers
         public ActionResult Edit(Person person)
         {
             ViewData["IsFailed"] = false;
+            ViewData["GenderList"] = GetGender();
+            ViewData["ExTypeList"] = GetExType();
             // Update person details
             try
             {
                 if (ModelState.IsValid)
                 {
+                    person.MaxCal = null;
                     personContext.Update(person);
                     return RedirectToAction("Index");
                 }
@@ -208,104 +241,6 @@ namespace GreenDemic.Controllers
                 ViewData["IsFailed"] = true;
                 return View(person);
             }
-        }
-
-        // GET: PersonController/CalculateCalories
-        public IActionResult CalculateCalories()
-        {
-            // Authenticate user
-            if ((HttpContext.Session.GetString("Role") == null) ||
-            (HttpContext.Session.GetString("Role") != "User"))
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            ViewData["GenderList"] = GetGender();
-            ViewData["ExTypeList"] = GetExType();
-            ViewData["IsFailed"] = false;
-            return View();
-        }
-
-        // POST: PersonController/CalculateCalories
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult CalculateCalories(UserCalories userCalories)
-        {
-            ViewData["IsFailed"] = false;
-            // calculate user calories 
-            try
-            {
-                if (ModelState.IsValid)
-                {
-                    double BMR = 0;
-
-                    // Calculate age based on birth year
-                    int age = 0;
-                    age = DateTime.Now.Year - userCalories.BirthDay.Year;
-                    if (DateTime.Now.DayOfYear < userCalories.BirthDay.DayOfYear)
-                    {
-                        age--;
-                    }
-
-                    // Calculate basal metabolic rate based on
-                    // Gender, weight, height, and age
-                    if (userCalories.Gender == "Female")
-                    {
-                        BMR = 655.1 + (9.563 * userCalories.Weight) + (1.850 * userCalories.Height) - (4.676 * age);
-                    }
-                    else
-                    {
-                        BMR = 66.47 + (13.75 * userCalories.Weight) + (5.003 * userCalories.Height) - (6.755 * age);
-                    }
-
-                    // Calculate active metabolic rate based on BMR and current exercise/ activity level
-                    int bmr = (int)CalculateAMR(BMR, userCalories.ExerciseType);
-
-
-                    HttpContext.Session.SetInt32("AMR", bmr);
-                    ViewData["GenderList"] = GetGender();
-                    ViewData["ExTypeList"] = GetExType();
-                    return RedirectToAction("Create");
-                }
-                else
-                {
-                    return View(userCalories);
-                }
-            }
-            //Shows error message
-            catch
-            {
-                ViewData["IsFailed"] = true;
-                return View(userCalories);
-            }
-        }
-
-        // Return AMR 
-        // AMR represents the number of calories to consume to stay at your current weight
-        private double CalculateAMR(double BMR, string exerciseType)
-        {
-            double AMR = 0;
-            if (exerciseType == "Sedentary")
-            {
-                AMR = BMR * 1.2;
-            }
-            else if (exerciseType == "Lightly Active")
-            {
-                AMR = BMR * 1.375;
-            }
-            else if (exerciseType == "Moderately Active")
-            {
-                AMR = BMR * 1.55;
-            }
-            else if (exerciseType == "Active")
-            {
-                AMR = BMR * 1.725;
-            }
-            else if (exerciseType == "Very Active")
-            {
-                AMR = BMR * 1.9;
-            }
-            return AMR;
         }
     }
 }
