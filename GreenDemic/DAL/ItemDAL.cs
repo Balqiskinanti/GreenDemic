@@ -152,13 +152,13 @@ VALUES(@itemName, @category, @cal)";
         {
             //Instantiate a SqlCommand object, supply it with a DELETE SQL statement
             //to delete a competition record specified by a Competition ID
-            SqlCommand cmd = conn.CreateCommand();
+            //SqlCommand cmd = conn.CreateCommand();
             SqlCommand cmd1 = conn.CreateCommand();
-            cmd.CommandText = @"DELETE FROM Item
-                                WHERE ItemID = @selectedItemID";
+            //cmd.CommandText = @"DELETE FROM Item
+            //                    WHERE ItemID = @selectedItemID";
             cmd1.CommandText = @"DELETE FROM ShoppingBagItem
                                 WHERE ItemID = @selectedItemID AND ShoppingBagID = @selectedSBID";
-            cmd.Parameters.AddWithValue("@selectedItemID", itemID);
+            //cmd.Parameters.AddWithValue("@selectedItemID", itemID);
             cmd1.Parameters.AddWithValue("@selectedItemID", itemID);
             cmd1.Parameters.AddWithValue("@selectedSBID", shoppingBagID);
             //Open a database connection
@@ -166,7 +166,7 @@ VALUES(@itemName, @category, @cal)";
             int rowAffected = 0;
             //Execute the DELETE SQL to remove the competition record
             rowAffected += cmd1.ExecuteNonQuery();
-            rowAffected += cmd.ExecuteNonQuery();
+            //rowAffected += cmd.ExecuteNonQuery();
             
             //Close database connection
             conn.Close();
