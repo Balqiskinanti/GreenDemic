@@ -16,6 +16,9 @@ namespace GreenDemic.Models
         [Required]
         public int ShoppingBagID { get; set; }
 
+        [Display(Name = "Shopping Bag Name")]
+        public string ShoppingBagName { get; set; }
+
         [Display(Name = "Item Name")]
         [Required]
         [StringLength(50, ErrorMessage = "Item Name cannot exceed 50 characters")]
