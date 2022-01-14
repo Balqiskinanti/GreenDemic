@@ -1,0 +1,73 @@
+﻿@model IEnumerable<GreenDemic.Models.ItemViewModel>
+
+@{
+    ViewData["Title"] = "Show Preset Items";
+}
+
+<h1 style="padding-top:100px; padding-bottom:50px; text-align:center;">View Preset Items</h1>
+
+<div class="container-fluid" style="padding-left:30px;padding-right:30px;">
+    <p>
+        <a asp-action="Barcode" asp-route-id="@ViewData["ShoppingBagId"]">Create New Item </a>
+    </p>
+    <table id="myTable" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cal)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Qty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CalSubTotal)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Qty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CalSubTotal)
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-controller="Item"
+                           asp-route-id="@item.ItemID" asp-route-sbID="@ViewData["ShoppingBagId"]" asp-route-IsPreset="true">Delete </a><span>|</span>
+                        <a asp-action="Edit" asp-controller="Item"
+                           asp-route-id="@item.ItemID" asp-route-sbID="@ViewData["ShoppingBagId"]" asp-route-IsPreset="true">Edit </a><span>|</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        $('#myTable').DataTable({
+            "columnDefs": [
+                { "orderable": false, "targets": 5 }
+            ]
+        });
+    </script>
+}
