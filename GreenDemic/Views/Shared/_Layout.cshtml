@@ -7,6 +7,10 @@
         {
             redirectHref = "/Home/Main";
         }
+        if (Context.Session.GetString("Role") == "Admin")
+        {
+            redirectHref = "/Home/AdminMain";
+        }
     }
 
     else
@@ -24,6 +28,9 @@
     <link rel="shortcut icon" href="~/images/logo.png" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css"
+          integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -31,7 +38,7 @@
 </head>
 <body>
     <!-- Navigation -->
-    <header class="sticky-top" style="padding: 0; margin-top: 2rem; padding-left: 6rem; padding-right: 7rem; background-color: white; border-bottom-right-radius: 20px; border-bottom-left-radius: 20px; ">
+    <header class="sticky-top" id="header">
         <nav class="navbar navbar-expand-md navbar-light">
 
             <!-- Logo -->
@@ -43,13 +50,21 @@
 
             <!-- Links -->
             <div class="ml-auto">
-                @if (Context.Session.GetString("Role") == "User")
-                {
-                    @await Html.PartialAsync("_UserMenu.cshtml")
-                }
-                else
-                {
-                    @await Html.PartialAsync("_MainMenu.cshtml")
+                @{ if (Context.Session.GetString("Role") != null)
+                    {
+                        if (Context.Session.GetString("Role") == "User")
+                        {
+                        @await Html.PartialAsync("_UserMenu.cshtml");
+                        }
+                        if (Context.Session.GetString("Role") == "Admin")
+                        {
+                        @await Html.PartialAsync("_AdminMenu.cshtml");
+                        }
+                    }
+                    if(Context.Session.GetString("Role") == null)
+                    {
+                        @await Html.PartialAsync("_MainMenu.cshtml");
+                        }
                 }
             </div>
         </nav>
@@ -109,10 +124,10 @@
     <!--Scripts-->
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.js" integrity="sha512-cUN0myk0UGEvxqLxibWVur2Ax3f2cznXn78AMoe6Hj2lIXD5+dvoKGwLeNzlLE2Jk2+VfyX/tEfvIZmieMSt1w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://unpkg.com/@@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>
