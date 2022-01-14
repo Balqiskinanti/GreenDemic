@@ -94,6 +94,29 @@
                     }
                 });
             });
+
+            var scan = @ViewData["IsScanned"];
+            if (scan) {
+                var code = localStorage.getItem("code")
+                var settings = {
+                    "url": "https://world.openfoodfacts.org/api/v0/product/"+code,
+                    "method": "GET",
+                    "timeout": 0,
+                };
+
+                $.ajax(settings)
+                    .done(function (response) {
+                        console.log(response);
+                        document.getElementById("ItemName").value = response.product.product_name;
+                        document.getElementById("Cal").value = response.product.nutriments.energy;
+                        if (response.product.nutriments.energy == undefined) {
+                            $("#noCal").text("We cannot find your item in the database.");
+                        }
+                    })
+                    .fail(function () {
+                        console.log("error");
+                    });
+            }
         });
     </script>
 }
