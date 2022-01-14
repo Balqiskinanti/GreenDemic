@@ -1,0 +1,178 @@
+﻿@model GreenDemic.Models.Account
+<form id="myForm" method="post" asp-route-action="Settings" asp-route-controller="Home" style="background:white;">
+    <fieldset>
+        <div class="container-fluid" style="justify-content:center; color:white!important;">
+            <div class="row" style="margin:0;">
+                <div class="col-4" style="padding:100px 50px">
+                    <div>
+                        <h2 style="color:black">@ViewData["Name"]#@ViewData["ID"]</h2>
+                        <div style="color:black;">
+                            <p>
+                                @ViewData["Health"] Health | @ViewData["Quiz"] Points
+                            </p>
+                        </div>
+                        <div>
+                            @{
+                                if (ViewData["IsTop3"].ToString() == "1")
+                                {
+                                    <img src="~/images/top-3-badge.png" style="width:50px;" />
+                                }
+                                if (ViewData["Streak"].ToString() == "1")
+                                {
+                                    <img src="~/images/12-health-badge.png" style="width:50px;" />
+                                }
+                                if (ViewData["Badge"].ToString() == "1")
+                                {
+                                    <img src="~/images/good-points-badge.png" style="width:50px;" />
+                                }
+                                else if (ViewData["Badge"].ToString() == "2")
+                                {
+                                    <img src="~/images/very-good-points-badge.png" style="width:50px;" />
+                                }
+                                if (ViewData["Badge"].ToString() == "3")
+                                {
+                                    <img src="~/images/excellent-points-badge.png" style="width:50px;" />
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="col-8" style="background-color: #6C826B; border-radius: 20px; padding: 20px;">
+                    <div class="row justify-content-center">
+                        <div class="col-5" style="background-color: rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; margin:0px 20px;">
+                            <h3>Account Information</h3>
+                            <br />
+                            <div class="row">
+                                <div class="col-7">
+                                    <p style="color:white; margin:0;"><strong>Username</strong></p>
+                                    <p id="nameText" style="color: white; margin: 0; ">@ViewData["Name"]</p>
+                                    <input type="text" name="name"
+                                           id="nameEdit" class="form-control" style="display:none;" /><br />
+                                </div>
+                                <div class="col-5 text-center align-self-center">
+                                    <a href="" id="nameEditBtn" style="color: white;">Edit</a>
+                                    <input type="submit" asp-route-IsBioChanged="no" asp-route-action="Settings" asp-route-controller="Home" id="nameSubmitBtn" style="display:none;" value="Submit">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-7">
+                                    <p style="color: white; margin: 0; "><strong>Email</strong></p>
+                                    <p id="emailText" style="color: white; margin: 0;">@ViewData["Email"]</p>
+                                    <input type="text" name="email"
+                                           id="emailEdit" class="form-control" style="display:none;" /><br />
+                                </div>
+                                <div class="col-5 text-center align-self-center">
+                                    <a href="" id="emailEditBtn" style="color: white;">Edit</a>
+                                    <input type="submit" asp-route-IsBioChanged="no" asp-route-action="Settings" asp-route-controller="Home" id="emailSubmitBtn" style="display:none;" value="Submit">
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-7">
+                                    <p style="color: white; margin: 0;"><strong>Password</strong></p>
+                                    <p id="passwordText" style="color: white; margin: 0;">@ViewData["Password"]</p>
+                                    <input type="text" name="password"
+                                           id="passwordEdit" class="form-control" style="display:none;" /><br />
+                                </div>
+                                <div class="col-5 text-center align-self-center">
+                                    <a href="" id="passwordEditBtn" style="color: white;">Edit</a>
+                                    <input type="submit" asp-route-IsBioChanged="no" asp-route-action="Settings" asp-route-controller="Home" id="passwordSubmitBtn" style="display:none;" value="Submit">
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-7">
+                                    <p style="color: white; margin: 0;"><strong>Bio</strong></p>
+                                    <p id="bioText" style="color: white; margin: 0;">@ViewData["Bio"]</p>
+                                    <input type="text" name="bio"
+                                           id="bioEdit" class="form-control" style="display:none;" /><br />
+                                </div>
+                                <div class="col-5 text-center align-self-center">
+                                    <a href="" id="bioEditBtn" style="color: white;">Edit</a>
+                                    <input type="submit" asp-route-IsBioChanged="yes" asp-route-action="Settings" asp-route-controller="Home" id="bioSubmitBtn" style="display:none;" value="Submit">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5" style="background-color: rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; margin: 0px 20px; ">
+                            <h2>Preferences</h2>
+                            <br />
+                            <div class="row">
+                                <div class="col-9">
+                                    <p style="color: white; margin: 0;"><strong>Mute Notifications</strong></p>
+                                    <p style="color: white; margin: 0;">Mute newsletters and any email updates.</p>
+                                </div>
+                                <div class="col-3 text-center align-self-center">
+                                    <label class="switch">
+                                        @{
+                                            if (!(bool)ViewData["Mute"])
+                                            {
+                                                <input type="checkbox"  onchange="document.getElementById('myForm').submit()" asp-for="IsMuted" >
+                                            }
+                                            else
+                                            {
+                                                <input type="checkbox"  onchange="document.getElementById('myForm').submit()" asp-for="IsMuted" checked >
+                                            }
+                                        }
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</form>
+@section Scripts {
+    <script>
+        var nameEditBtn = document.getElementById("nameEditBtn");
+        var nameSubmitBtn = document.getElementById("nameSubmitBtn");
+        var nameEdit = document.getElementById("nameEdit");
+        var nameText = document.getElementById("nameText");
+        nameEditBtn.onclick = function (e) {
+            e.preventDefault();
+            nameSubmitBtn.setAttribute("style", "visibility: visible;");
+            nameEdit.setAttribute("style", "visibility: visible");
+            nameEditBtn.remove();
+            nameText.remove();
+        };
+
+        var emailEditBtn = document.getElementById("emailEditBtn");
+        var emailSubmitBtn = document.getElementById("emailSubmitBtn");
+        var emailEdit = document.getElementById("emailEdit");
+        var emailText = document.getElementById("emailText");
+        emailEditBtn.onclick = function (e) {
+            e.preventDefault();
+            emailSubmitBtn.setAttribute("style", "visibility: visible;");
+            emailEdit.setAttribute("style", "visibility: visible");
+            emailEditBtn.remove();
+            emailText.remove();
+        };
+
+        var passwordEditBtn = document.getElementById("passwordEditBtn");
+        var passwordSubmitBtn = document.getElementById("passwordSubmitBtn");
+        var passwordEdit = document.getElementById("passwordEdit");
+        var passwordText = document.getElementById("passwordText");
+        passwordEditBtn.onclick = function (e) {
+            e.preventDefault();
+            passwordSubmitBtn.setAttribute("style", "visibility: visible;");
+            passwordEdit.setAttribute("style", "visibility: visible");
+            passwordEditBtn.remove();
+            passwordText.remove();
+        };
+
+        var bioEditBtn = document.getElementById("bioEditBtn");
+        var bioSubmitBtn = document.getElementById("bioSubmitBtn");
+        var bioEdit = document.getElementById("bioEdit");
+        var bioText = document.getElementById("bioText");
+        bioEditBtn.onclick = function (e) {
+            e.preventDefault();
+            bioSubmitBtn.setAttribute("style", "visibility: visible;");
+            bioEdit.setAttribute("style", "visibility: visible");
+            bioEditBtn.remove();
+            bioText.remove();
+        };
+
+    </script>
+}
