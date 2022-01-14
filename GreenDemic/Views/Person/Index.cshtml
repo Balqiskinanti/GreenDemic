@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GreenDemic.Models.Person>
+﻿@model IEnumerable<GreenDemic.Models.PersonViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -24,7 +24,7 @@
                 </tr>
             </thead>
             <tbody>
-
+                @{int here = 0; }
                 @foreach (var item in Model)
                 {
                     <tr>
@@ -32,7 +32,16 @@
                             @Html.DisplayFor(modelItem => item.UserName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.MaxCal)
+                            @{if (item.MaxCal == 0)
+                                {
+                                    @Html.DisplayFor(modelItem => item.DerivedMaxCal)
+                                    here = 1;
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelItem => item.MaxCal)
+                                }
+                            }
                         </td>
                         <td>
                             <a asp-action="Delete" asp-controller="Person"
@@ -54,6 +63,7 @@
                     { "orderable": false, "targets": 2 }
                 ]
             });
+            console.log(@here)
         </script>
     }
 
