@@ -31,7 +31,7 @@ namespace GreenDemic.DAL
         {
             List<ShoppingBag> shoppingBagList = new List<ShoppingBag>();
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"SELECT * FROM ShoppingBag WHERE AccID = @selectedAccID ORDER BY ShoppingBagID ASC";
+            cmd.CommandText = @"SELECT * FROM ShoppingBag WHERE AccID = @selectedAccID AND IsPreset = 0 ORDER BY ShoppingBagID ASC";
             cmd.Parameters.AddWithValue("@selectedAccID", accID);
 
             conn.Open();
@@ -46,7 +46,10 @@ namespace GreenDemic.DAL
                     CreatedAt = reader.GetDateTime(1),
                     BagName = reader.GetString(2),
                     BagDescription = !reader.IsDBNull(3) ? reader.GetString(3) : null,
-                    AccID = reader.GetInt32(4)
+                    AccID = reader.GetInt32(4),
+                    Location = !reader.IsDBNull(5) ? reader.GetString(5) : null,
+                    IsPreset = reader.GetByte(6) == 0? false : true,
+                    UsedPreset = reader.GetByte(7)
                 }
                 );
             }
@@ -59,9 +62,9 @@ namespace GreenDemic.DAL
         public int Add(ShoppingBag bag)
         {
             SqlCommand cmd = conn.CreateCommand();
-            cmd.CommandText = @"INSERT INTO ShoppingBag (CreatedAt, BagName, BagDescription, AccID)
+            cmd.CommandText = @"INSERT INTO ShoppingBag (CreatedAt, BagName, BagDescription, AccID, Location, IsPreset, UsedPreset)
                                 OUTPUT INSERTED.ShoppingBagID
-                                VALUES(@createdAt, @bagName, @bagDescription, @accID)";
+                                VALUES(@createdAt, @bagName, @bagDescription, @accID, @location, @IsPreset, @UsedPreset)";
             cmd.Parameters.AddWithValue("@createdAt", bag.CreatedAt);
             cmd.Parameters.AddWithValue("@bagName", bag.BagName);
             if (bag.BagDescription == null)
@@ -73,6 +76,16 @@ namespace GreenDemic.DAL
                 cmd.Parameters.AddWithValue("@bagDescription", bag.BagDescription);
             }
             cmd.Parameters.AddWithValue("@accID", bag.AccID);
+            if(bag.Location is null)
+            {
+                cmd.Parameters.AddWithValue("@location", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@location", bag.Location);
+            }
+            cmd.Parameters.AddWithValue("@IsPreset", bag.IsPreset);
+            cmd.Parameters.AddWithValue("@UsedPreset", bag.UsedPreset);
 
             conn.Open();
             bag.ShoppingBagID = (int)cmd.ExecuteScalar();
@@ -101,6 +114,9 @@ namespace GreenDemic.DAL
                     shoppingBag.BagName = !reader.IsDBNull(2) ? reader.GetString(2) : null;
                     shoppingBag.BagDescription = !reader.IsDBNull(3) ? reader.GetString(3) : null;
                     shoppingBag.AccID = !reader.IsDBNull(4) ? reader.GetInt32(4) : (int)0;
+                    shoppingBag.Location = !reader.IsDBNull(5) ? reader.GetString(5) : null;
+                    shoppingBag.IsPreset = reader.GetByte(6) == 0 ? false : true;
+                    shoppingBag.UsedPreset = !reader.IsDBNull(7) ? reader.GetByte(7) : (int)0;
                 }
             }
             reader.Close();
@@ -113,7 +129,7 @@ namespace GreenDemic.DAL
         {
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"UPDATE ShoppingBag SET CreatedAt=@createdAt,
-                                BagName=@shoppingBagName, BagDescription= @bagDescription
+                                BagName=@shoppingBagName, BagDescription= @bagDescription, Location = @location, IsPreset = @IsPreset, UsedPreset = @UsedPreset
                                 WHERE ShoppingBagID = @selectedShoppingBagID";
             cmd.Parameters.AddWithValue("@createdAt", bag.CreatedAt);
             cmd.Parameters.AddWithValue("@shoppingBagName", bag.BagName);
@@ -126,6 +142,16 @@ namespace GreenDemic.DAL
             {
                 cmd.Parameters.AddWithValue("@bagDescription", bag.BagDescription);
             }
+            if (bag.Location is null)
+            {
+                cmd.Parameters.AddWithValue("@location", DBNull.Value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@location", bag.Location);
+            }
+            cmd.Parameters.AddWithValue("@IsPreset", bag.IsPreset);
+            cmd.Parameters.AddWithValue("@UsedPreset", bag.UsedPreset);
 
             conn.Open();
             int count = cmd.ExecuteNonQuery();
@@ -154,11 +180,11 @@ namespace GreenDemic.DAL
                                 WHERE ShoppingBagID = @selectedShoppingBagID";
             cmd2.Parameters.AddWithValue("@selectedShoppingBagID", shoppingBagID);
 
-            SqlCommand cmd3 = conn.CreateCommand();
-            cmd3.CommandText = @"DELETE FROM ITEM 
-                                WHERE ItemID IN (
-                                SELECT * FROM TempItem
-                                )";
+            //SqlCommand cmd3 = conn.CreateCommand();
+            //cmd3.CommandText = @"DELETE FROM ITEM 
+            //                    WHERE ItemID IN (
+            //                    SELECT * FROM TempItem
+            //                    )";
 
             SqlCommand cmd4 = conn.CreateCommand();
             cmd4.CommandText = @"DELETE FROM ShoppingBag
@@ -170,7 +196,7 @@ namespace GreenDemic.DAL
             rowAffected += cmd.ExecuteNonQuery();
             rowAffected += cmd1.ExecuteNonQuery();
             rowAffected += cmd2.ExecuteNonQuery();
-            rowAffected += cmd3.ExecuteNonQuery();
+            //rowAffected += cmd3.ExecuteNonQuery();
             rowAffected += cmd4.ExecuteNonQuery();
 
             conn.Close();
@@ -181,7 +207,7 @@ namespace GreenDemic.DAL
         {
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"SELECT * FROM ShoppingBag WHERE AccID = @selectedAccID AND MONTH(CreatedAt)=MONTH(GETDATE()) 
-                                            AND YEAR(CreatedAt)=YEAR(GETDATE())";
+                                            AND YEAR(CreatedAt)=YEAR(GETDATE()) AND IsPreset = 0";
             cmd.Parameters.AddWithValue("@selectedAccID", accID);
 
             List<ShoppingBag> shoppingBagList = new List<ShoppingBag>();
@@ -196,7 +222,10 @@ namespace GreenDemic.DAL
                     CreatedAt = reader.GetDateTime(1),
                     BagName = reader.GetString(2),
                     BagDescription = !reader.IsDBNull(3) ? reader.GetString(3) : null,
-                    AccID = reader.GetInt32(4)
+                    AccID = reader.GetInt32(4),
+                    Location = !reader.IsDBNull(5) ? reader.GetString(5) : null,
+                    IsPreset = reader.GetByte(6) == 0 ? false : true,
+                    UsedPreset = reader.GetByte(7)
                 }
                 );
             }
@@ -209,7 +238,7 @@ namespace GreenDemic.DAL
         {
             SqlCommand cmd = conn.CreateCommand();
             cmd.CommandText = @"SELECT * FROM ShoppingBag WHERE AccID = @selectedAccID AND MONTH(CreatedAt)=@selectedMonth 
-                                            AND YEAR(CreatedAt)=YEAR(GETDATE())";
+                                            AND YEAR(CreatedAt)=YEAR(GETDATE()) AND IsPreset = 0";
             cmd.Parameters.AddWithValue("@selectedAccID", accID);
             cmd.Parameters.AddWithValue("@selectedMonth", month);
 
@@ -225,7 +254,40 @@ namespace GreenDemic.DAL
                     CreatedAt = reader.GetDateTime(1),
                     BagName = reader.GetString(2),
                     BagDescription = !reader.IsDBNull(3) ? reader.GetString(3) : null,
-                    AccID = reader.GetInt32(4)
+                    AccID = reader.GetInt32(4),
+                    Location = !reader.IsDBNull(5) ? reader.GetString(5) : null,
+                    IsPreset = reader.GetByte(6) == 0 ? false : true,
+                    UsedPreset = reader.GetByte(7)
+                }
+                );
+            }
+            reader.Close();
+            conn.Close();
+            return shoppingBagList;
+        }
+
+        public List<ShoppingBag> GetPresets(int accID)
+        {
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT * FROM ShoppingBag WHERE IsPreset = 1 AND AccID = @selectedAccID";
+            cmd.Parameters.AddWithValue("@selectedAccID", accID);
+
+            List<ShoppingBag> shoppingBagList = new List<ShoppingBag>();
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                shoppingBagList.Add(
+                new ShoppingBag
+                {
+                    ShoppingBagID = reader.GetInt32(0),
+                    CreatedAt = reader.GetDateTime(1),
+                    BagName = reader.GetString(2),
+                    BagDescription = !reader.IsDBNull(3) ? reader.GetString(3) : null,
+                    AccID = reader.GetInt32(4),
+                    Location = !reader.IsDBNull(5) ? reader.GetString(5) : null,
+                    IsPreset = reader.GetByte(6) == 0 ? false : true,
+                    UsedPreset = reader.GetByte(7)
                 }
                 );
             }
