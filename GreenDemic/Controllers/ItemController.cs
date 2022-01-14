@@ -21,7 +21,7 @@ namespace GreenDemic.Controllers
         private ShoppingBagDAL shoppingBagContext = new ShoppingBagDAL();
 
         // Logging 
-        private readonly ILogger<ItemController> _logger;
+        private readonly ILogger _logger;
         public ItemController(ILogger<ItemController> logger)
         {
             _logger = logger;
@@ -88,7 +88,67 @@ namespace GreenDemic.Controllers
         }
 
         // GET: ItemController
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? id, int? selectedPreset)
+        {
+            // Authenticate user
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "User"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            // If ID is not supplied
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ShoppingBag shoppingBag = shoppingBagContext.GetDetails(id.Value);
+            int accID = (int)HttpContext.Session.GetInt32("AccID");
+            List<int> idList = new List<int>();
+            List<ShoppingBag> sbList = shoppingBagContext.GetPresets(accID);
+            foreach(ShoppingBag s in sbList)
+            {
+                List<ItemViewModel> itemList = MapToItemVM(s.ShoppingBagID);
+                foreach(ItemViewModel i in itemList)
+                {
+                    idList.Add(i.ItemID);
+                }
+            }
+            
+            try
+            {
+                if (selectedPreset != null)
+                {
+                    List<ItemViewModel> newItems = MapToItemVM(selectedPreset.Value);
+                    List<ShoppingBagItem> existingItems = shoppingBagItemContext.GetAllShoppingBagItem(id.Value);
+
+                    shoppingBag.UsedPreset = 1;
+                    shoppingBagContext.Update(shoppingBag);
+
+                    foreach (ItemViewModel i in newItems)
+                    {
+                        ShoppingBagItem shoppingBagItem = new ShoppingBagItem();
+                        shoppingBagItem.ItemID = i.ItemID;
+                        shoppingBagItem.Qty = i.Qty;
+                        shoppingBagItem.ShoppingBagID = id.Value;
+                        shoppingBagItemContext.Add(shoppingBagItem);
+                    }
+                }
+            }
+            catch
+            {
+                return RedirectToAction("Index");
+            }
+            List<ItemViewModel> itemVMList = MapToItemVM(id.Value);
+            ViewData["ShoppingBagId"] = id.Value; //for create and delete item 
+            ViewData["UsedPreset"] = shoppingBag.UsedPreset;
+            ViewData["IDList"] = idList;
+            return View(itemVMList);
+        }
+
+        // GET: ItemController
+        public ActionResult ShowPresetItems(int? id, int? id2)
         {
             // Authenticate user
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -104,12 +164,19 @@ namespace GreenDemic.Controllers
             }
 
             List<ItemViewModel> itemVMList = MapToItemVM(id.Value);
-            ViewData["ShoppingBagId"] = id.Value; //for create and delete item 
+            if(id2 != null)
+            {
+                ViewData["ShoppingBagId"] = id2.Value;
+            }
+            else
+            {
+                ViewData["ShoppingBagId"] = id.Value;
+            }
             return View(itemVMList);
         }
 
         // GET: ItemController/Create
-        public ActionResult Create(int? id)
+        public ActionResult Create(int? id, string IsScanned)
         {
             // Authenticate user
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -124,6 +191,7 @@ namespace GreenDemic.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
+            ViewData["IsScanned"] = IsScanned;
             ViewData["ShoppingBagId"] = id.Value;
             ViewData["CategoryList"] = GetCategory();
             ViewData["IsFailed"] = false;
@@ -173,7 +241,7 @@ namespace GreenDemic.Controllers
         }
 
         // GET: ItemController/Edit/5
-        public ActionResult Edit(int? id, int? sbID)
+        public ActionResult Edit(int? id, int? sbID, string IsPreset)
         {
             // Authenticate user
             if ((HttpContext.Session.GetString("Role") == null) ||
@@ -193,7 +261,7 @@ namespace GreenDemic.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
-
+            ViewData["IsPreset"] = IsPreset;
             ViewData["IsFailed"] = false;
             ViewData["ShoppingBagId"] = sbID.Value;
             ViewData["CategoryList"] = GetCategory();
@@ -276,8 +344,8 @@ namespace GreenDemic.Controllers
         {
             ViewData["IsFailed"] = false;
             // Delete item from the bag
-            try
-            {
+            //try
+            //{
                 if (ModelState.IsValid)
                 {
                     itemContext.Delete(itemVM.ItemID, itemVM.ShoppingBagID);
@@ -287,13 +355,33 @@ namespace GreenDemic.Controllers
                 {
                     return View(itemVM);
                 }
-            }
+            //}
             // Shows error message
-            catch
+            //catch
+            //{
+            //    ViewData["IsFailed"] = true;
+            //    return View(itemVM);
+            //}
+        }
+
+        public ActionResult Barcode(int? id)
+        {
+            // Authenticate user
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "User"))
             {
-                ViewData["IsFailed"] = true;
-                return View(itemVM);
+                return RedirectToAction("Index", "Home");
             }
+
+            // If id is not supplied
+            if (id == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewData["ShoppingBagId"] = id.Value;
+            ViewData["IsScanned"] = false;
+            return View();
         }
     }
 }
