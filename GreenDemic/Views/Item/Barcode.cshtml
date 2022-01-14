@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Label Demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/scandit-sdk@5.x"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preload"
+          as="font"
+          type="font/woff2"
+          href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/themes/default/assets/fonts/icons.woff2"
+          crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+    <link href="https://unpkg.com/material-components-web@6.x/dist/material-components-web.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@6.x/dist/material-components-web.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
+
+    <link rel="shortcut icon" href="favicon.png" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <script>
+        window.ga =
+            window.ga ||
+            function () {
+                (ga.q = ga.q || []).push(arguments);
+            };
+        ga.l = +new Date();
+        ga("create", "UA-23556890-11", "auto", { siteSpeedSampleRate: 100 });
+        ga("require", "linkid");
+        ga("send", "pageview");
+    </script>
+    <script async src="https://www.google-analytics.com/analytics.js"></script>
+</head>
+
+<body>
+    <div id="main-page" class="ui middle aligned center aligned grid">
+        <div class="column">
+            <div class="ui large form">
+                <div class="ui segment">
+
+                    <h2 class="ui header">
+                        <div class="content">Scan Your Label</div>
+                    </h2>
+
+                    <div id="input-fields">
+                    </div>
+
+                    <div id="scanner-segment" class="ui placeholder segment">
+                        <div id="dimmer-loader" class="ui active inverted dimmer fading">
+                            <div class="ui medium text loader">Loading Scandit Library... </div>
+                        </div>
+                        <div id="camera-icon" class="ui basic center aligned segment fading opacity-hidden">
+                            <i class="huge disabled grey camera icon">
+                            </i>
+                        </div>
+                        <div id="barcode-picker" class="fading">
+                        </div>
+                    </div>
+
+                    <a id="barcode-picker-starter-button" class="ui fluid blue button disabled">Scan </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p class="text-center">
+        <a asp-action="Create" asp-route-id="@ViewData["ShoppingBagId"]" asp-route-IsScanned="false">Skip This Step |</a>
+        <a asp-action="Create" asp-route-id="@ViewData["ShoppingBagId"]" asp-route-IsScanned="true">Next |</a>
+    </p>
+    <script src="~/js/config.js"></script>
+
+    <script src="~/js/helpers/reg-exp.js"></script>
+    <script src="~/js/helpers/download-qr.js"></script>
+    <script src="~/js/helpers/qr-parser.js"></script>
+    <script src="~/js/app-components.js"></script>
+    <script src="~/js/dom.js"></script>
+    <script src="~/js/main.js"></script>
+</body>
+</html>
