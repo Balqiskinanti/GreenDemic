@@ -16,15 +16,21 @@ namespace GreenDemic.Models
         [Required(ErrorMessage = "Please enter a name!")]
         public string BagName { get; set; }
 
-        [Display(Name = "Shopping Date")]
+        [Display(Name = "Date")]
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
-        [Display(Name = "Shopping Bag Description")]
+        [Display(Name = "Description")]
         [StringLength(255, ErrorMessage = "Description cannot exceed 255 characters")]
         public string BagDescription { get; set; }
 
-        [Display(Name = "Shopping Bag's Total Calories")]
+        [Display(Name = "Total Calories")]
         public int totalCals { get; set; }
+
+        public String Location { get; set; }
+
+        [Display(Name = "Save as Preset")]
+        [Required]
+        public bool IsPreset { get; set; }
     }
 }
