@@ -806,3 +806,11 @@ section {
         color: #fff;
         background: #6C826B;
     }
+
+.bigFont {
+    font-size:100px;
+}
+
+.smallFont {
+    font-size: 20px;
+}
