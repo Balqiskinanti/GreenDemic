@@ -163,6 +163,7 @@ namespace GreenDemic.DAL
             return rowAffected;
         }
 
+        // Get top 3 users
         public List<Account> GetTop3Users()
         {
             List < Account > accountList = new List<Account>();
@@ -193,6 +194,7 @@ namespace GreenDemic.DAL
             return accountList;
         }
 
+        // Get bottom 3 users
         public List<Account> GetBottom3Users()
         {
             List<Account> accountList = new List<Account>();
@@ -223,6 +225,7 @@ namespace GreenDemic.DAL
             return accountList;
         }
 
+        // Get bottom 3 emails
         public List<String> GetBottom3Emails()
         {
             List<String> emailList = new List<String>();
@@ -241,6 +244,7 @@ namespace GreenDemic.DAL
             return emailList;
         }
 
+        // Get top 3 emails
         public List<String> GetTop3Emails()
         {
             List<String> emailList = new List<String>();
@@ -259,6 +263,7 @@ namespace GreenDemic.DAL
             return emailList;
         }
 
+        // Get all emails
         public List<String> GetAllEmails()
         {
             List<String> emailList = new List<String>();

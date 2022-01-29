@@ -21,9 +21,6 @@ namespace GreenDemic.Controllers
         public PersonController(ILogger<PersonController> logger)
         {
             _logger = logger;
-            //List<Person> pList = personContext.GetAllPerson(1);
-            //logger.LogInformation(pList[2].DerivedMaxCal.ToString());
-            //logger.LogInformation(pList[2].CalculateBMR().ToString());
         }
 
         // Return gender for dropdown list

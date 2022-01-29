@@ -343,9 +343,9 @@ namespace GreenDemic.Controllers
         public ActionResult Delete(ItemViewModel itemVM)
         {
             ViewData["IsFailed"] = false;
-            // Delete item from the bag
-            //try
-            //{
+            //Delete item from the bag
+            try
+            {
                 if (ModelState.IsValid)
                 {
                     itemContext.Delete(itemVM.ItemID, itemVM.ShoppingBagID);
@@ -355,15 +355,16 @@ namespace GreenDemic.Controllers
                 {
                     return View(itemVM);
                 }
-            //}
-            // Shows error message
-            //catch
-            //{
-            //    ViewData["IsFailed"] = true;
-            //    return View(itemVM);
-            //}
+            }
+             //shows error message
+            catch
+            {
+                ViewData["isfailed"] = true;
+                return View(itemVM);
+            }
         }
 
+        // Get : Item/Barcode
         public ActionResult Barcode(int? id)
         {
             // Authenticate user

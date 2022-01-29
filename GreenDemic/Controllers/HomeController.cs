@@ -8,12 +8,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Net.Http;
-using System.Text.Json;
-using System.Net.Mail;
-using System.Linq;
-using System.Threading.Tasks;
-using MailKit.Net.Smtp;
 using MimeKit;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -27,7 +21,6 @@ namespace GreenDemic.Controllers
         private ItemDAL itemContext = new ItemDAL();
         private ShoppingBagItemDAL shoppingBagItemContext = new ShoppingBagItemDAL();
         private ShoppingBagDAL shoppingBagContext = new ShoppingBagDAL();
-        private readonly IEmailSender _emailSender;
 
         //Logging
         private readonly ILogger _logger;
@@ -58,6 +51,7 @@ namespace GreenDemic.Controllers
             return View();
         }
 
+        // Get badges by user's points
         private int GetPointsBadge(int userPts)
         {
             int points;
@@ -81,6 +75,7 @@ namespace GreenDemic.Controllers
             return points;
         }
 
+        // Check if streak is complete i.e. 12/12 
         private int IsHealthStreakComplete(int userHealth)
         {
             int streak = 0;
@@ -233,6 +228,7 @@ namespace GreenDemic.Controllers
             return View();
         }
 
+        // Quiz for users
         public ActionResult Quiz()
         {
             // Authenticate user
@@ -249,6 +245,7 @@ namespace GreenDemic.Controllers
             return View();
         }
 
+        // Update quiz points
         [HttpPost]
         public ActionResult Quiz(int? points)
         {
@@ -267,7 +264,7 @@ namespace GreenDemic.Controllers
         }
 
         // Return Type of Email for dropdown list
-        private List<SelectListItem> GetType()
+        private List<SelectListItem> GetTypeEmail()
         {
             List<SelectListItem> categoryList = new List<SelectListItem>();
             List<String> myCategoryList = new List<string>() { "Top 3", "Bottom 3", "All" };
@@ -284,85 +281,103 @@ namespace GreenDemic.Controllers
             return categoryList;
         }
 
+        // Send Email
         public ActionResult SendMail()
         {
-            ViewData["GetType"] = GetType();
+            // Authenticate user
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            ViewData["GetType"] = GetTypeEmail();
             return View();
         }
 
-
+        // Send Email based on type : top 3, bottom 3, all
         [HttpPost]
         public ActionResult SendMail(Message m)
         {
-            MimeMessage message = new MimeMessage();
-
-            MailboxAddress from = new MailboxAddress("GreenDemic",
-            "contact.greendemic@gmail.com");
-            message.From.Add(from);
-
-            List<String> bottom3Emails = accountContext.GetBottom3Emails();
-            List<String> top3Emails = accountContext.GetTop3Emails();
-            List<String> allEmails = accountContext.GetAllEmails();
-
-            if(m.Type == "Bottom 3") 
+            try
             {
-                int cnt = 0;
-                foreach (String email in bottom3Emails)
+                MimeMessage message = new MimeMessage();
+
+                // From
+                MailboxAddress from = new MailboxAddress("GreenDemic",
+                "contact.greendemic@gmail.com");
+                message.From.Add(from);
+
+                // To
+                List<String> bottom3Emails = accountContext.GetBottom3Emails();
+                List<String> top3Emails = accountContext.GetTop3Emails();
+                List<String> allEmails = accountContext.GetAllEmails();
+
+                if (m.Type == "Bottom 3")
                 {
-                    cnt++;
-                    if (cnt > 3)
+                    int cnt = 0;
+                    foreach (String email in bottom3Emails)
                     {
-                        break;
+                        cnt++;
+                        if (cnt > 3)
+                        {
+                            break;
+                        }
+                        MailboxAddress to = new MailboxAddress("", email);
+                        message.To.Add(to);
                     }
-                    MailboxAddress to = new MailboxAddress("", email);
-                    message.To.Add(to);
                 }
-            }
-            else if (m.Type == "Top 3")
-            {
-                int cnt = 0;
-                foreach (String email in top3Emails)
+                else if (m.Type == "Top 3")
                 {
-                    cnt++;
-                    if (cnt > 3)
+                    int cnt = 0;
+                    foreach (String email in top3Emails)
                     {
-                        break;
+                        cnt++;
+                        if (cnt > 3)
+                        {
+                            break;
+                        }
+                        MailboxAddress to = new MailboxAddress("", email);
+                        message.To.Add(to);
                     }
-                    MailboxAddress to = new MailboxAddress("", email);
-                    message.To.Add(to);
                 }
-            }
-            else
-            {
-                foreach (String email in allEmails)
+                else
                 {
-                    MailboxAddress to = new MailboxAddress("", email);
-                    message.To.Add(to);
+                    foreach (String email in allEmails)
+                    {
+                        MailboxAddress to = new MailboxAddress("", email);
+                        message.To.Add(to);
+                    }
                 }
+
+                // Subject
+                message.Subject = m.Subject;
+
+                // Body
+                BodyBuilder bodyBuilder = new BodyBuilder();
+                bodyBuilder.HtmlBody = "<p style='font-size:20px;'><b>Hello! GreenDemic Team Hopes You Are Well!</b><br/> " + m.Content + " </p><br/>" +
+                    "<img src='https://pbs.twimg.com/media/D9_tuAfWwAEKJKJ.png'/><br/>" +
+                    "<p>Image from: https://pbs.twimg.com/media/D9_tuAfWwAEKJKJ.png </p>";
+                message.Body = bodyBuilder.ToMessageBody();
+
+                // SMTP Client
+                MailKit.Net.Smtp.SmtpClient client = new MailKit.Net.Smtp.SmtpClient();
+                client.Connect("smtp.gmail.com", 465, true);
+                client.Authenticate("contact.greendemic@gmail.com", "GreenDemic_2021");
+                client.Send(message);
+                client.Disconnect(true);
+                client.Dispose();
+
+                // Dropdown
+                ViewData["GetType"] = GetTypeEmail();
+                return RedirectToAction("AdminMain");
             }
-            
-
-            message.Subject = m.Subject;
-
-            BodyBuilder bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = "<p style='font-size:20px;'><b>Hello! GreenDemic Team Hopes You Are Well!</b><br/> " + m.Content + " </p><br/>" +
-                "<img src='https://pbs.twimg.com/media/D9_tuAfWwAEKJKJ.png'/><br/>" +
-                "<p>Image from: https://pbs.twimg.com/media/D9_tuAfWwAEKJKJ.png </p>";
-
-            message.Body = bodyBuilder.ToMessageBody();
-
-            MailKit.Net.Smtp.SmtpClient client = new MailKit.Net.Smtp.SmtpClient();
-            client.Connect("smtp.gmail.com", 465, true);
-            client.Authenticate("contact.greendemic@gmail.com", "GreenDemic_2021");
-
-            client.Send(message);
-            client.Disconnect(true);
-            client.Dispose();
-            ViewData["GetType"] = GetType();
+            catch
+            {
+                RedirectToAction("AdminMain");
+            }
             return View();
         } 
-
-        
 
         // Error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -393,15 +408,16 @@ namespace GreenDemic.Controllers
             {
                 foreach (Account a in accountContext.GetAllAccounts())
                 {
+                    // General user
                     if (username == a.UserName.ToLower() && password == a.Pass_word)
                     {
                         HttpContext.Session.SetString("AccName", a.AccName);
                         HttpContext.Session.SetInt32("AccID", a.AccID);
                         HttpContext.Session.SetString("Role", "User");
-                        _logger.LogInformation("User");
                         isUser = true;
                         break;
                     }
+                    // Admin
                     else if (username == "contact.greendemic@gmail.com" && password == "1234")
                     {
                         HttpContext.Session.SetString("AccName", "Admin");
@@ -471,8 +487,17 @@ namespace GreenDemic.Controllers
             }
         }
 
+        // Admin Main page
         public ActionResult AdminMain()
         {
+            // Authenticate user
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "Admin"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            
+            // Get top accounts
             List<Account> topAccs = accountContext.GetTop3Users();
             ViewData["FirstName"] = topAccs[0].AccName;
             ViewData["FirstData"] = topAccs[0].Health + " Health | " + topAccs[0].QuizPoints + " Points";
@@ -483,6 +508,7 @@ namespace GreenDemic.Controllers
             ViewData["ThirdName"] = topAccs[2].AccName;
             ViewData["ThirdData"] = topAccs[2].Health + " Health | " + topAccs[2].QuizPoints + " Points";
 
+            // Get bottom accounts
             List<Account> bottomAccs = accountContext.GetBottom3Users();
             ViewData["BottomFirstName"] = bottomAccs[0].AccName;
             ViewData["BottomFirstData"] = bottomAccs[0].Health + " Health | " + bottomAccs[0].QuizPoints + " Points";
@@ -493,6 +519,7 @@ namespace GreenDemic.Controllers
             ViewData["BottomThirdName"] = bottomAccs[2].AccName;
             ViewData["BottomThirdData"] = bottomAccs[2].Health + " Health | " + bottomAccs[2].QuizPoints + " Points";
 
+            // Get summary of accounts' calories per month
             List<Account> accList = accountContext.GetAllAccounts();
             List<int> thisYearCalList = new List<int>() { 0,0,0,0,0,0,0,0,0,0,0,0};
             foreach(Account a in accList)
@@ -671,6 +698,7 @@ namespace GreenDemic.Controllers
             return View();
         }
 
+        // Check if user exceed monthly calories
         private int ExceedCals(int monthCals, int famCals)
         {
             if(monthCals > famCals)
@@ -683,6 +711,7 @@ namespace GreenDemic.Controllers
             }
         }
 
+        // update health of user
         private void UpdateHealth()
         {
             int accID = (int)HttpContext.Session.GetInt32("AccID");
@@ -829,7 +858,6 @@ namespace GreenDemic.Controllers
             }
             return cal;
         }
-
 
         // Return item view model list from shopping bag ID
         public List<ItemViewModel> MapToItemVM(int shoppingBagID)

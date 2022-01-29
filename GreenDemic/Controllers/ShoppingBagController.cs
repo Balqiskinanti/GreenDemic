@@ -245,8 +245,8 @@ namespace GreenDemic.Controllers
         public ActionResult Delete(ShoppingBag bag)
         {
             ViewData["IsFailed"] = false;
-            //try
-            //{
+            try
+            {
                 if (ModelState.IsValid)
                 {
                     shoppingBagContext.Delete(bag.ShoppingBagID);
@@ -256,12 +256,12 @@ namespace GreenDemic.Controllers
                 {
                     return View(bag);
                 }
-            //}
-            //catch
-            //{
-            //    ViewData["IsFailed"] = true;
-            //    return View(bag);
-            //}
+            }
+            catch
+            {
+                ViewData["IsFailed"] = true;
+                return View(bag);
+            }
         }
 
         public ActionResult Preset(int? id, int? ispreset)

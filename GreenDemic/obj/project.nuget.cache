@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Y4lGw3UXzqMTGo3GmJazW6Igmd7Jd++rxpLMbtL/rokzZoUnLlGfhpYJ6wBrd8mFJh7t97N4eS5tZklAl+46ow==",
+  "dgSpecHash": "Xd+Qudp6ZF2O6KuGDZjsZvPzOfHJVYaK2Dw21+mYWmcRk+HeiR0ZEnJLi5yc5ulsPnhuCYDU31FDhhk9rP9ZrA==",
   "success": true,
   "projectFilePath": "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
   "expectedPackageFiles": [
@@ -11,7 +11,7 @@
     "C:\\Users\\balqi\\.nuget\\packages\\microsoft.aspnetcore.razor.runtime\\2.2.0\\microsoft.aspnetcore.razor.runtime.2.2.0.nupkg.sha512",
     "C:\\Users\\balqi\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\balqi\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
-    "C:\\Users\\balqi\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\2.9.4\\microsoft.codeanalysis.analyzers.2.9.4.nupkg.sha512",
+    "C:\\Users\\balqi\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\2.9.5\\microsoft.codeanalysis.analyzers.2.9.5.nupkg.sha512",
     "C:\\Users\\balqi\\.nuget\\packages\\microsoft.codeanalysis.common\\3.3.1\\microsoft.codeanalysis.common.3.3.1.nupkg.sha512",
     "C:\\Users\\balqi\\.nuget\\packages\\microsoft.codeanalysis.csharp\\3.3.1\\microsoft.codeanalysis.csharp.3.3.1.nupkg.sha512",
     "C:\\Users\\balqi\\.nuget\\packages\\microsoft.codeanalysis.csharp.workspaces\\3.3.1\\microsoft.codeanalysis.csharp.workspaces.3.3.1.nupkg.sha512",
