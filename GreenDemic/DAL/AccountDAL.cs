@@ -222,5 +222,59 @@ namespace GreenDemic.DAL
             conn.Close();
             return accountList;
         }
+
+        public List<String> GetBottom3Emails()
+        {
+            List<String> emailList = new List<String>();
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT * FROM Account WHERE IsMuted=0 ORDER BY (Health*150)+QuizPoints ASC";
+
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                emailList.Add(reader.GetString(2));
+            }
+            reader.Close();
+            conn.Close();
+            return emailList;
+        }
+
+        public List<String> GetTop3Emails()
+        {
+            List<String> emailList = new List<String>();
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT * FROM Account WHERE IsMuted=0 ORDER BY (Health*150)+QuizPoints Desc";
+
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                emailList.Add(reader.GetString(2));
+            }
+            reader.Close();
+            conn.Close();
+            return emailList;
+        }
+
+        public List<String> GetAllEmails()
+        {
+            List<String> emailList = new List<String>();
+            SqlCommand cmd = conn.CreateCommand();
+            cmd.CommandText = @"SELECT * FROM Account WHERE IsMuted=0";
+
+            conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+
+            while (reader.Read())
+            {
+                emailList.Add(reader.GetString(2));
+            }
+            reader.Close();
+            conn.Close();
+            return emailList;
+        }
     }
 }

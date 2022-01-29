@@ -76,6 +76,7 @@
         const time_line = document.querySelector("header .time_line");
         const timeText = document.querySelector(".timer .time_left_txt");
         const timeCount = document.querySelector(".timer .timer_sec");
+        const quit = document.getElementsByClassName("quit")
 
         // if startQuiz button clicked
         start_btn.onclick = () => {
@@ -85,6 +86,10 @@
         // if exitQuiz button clicked
         exit_btn.onclick = () => {
             info_box.classList.remove("activeInfo"); //hide info box
+        }
+
+        quit.onclick = function () {
+            console.log("here")
         }
 
         // if continueQuiz button clicked

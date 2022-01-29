@@ -13,6 +13,9 @@ using System.Text.Json;
 using System.Net.Mail;
 using System.Linq;
 using System.Threading.Tasks;
+using MailKit.Net.Smtp;
+using MimeKit;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GreenDemic.Controllers
 {
@@ -24,6 +27,7 @@ namespace GreenDemic.Controllers
         private ItemDAL itemContext = new ItemDAL();
         private ShoppingBagItemDAL shoppingBagItemContext = new ShoppingBagItemDAL();
         private ShoppingBagDAL shoppingBagContext = new ShoppingBagDAL();
+        private readonly IEmailSender _emailSender;
 
         //Logging
         private readonly ILogger _logger;
@@ -262,19 +266,103 @@ namespace GreenDemic.Controllers
             return RedirectToAction("Main");
         }
 
+        // Return Type of Email for dropdown list
+        private List<SelectListItem> GetType()
+        {
+            List<SelectListItem> categoryList = new List<SelectListItem>();
+            List<String> myCategoryList = new List<string>() { "Top 3", "Bottom 3", "All" };
+
+            foreach (String cat in myCategoryList)
+            {
+                categoryList.Add(
+                    new SelectListItem
+                    {
+                        Value = cat,
+                        Text = cat
+                    });
+            }
+            return categoryList;
+        }
+
         public ActionResult SendMail()
         {
+            ViewData["GetType"] = GetType();
             return View();
         }
+
 
         [HttpPost]
-        public ActionResult SendMail(Email e)
+        public ActionResult SendMail(Message m)
         {
-            HttpClient hc = new HttpClient();
-            hc.BaseAddress = new Uri("https://localhost:44312/api/email");
+            MimeMessage message = new MimeMessage();
 
+            MailboxAddress from = new MailboxAddress("GreenDemic",
+            "contact.greendemic@gmail.com");
+            message.From.Add(from);
+
+            List<String> bottom3Emails = accountContext.GetBottom3Emails();
+            List<String> top3Emails = accountContext.GetTop3Emails();
+            List<String> allEmails = accountContext.GetAllEmails();
+
+            if(m.Type == "Bottom 3") 
+            {
+                int cnt = 0;
+                foreach (String email in bottom3Emails)
+                {
+                    cnt++;
+                    if (cnt > 3)
+                    {
+                        break;
+                    }
+                    MailboxAddress to = new MailboxAddress("", email);
+                    message.To.Add(to);
+                }
+            }
+            else if (m.Type == "Top 3")
+            {
+                int cnt = 0;
+                foreach (String email in top3Emails)
+                {
+                    cnt++;
+                    if (cnt > 3)
+                    {
+                        break;
+                    }
+                    MailboxAddress to = new MailboxAddress("", email);
+                    message.To.Add(to);
+                }
+            }
+            else
+            {
+                foreach (String email in allEmails)
+                {
+                    MailboxAddress to = new MailboxAddress("", email);
+                    message.To.Add(to);
+                }
+            }
+            
+
+            message.Subject = m.Subject;
+
+            BodyBuilder bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = "<p style='font-size:20px;'><b>Hello! GreenDemic Team Hopes You Are Well!</b><br/> " + m.Content + " </p><br/>" +
+                "<img src='https://pbs.twimg.com/media/D9_tuAfWwAEKJKJ.png'/><br/>" +
+                "<p>Image from: https://pbs.twimg.com/media/D9_tuAfWwAEKJKJ.png </p>";
+
+            message.Body = bodyBuilder.ToMessageBody();
+
+            MailKit.Net.Smtp.SmtpClient client = new MailKit.Net.Smtp.SmtpClient();
+            client.Connect("smtp.gmail.com", 465, true);
+            client.Authenticate("contact.greendemic@gmail.com", "GreenDemic_2021");
+
+            client.Send(message);
+            client.Disconnect(true);
+            client.Dispose();
+            ViewData["GetType"] = GetType();
             return View();
-        }
+        } 
+
+        
 
         // Error
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

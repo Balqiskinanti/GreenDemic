@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model GreenDemic.Models.Message
+<h1 style="margin-left: auto; margin-right: auto; text-align: center;padding-top:50px;">Send Email</h1>
+<div class="row" style="margin-right:0;">
+    <div class="col-md-4" style="margin-left: auto; margin-right: auto; position: center">
+        <form asp-action="SendMail">
+            <div class="form-group">
+                <div><label asp-for="Type" class="control-label" style=" color: azure"></label><span style="color: yellow;">*</span></div>
+                <select asp-for="Type"
+                        asp-items="@ViewData["GetType"] as List<SelectListItem>"
+                        class="form-control">
+                </select>
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Subject" class="control-label" style=" color: azure"></label>
+                <input asp-for="Subject" class="form-control" value="" />
+                <span asp-validation-for="Subject" style="color: yellow;"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Content" class="control-label" style=" color: azure"></label>
+                <textarea asp-for="Content" class="form-control" rows="7">
+    
+                </textarea>
+                <span asp-validation-for="Content" style="color: yellow;"></span>
+            </div>
+            <div hidden class="form-group">
+                <label asp-for="To" class="control-label" style=" color: azure"></label>
+                <input type="email" asp-for="To" class="form-control" value="" />
+                <span asp-validation-for="To" style="color: yellow;"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send" class="btn btn-primary" style="color: #FF8C00;" />
+            </div>
+        </form>
+    </div>
+</div>
+

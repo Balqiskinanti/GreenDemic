@@ -575,3 +575,7 @@ C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netc
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\AdminMain.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_AdminMenu.cshtml.g.cs
 C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\SendMail.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\MailKit.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\MimeKit.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\NETCore.MailKit.dll
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
