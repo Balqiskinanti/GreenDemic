@@ -32,11 +32,6 @@ namespace GreenDemic
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-            var emailConfig = Configuration
-            .GetSection("EmailConfiguration")
-            .Get<EmailConfiguration>();
-            services.AddSingleton(emailConfig);
-            services.AddScoped<IEmailSender, EmailSender>();
             services.AddControllersWithViews();
         }
 
