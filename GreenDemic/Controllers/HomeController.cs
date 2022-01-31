@@ -431,7 +431,7 @@ namespace GreenDemic.Controllers
                 // if user
                 if (isUser == true)
                 {
-                    return RedirectToAction("Main");
+                    return RedirectToAction("LandingMain");
                 }
                 if (isAdmin == true)
                 {
@@ -780,6 +780,17 @@ namespace GreenDemic.Controllers
             Account user = accountContext.GetDetails(accID);
             user.Health = totalHealth;
             accountContext.Update(user);
+        }
+
+        public IActionResult LandingMain()
+        {
+            // Authenticate user
+            if ((HttpContext.Session.GetString("Role") == null) ||
+            (HttpContext.Session.GetString("Role") != "User"))
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
         }
 
         // GET: HomeController/LogOut
