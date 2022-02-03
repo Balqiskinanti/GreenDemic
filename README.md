@@ -24,17 +24,13 @@ By :
 * As a user, I wish to know my performance so that I know if I exceeded my recommended calories.
 * As a user, I wish to be able to calculate my recommended maximum calories so that I don't overbuy food that I don't need.
 ### Additional User Stories
-* As a user, I want to be able to log into my account in my personal mobile platform so that it is more convenient for me to access my account.
-* As a user, I want to get tips on reducing food wastage so that I can learn more ways to achieve food sustainability.
-* As a user, I want a setting in my account so that I can edit my account information.
-* As a user, I want to be able to quiz myself so that I can test out my knowledge on food sustainability.
-* As a user, I want to be able to view a leaderboard on the quiz so that I can know who are the top ranking families.
-* As a user. I want to be able to scan the barcode of an item and easily retrieve the items' calories information so that I am able to enter the calories information seamlessly.
-* As a user, I want to have a preset on my shopping bag so that I do not have to re-enter every food items if I am buying the same exact number and type of food items.
-
-* As an admin, I want to have a dedicated account for the administrator so that unauthorized people cannot access the admin's priviledges.
-* As an admin, I want to be able to send emails to the families so that I can convey important information to them.
-* As an admin, I want to be able to view the performance of family accounts so that I can evaluate which family accounts are not performing well.
+*As a user, I want recommendations of how to be sustainable so that I can make a more informed choices
+*As a user, I wish to have a competition with other users in the system, in order to stay motivated
+*As a user, I wish to get email updates on sustainability tips so that I am able to access these information outside of the website
+*As a user, I wish to create presets so that I don't have to repeat the process of creating items that I buy often
+*As a user, I wish to access the website from my mobile so that I don't have to turn on my computer
+*As a user, I wish to scan my items and get the system to identify the calories for me so that the process is faster
+*As a user, I want to update my account and preferences so that I have more freedom to customise
 
 ## Features
 ### Existing Features Implemented
