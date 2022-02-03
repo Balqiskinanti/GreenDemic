@@ -1,0 +1,83 @@
+﻿@model GreenDemic.Models.Account
+
+@{
+    ViewData["Title"] = "LandingMain";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    string name = "Unknown";
+
+    if (Context.Session.GetString("AccName") != null)
+    {
+        name = Context.Session.GetString("AccName");
+    }
+}
+
+    <!--Pop up for tips-->
+    <div class="popup-box" id="hid" style="display: block; visibility: hidden">
+        <div class="transparent-layer"></div>
+        <div class="popup-inner" style="">
+            <div class="popup-msg" style="text-decoration:underline;">Tip of the day.</div>
+            <br />
+            <div class="popup-msg" id="text">This is supposed to be a tip.</div>
+
+            <button class="next-step-btn" id="btnClick">Cool!</button>
+        </div>
+    </div>
+
+        <div class="row">
+            <div class="col-md-1 centralise">
+                <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_mj35fmqa.json" background="transparent" speed="1" style="width: 300px; height: 300px; margin-left: auto; margin-right: auto; top: -50px" autoplay></lottie-player>
+            </div>
+            <h1 class="flex-column py-1" style="padding-top: 100px; padding-bottom: 50px; text-align: center; margin-left: auto; margin-right: auto; font-size: 5vw">Greetings, @name 👋</h1>
+        </div>
+
+        <h2 class="container-fluid align-items-center justify-content-center" style="text-align: center; background-color: #6C826B; color: #fff; padding: 150px 90px; padding: 150px 90px; font-size: 8vw; margin-left: auto; margin-right: auto">What Do You want To Do Today?</h2>
+        <div class="container-fluid d-flex align-items-center justify-content-center" style="padding:7rem;" id="features">
+            <div class="row">
+                <div class="col-sm-4 align-items-center justify-content-center">
+                    <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                        <div class="card-body">
+                            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_whfzz2v2.json" background="transparent" speed="1" style="width: 130px; height: 130px;" loop autoplay></lottie-player>
+                            <h5 class="card-title" style="font-size: 2vw;">
+                                Family Members
+                            </h5>
+                            <p class="card-text" style="font-size: 1.5vw;">Here you can add and view your family members. After all, a meal is better when you eat together. </p>
+                            <a href="~/Person/Index" class="btn">Let's go!</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                        <div class="card-body">
+                            <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uww81uys.json" background="transparent" speed="1" style="width: 80px; height: 80px;" loop autoplay></lottie-player>
+                            
+                            <h5 class="card-title" style="font-size: 2vw;">
+                                Overview for current month and year summary
+                            </h5>
+                            <p class="card-text" style="font-size: 1.5vw;">View this months charts and year summary to visualise your calories</p>
+                            <a href="~/Home/Main" class="btn">Let's go!</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                        <div class="card-body">
+                            <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_qX4zwY.json" background="transparent" speed="1" style="width: 90px; height: 90px;" loop autoplay></lottie-player>
+                            <h5 class="card-title" style="font-size: 2vw;">
+                                Food
+                            </h5>
+                            <p class="card-text" style="font-size: 1.5vw;">Here you can create/set presets for shopping bags and add food items into it via scanning/ the barcode or entry </p>
+                            <a href="~/ShoppingBag/Index" class="btn">Let's go!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    
+
+            
+
+            
