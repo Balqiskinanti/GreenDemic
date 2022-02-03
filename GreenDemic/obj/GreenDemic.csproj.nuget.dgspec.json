@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 2 v3\\GreenDemic\\GreenDemic.csproj": {}
+    "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 2 v3\\GreenDemic\\GreenDemic.csproj": {
+    "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 2 v3\\GreenDemic\\GreenDemic.csproj",
+        "projectUniqueName": "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
         "projectName": "GreenDemic",
-        "projectPath": "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 2 v3\\GreenDemic\\GreenDemic.csproj",
-        "packagesPath": "C:\\Users\\The Tay Family\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\The Tay Family\\Documents\\Yik Yong\\PFD\\Assignment 2 v3\\GreenDemic\\obj\\",
+        "projectPath": "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\GreenDemic.csproj",
+        "packagesPath": "C:\\Users\\balqi\\.nuget\\packages\\",
+        "outputPath": "C:\\Ngee Ann\\2.2\\Portfolio development\\Final\\GreenDemic\\GreenDemic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\The Tay Family\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\balqi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -91,7 +91,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

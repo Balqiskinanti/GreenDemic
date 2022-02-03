@@ -755,3 +755,4 @@ C:\Users\The Tay Family\Documents\Yik Yong\PFD\Assignment 2 v3\GreenDemic\obj\De
 C:\Users\The Tay Family\Documents\Yik Yong\PFD\Assignment 2 v3\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.pdb
 C:\Users\The Tay Family\Documents\Yik Yong\PFD\Assignment 2 v3\GreenDemic\obj\Debug\netcoreapp3.1\GreenDemic.genruntimeconfig.cache
 C:\Users\The Tay Family\Documents\Yik Yong\PFD\Assignment 2 v3\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\LandingMain.cshtml.g.cs
+C:\Ngee Ann\2.2\Portfolio development\Final\GreenDemic\GreenDemic\obj\Debug\netcoreapp3.1\Razor\Views\Home\LandingMain.cshtml.g.cs
