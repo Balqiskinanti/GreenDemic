@@ -260,7 +260,7 @@ namespace GreenDemic.Controllers
             Account user = accountContext.GetDetails(accID);
             user.QuizPoints += points.Value;
             accountContext.Update(user);
-            return RedirectToAction("Main");
+            return RedirectToAction("LandingMain");
         }
 
         // Return Type of Email for dropdown list
