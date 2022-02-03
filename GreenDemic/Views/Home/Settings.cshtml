@@ -1,105 +1,106 @@
 ﻿@model GreenDemic.Models.Account
 <form id="myForm" method="post" asp-route-action="Settings" asp-route-controller="Home" style="background:white;">
     <fieldset>
-        <div class="container-fluid" style="justify-content:center; color:white!important;">
+        <div class="container-fluid align-items-center justify-content-center" style="color:white!important;">
             <div class="row" style="margin:0;">
-                <div class="col-4" style="padding:100px 50px">
+                <div style="padding-top: 100px; padding-bottom: 50px; text-align: center; margin-left: auto; margin-right: auto; font-size: 5vw " class="col-md-10 centralise flex-column py-3">
                     <div>
-                        <h2 style="color:black">@ViewData["Name"]#@ViewData["ID"]</h2>
-                        <div style="color:black;">
+                        <h2 style="color: black; font-size: 3vw;">@ViewData["Name"]#@ViewData["ID"]</h2>
+                        <div style="color: black; font-size: 2.5vw;">
                             <p>
                                 @ViewData["Health"] Health | @ViewData["Quiz"] Points
                             </p>
                         </div>
-                        <div>
-                            @{
-                                if (ViewData["IsTop3"].ToString() == "1")
-                                {
-                                    <img src="~/images/top-3-badge.png" style="width:50px;" />
+                      
+                            <div class="col-8" style="margin-left: auto; margin-right: auto;">
+                                @{
+                                    if (ViewData["IsTop3"].ToString() == "1")
+                                    {
+                                        <img src="~/images/top-3-badge.png" style="width: 25%;" />
+                                    }
+                                    if (ViewData["Streak"].ToString() == "1")
+                                    {
+                                        <img src="~/images/12-health-badge.png" style="width: 25%;" />
+                                    }
+                                    if (ViewData["Badge"].ToString() == "1")
+                                    {
+                                        <img src="~/images/good-points-badge.png" style="width: 100%;" />
+                                    }
+                                    else if (ViewData["Badge"].ToString() == "2")
+                                    {
+                                        <img src="~/images/very-good-points-badge.png" style="width: 100%;" />
+                                    }
+                                    if (ViewData["Badge"].ToString() == "3")
+                                    {
+                                        <img src="~/images/excellent-points-badge.png" style="width: 100%;" />
+                                    }
                                 }
-                                if (ViewData["Streak"].ToString() == "1")
-                                {
-                                    <img src="~/images/12-health-badge.png" style="width:50px;" />
-                                }
-                                if (ViewData["Badge"].ToString() == "1")
-                                {
-                                    <img src="~/images/good-points-badge.png" style="width:50px;" />
-                                }
-                                else if (ViewData["Badge"].ToString() == "2")
-                                {
-                                    <img src="~/images/very-good-points-badge.png" style="width:50px;" />
-                                }
-                                if (ViewData["Badge"].ToString() == "3")
-                                {
-                                    <img src="~/images/excellent-points-badge.png" style="width:50px;" />
-                                }
-                            }
-                        </div>
+                            </div>
                     </div>
                 </div>
-                <div class="col-8" style="background-color: #6C826B; border-radius: 20px; padding: 20px;">
+                <div class="container-fluid d-flex align-items-center justify-content-center col-10" style="padding: 7rem; background-color: #6C826B; border-radius: 20px; width: 500px; ">
                     <div class="row justify-content-center">
-                        <div class="col-5" style="background-color: rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; margin:0px 20px;">
-                            <h3>Account Information</h3>
+                        <div class="col-8 container-fluid align-items-center justify-content-center" style="background-color: rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; margin:0px 20px;">
+                            <h3 style=" font-size: 2vw;">Account Information</h3>
                             <br />
                             <div class="row">
                                 <div class="col-7">
-                                    <p style="color:white; margin:0;"><strong>Username</strong></p>
-                                    <p id="nameText" style="color: white; margin: 0; ">@ViewData["Name"]</p>
+                                    <p style="color: white; margin: 0; font-size: 1.5vw;"><strong>Username</strong></p>
+                                    <p id="nameText" style="color: white; margin: 0; font-size: 1.3vw;">@ViewData["Name"]</p>
                                     <input type="text" name="name"
                                            id="nameEdit" class="form-control" style="display:none;" /><br />
                                 </div>
-                                <div class="col-5 text-center align-self-center">
+                                <div class="col-5 text-center align-self-center" style="font-size: 1.3vw;">
                                     <a href="" id="nameEditBtn" style="color: white;">Edit</a>
                                     <input type="submit" asp-route-IsBioChanged="no" asp-route-action="Settings" asp-route-controller="Home" id="nameSubmitBtn" style="display:none;" value="Submit">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-7">
-                                    <p style="color: white; margin: 0; "><strong>Email</strong></p>
-                                    <p id="emailText" style="color: white; margin: 0;">@ViewData["Email"]</p>
+                                    <p style="color: white; margin: 0; font-size: 1.5vw;"><strong>Email</strong></p>
+                                    <p id="emailText" style="color: white; margin: 0; font-size: 1.3vw;">@ViewData["Email"]</p>
                                     <input type="text" name="email"
                                            id="emailEdit" class="form-control" style="display:none;" /><br />
                                 </div>
                                 <div class="col-5 text-center align-self-center">
-                                    <a href="" id="emailEditBtn" style="color: white;">Edit</a>
+                                    <a href="" id="emailEditBtn" style="color: white; font-size: 1.3vw;">Edit</a>
                                     <input type="submit" asp-route-IsBioChanged="no" asp-route-action="Settings" asp-route-controller="Home" id="emailSubmitBtn" style="display:none;" value="Submit">
                                 </div>
                             </div>
                             <br />
                             <div class="row">
                                 <div class="col-7">
-                                    <p style="color: white; margin: 0;"><strong>Password</strong></p>
-                                    <p id="passwordText" style="color: white; margin: 0;">@ViewData["Password"]</p>
+                                    <p style="color: white; margin: 0; font-size: 1.5vw;"><strong>Password</strong></p>
+                                    <p id="passwordText" style="color: white; margin: 0; font-size: 1.3vw;">@ViewData["Password"]</p>
                                     <input type="text" name="password"
                                            id="passwordEdit" class="form-control" style="display:none;" /><br />
                                 </div>
                                 <div class="col-5 text-center align-self-center">
-                                    <a href="" id="passwordEditBtn" style="color: white;">Edit</a>
+                                    <a href="" id="passwordEditBtn" style="color: white; font-size: 1.3vw;">Edit</a>
                                     <input type="submit" asp-route-IsBioChanged="no" asp-route-action="Settings" asp-route-controller="Home" id="passwordSubmitBtn" style="display:none;" value="Submit">
                                 </div>
                             </div>
                             <br />
                             <div class="row">
                                 <div class="col-7">
-                                    <p style="color: white; margin: 0;"><strong>Bio</strong></p>
-                                    <p id="bioText" style="color: white; margin: 0;">@ViewData["Bio"]</p>
+                                    <p style="color: white; margin: 0; font-size: 1.5vw;"><strong>Bio</strong></p>
+                                    <p id="bioText" style="color: white; margin: 0; font-size: 1.3vw;">@ViewData["Bio"]</p>
                                     <input type="text" name="bio"
                                            id="bioEdit" class="form-control" style="display:none;" /><br />
                                 </div>
                                 <div class="col-5 text-center align-self-center">
-                                    <a href="" id="bioEditBtn" style="color: white;">Edit</a>
+                                    <a href="" id="bioEditBtn" style="color: white; font-size: 1.3vw;">Edit</a>
                                     <input type="submit" asp-route-IsBioChanged="yes" asp-route-action="Settings" asp-route-controller="Home" id="bioSubmitBtn" style="display:none;" value="Submit">
                                 </div>
                             </div>
                         </div>
-                        <div class="col-5" style="background-color: rgba(255,255,255,0.1); border-radius: 20px; padding: 20px; margin: 0px 20px; ">
-                            <h2>Preferences</h2>
+                        <div class="container-fluid col-8" style="padding: 1rem; background-color: rgba(255,255,255,0.1); border-radius: 20px; margin-left: auto; margin-right: auto; margin-top: 5px;">
+                            <h2 style=" font-size: 2vw;">Preferences</h2>
                             <br />
                             <div class="row">
-                                <div class="col-9">
-                                    <p style="color: white; margin: 0;"><strong>Mute Notifications</strong></p>
-                                    <p style="color: white; margin: 0;">Mute newsletters and any email updates.</p>
+                                <div class="col-7">
+                                    <p style="color: white; margin: 0; font-size: 1.5vw;"><strong>Mute Notifications</strong></p>
+                                    <p style="color: white; margin: 0; font-size: 1.3vw;">Mute newsletters and any email updates.</p>
                                 </div>
                                 <div class="col-3 text-center align-self-center">
                                     <label class="switch">

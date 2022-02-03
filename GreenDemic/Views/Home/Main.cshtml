@@ -28,17 +28,7 @@
     List<int> thisYearCalList = (List<int>)ViewData["ThisYearCals"];
 }
 
-<!--Pop up for tips-->
-<div class="popup-box" id="hid" style="display: block; visibility: hidden">
-    <div class="transparent-layer"></div>
-    <div class="popup-inner" style="">
-        <div class="popup-msg" style="text-decoration:underline;">Tip of the day.</div>
-        <br />
-        <div class="popup-msg" id="text">This is supposed to be a tip.</div>
 
-        <button class="next-step-btn" id="btnClick">Cool!</button>
-    </div>
-</div>
 
 <h1 style="padding-top:100px; padding-bottom:50px; text-align:center;">The Overview</h1>
 
@@ -48,28 +38,28 @@
         <div class="col-sm-6">
             <div class="card" style="border-radius: 30px; padding: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
                 <div class="card-body">
-                    <h5 class="card-title">
+                    <h5 class="card-title" style="font-size: 2vw;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-people" viewBox="0 0 16 16">
                             <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1h8zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4 0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816zM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275zM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0zm3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z" />
                         </svg>
                         You need <mark>@Context.Session.GetInt32("TotalCal")</mark> calories
                     </h5>
-                    <p class="card-text">In total this month, you and your family members (if any), need @Context.Session.GetInt32("TotalCal") calories to maintain your current weight.</p>
-                    <a href="~/Person/Index" class="btn">Manage members</a>
+                    <p class="card-text" style="font-size: 1.5vw;">In total this month, you and your family members (if any), need @Context.Session.GetInt32("TotalCal") calories to maintain your current weight.</p>
+                    <a href="~/Person/Index" class="btn" style="font-size: 1vw;">Manage members</a>
                 </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="card" style="border-radius: 30px; padding: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
                 <div class="card-body">
-                    <h5 class="card-title">
+                    <h5 class="card-title" style="font-size: 2vw;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart2" viewBox="0 0 16 16">
                             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l1.25 5h8.22l1.25-5H3.14zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z" />
                         </svg>
                         You have <mark>@ViewData["ThisMonthCals"]</mark> calories
                     </h5>
-                    <p class="card-text">In total this month, you have @ViewData["ThisMonthCals"] calories of food in your house. </p>
-                    <a href="~/ShoppingBag/Index" class="btn">Manage inventories</a>
+                    <p class="card-text" style="font-size: 1.5vw;">In total this month, you have @ViewData["ThisMonthCals"] calories of food in your house. </p>
+                    <a href="~/ShoppingBag/Index" class="btn" style="font-size: 1vw;">Manage inventories</a>
                 </div>
             </div>
         </div>
@@ -83,11 +73,11 @@
                 {
                         <div class="card" style="background-color: #D8F3DC; border-radius: 30px; padding: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
                             <div class="card-body">
-                                <h5 class="card-title">
+                                <h5 class="card-title" style="font-size: 2vw;">
                                     <img src="https://img.icons8.com/ios/50/000000/good-quality--v1.png" />
                                     You are left with <mark>@calDiff</mark> calories of food to purchase.
                                 </h5>
-                                <p class="card-text">You are still on track. Remember to think twice before you purchase any food items so there's no unnecessary waste. We are proud of you!</p>
+                                <p class="card-text" style="font-size: 1.5vw;">You are still on track. Remember to think twice before you purchase any food items so there's no unnecessary waste. We are proud of you!</p>
                                 <a href="~/Home/Dashboard" class="btn" style="text-align: left; padding: 0;text-decoration:underline;">Go To Dashboard</a>
                             </div>
                         </div>
@@ -96,11 +86,11 @@
                 {
                     <div class="card" style="background-color: #fcf8e3; border-radius: 30px; padding: 20px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1); ">
                         <div class="card-body">
-                            <h5 class="card-title">
+                            <h5 class="card-title" style="font-size: 2vw;">
                                 <img src="https://img.icons8.com/ios/50/000000/thinking-bubble.png" />
                                 You are left with exactly <mark style="background-color: #D8F3DC;">0</mark> calories of food to purchase. New user?
                             </h5>
-                            <p class="card-text">Start by going to the 2 different pages from the 2 green buttons above. Fill up the details required and I will change accordingly.</p>
+                            <p class="card-text" style="font-size: 1.5vw;">Start by going to the 2 different pages from the 2 green buttons above. Fill up the details required and I will change accordingly.</p>
                             <a href="~/Home/Dashboard" class="btn" style="background-color: transparent; color: black; text-align: left; padding: 0; text-decoration: underline; ">Go To Dashboard</a>
                         </div>
                     </div>
@@ -109,12 +99,12 @@
                 {
                     <div class="card" style="background-color: #dda4a4; border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
                         <div class="card-body">
-                            <h5 class="card-title">
+                            <h5 class="card-title" style="font-size: 2vw;">
                                 <img src="https://img.icons8.com/ios/50/000000/poor-quality.png" />
                                 You have exceeded by <mark style="background: red; color:white;">@calDiff</mark> calories.
                             </h5>
-                            <p style="color:black;" class="card-text">Are you sure you needed the extra calories? Did you finish all the food you bought? Check out your monthly dashboard below to see which category contributes to the highest calories.  </p>
-                            <a href="~/Home/Dashboard" class="btn" style="background-color:transparent; color: black; text-align: left; padding: 0; text-decoration: underline;">Go To Dashboard</a>
+                            <p style="color: black; font-size: 1.5vw;" class="card-text">Are you sure you needed the extra calories? Did you finish all the food you bought? Check out your monthly dashboard below to see which category contributes to the highest calories.  </p>
+                            <a href="~/Home/Dashboard" class="btn" style="background-color:transparent; color: black; text-align: left; padding: 0; text-decoration: underline; font-size: 1vw;">Go To Dashboard</a>
                         </div>
                     </div>
                 }
@@ -124,10 +114,10 @@
 </div>
 
 <!--Header-->
-<h1 class="container-fluid" style="text-align:center; background-color: #6C826B; color: #fff; padding: 150px 90px;">@DateTime.Today.ToString("MMMM") Dashboard</h1>
+<h1 class="container-fluid" style="text-align: center; background-color: #6C826B; color: #fff; padding: 15% 9%; font-size: 8vw; margin-left: auto; margin-right: auto; text-align: center ">@DateTime.Today.ToString("MMMM") Dashboard</h1>
 
 <!--Monthly charts-->
-<div class="container-fluid" style="padding:90px;">
+<div class="container-fluid" style="padding: 9%; margin-left: auto; margin-right: auto; text-align: center">
     <div class="row">
 
         <!--Pie chart of calories by categories-->
@@ -158,21 +148,15 @@
 </div>
 
 <!--Header-->
-<h1 class="container-fluid" style="text-align:center; background-color: #6C826B; color: #fff; padding: 150px 90px;"> @DateTime.Today.Year Summary</h1>
+<h1 class="container-fluid" style="text-align: center; background-color: #6C826B; color: #fff; padding: 150px 90px; font-size: 8vw; margin-left: auto; margin-right: auto; text-align: center"> @DateTime.Today.Year Summary</h1>
 
 <!--Line chart-->
-<div class="container-fluid" style="padding:150px;">
+<div class="container-fluid" style="padding: 15%; margin-left: auto; margin-right: auto; text-align: center">
     <div style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
         <canvas id="line-chart" width="800" height="450"></canvas>
     </div>
 </div>
-<a href="~/Home/Quiz">
-    <div class="fab-wrapper">
-        <label class="fab" for="fabCheckbox" style="display: flex; justify-content: center; align-items: center;">
-            <img src="~/images/games.svg" alt="Instagram logo" width="32" height="32" title="instagram">
-        </label>
-    </div>
-</a>
+
 
 
 @section Scripts {
@@ -299,32 +283,7 @@
                 handleZeroData(barChart2);
             }
 
-            if (localStorage.getItem('click') != "yes") {
-                setTimeout(function () {
-                    document.getElementById("hid").style.visibility = "visible";
-
-                    var header = document.getElementById("header");
-                    header.style.backgroundColor = "";
-                }, 3000); // after 3 seconds
-            }
-            var btn = document.getElementById("btnClick");
-            btn.onclick = function () {
-                document.getElementById("hid").style.visibility = "hidden";
-                localStorage.setItem('click', "yes");
-            }
-
-            fetch("/res/tips.json")
-                .then(response => {
-                    return response.json();
-                })
-                .then(data => {
-                    var text = document.getElementById("text");
-                    var num = Math.floor(Math.random() * data.tips.length);
-                    console.log(num);
-                    console.log(data);
-                    console.log(data.tips);
-                    text.innerHTML = data.tips[num];
-                });
+            
         });
 
         function handleZeroData(myChart) {
