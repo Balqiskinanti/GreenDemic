@@ -24,13 +24,13 @@ By :
 * As a user, I wish to know my performance so that I know if I exceeded my recommended calories.
 * As a user, I wish to be able to calculate my recommended maximum calories so that I don't overbuy food that I don't need.
 ### Additional User Stories
-*As a user, I want recommendations of how to be sustainable so that I can make a more informed choices
-*As a user, I wish to have a competition with other users in the system, in order to stay motivated
-*As a user, I wish to get email updates on sustainability tips so that I am able to access these information outside of the website
-*As a user, I wish to create presets so that I don't have to repeat the process of creating items that I buy often
-*As a user, I wish to access the website from my mobile so that I don't have to turn on my computer
-*As a user, I wish to scan my items and get the system to identify the calories for me so that the process is faster
-*As a user, I want to update my account and preferences so that I have more freedom to customise
+* As a user, I want recommendations of how to be sustainable so that I can make a more informed choices
+* As a user, I wish to have a competition with other users in the system, in order to stay motivated
+* As a user, I wish to get email updates on sustainability tips so that I am able to access these information outside of the website
+* As a user, I wish to create presets so that I don't have to repeat the process of creating items that I buy often
+* As a user, I wish to access the website from my mobile so that I don't have to turn on my computer
+* As a user, I wish to scan my items and get the system to identify the calories for me so that the process is faster
+* As a user, I want to update my account and preferences so that I have more freedom to customise
 
 ## Features
 ### Existing Features Implemented
