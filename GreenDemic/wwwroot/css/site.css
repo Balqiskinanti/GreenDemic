@@ -482,7 +482,7 @@ input:checked + .slider:before {
     }
 
 .info_box {
-    width: 540px;
+    width: 60%;
     background: #fff;
     border-radius: 5px;
     transform: translate(-50%, -50%) scale(0.9);
@@ -493,18 +493,18 @@ input:checked + .slider:before {
 
     .info_box .info-title {
         height: 60px;
-        width: 100%;
+        width: 60%;
         border-bottom: 1px solid lightgrey;
         display: flex;
         align-items: center;
-        padding: 0 30px;
+        padding: 0 20px;
         border-radius: 5px 5px 0 0;
         font-size: 20px;
         font-weight: 600;
     }
 
     .info_box .info-list {
-        padding: 15px 30px;
+        padding: 15px 20px;
     }
 
         .info_box .info-list .info {
@@ -541,7 +541,7 @@ input:checked + .slider:before {
         }
 
 .quiz_box {
-    width: 550px;
+    width: 60%;
     background: #fff;
     border-radius: 5px;
     transform: translate(-50%, -50%) scale(0.9);
@@ -564,7 +564,7 @@ input:checked + .slider:before {
     }
 
         .quiz_box header .title {
-            font-size: 20px;
+            font-size: 2vw;
             font-weight: 600;
         }
 
@@ -578,17 +578,17 @@ input:checked + .slider:before {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            width: 145px;
+            width: 60%;
         }
 
             .quiz_box header .timer .time_left_txt {
                 font-weight: 400;
-                font-size: 17px;
+                font-size: 1.5vw;
                 user-select: none;
             }
 
             .quiz_box header .timer .timer_sec {
-                font-size: 18px;
+                font-size: 1.5vw;
                 font-weight: 500;
                 height: 30px;
                 width: 45px;
@@ -606,6 +606,7 @@ input:checked + .slider:before {
             bottom: 0px;
             left: 0px;
             height: 3px;
+            width: 60%;
             background: #6C826B;
         }
 
@@ -736,7 +737,7 @@ footer button {
     border-radius: 5px;
     display: flex;
     padding: 25px 30px;
-    width: 450px;
+    width: 60%;
     align-items: center;
     flex-direction: column;
     justify-content: center;
@@ -753,14 +754,14 @@ footer button {
     }
 
     .result_box .complete_text {
-        font-size: 20px;
+        font-size: 2vw;
         font-weight: 500;
     }
 
     .result_box .score_text span {
         display: flex;
         margin: 10px 0;
-        font-size: 18px;
+        font-size: 2vw;
         font-weight: 500;
     }
 
@@ -778,7 +779,7 @@ footer button {
             margin: 0 10px;
             height: 45px;
             padding: 0 20px;
-            font-size: 18px;
+            font-size: 1.5vw;
             font-weight: 500;
             cursor: pointer;
             border: none;

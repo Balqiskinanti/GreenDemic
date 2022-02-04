@@ -1,17 +1,17 @@
 ﻿
-        <div style="height:100vh;">
+        <div class="align-items-center justify-content-center" style="height: 100vh; margin-left: auto; margin-right: auto; ">
 
             <!-- start Quiz button -->
             <div class="start_btn"><button>Start Quiz</button></div>
 
             <!-- Info Box -->
-            <div class="info_box" style="margin-top:50px;">
-                <div class="info-title"><span>Some Rules of this Quiz</span></div>
+            <div class="info_box align-items-center justify-content-center" style="margin-top: 50px; margin-left: auto; margin-right: auto">
+                <div class="info-title" style="font-size: 2vw;"><span>Some Rules of this Quiz</span></div>
                 <div class="info-list">
-                    <div class="info">1. You will have only <span>15 seconds</span> per each question.</div>
-                    <div class="info">2. Questions difficulty are randomised.</div>
-                    <div class="info">3. Once you select your answer, it can't be undone.</div>
-                    <div class="info">4. You'll get points on the basis of your correct answers.</div>
+                    <div class="info" style="font-size: 1.5vw;">1. You will have only <span>15 seconds</span> per each question.</div>
+                    <div class="info" style="font-size: 1.5vw;">2. Questions difficulty are randomised.</div>
+                    <div class="info" style="font-size: 1.5vw;">3. Once you select your answer, it can't be undone.</div>
+                    <div class="info" style="font-size: 1.5vw;">4. You'll get points on the basis of your correct answers.</div>
                 </div>
                 <div class="buttons">
                     <button class="quit">Exit Quiz</button>
@@ -20,7 +20,7 @@
             </div>
 
             <!-- Quiz Box -->
-            <div class="quiz_box" style="margin-top:50px;">
+            <div class="quiz_box align-items-center justify-content-center" style="margin-top: 50px; margin-left: auto; margin-right: auto">
                 <header>
                     <div class="title">GreenDemic Quiz</div>
                     <div class="timer">
@@ -30,11 +30,11 @@
                     <div class="time_line"></div>
                 </header>
                 <section>
-                    <div class="difficulty">
+                    <div class="difficulty" style="font-size: 2vw;">
                     </div>
-                    <div class="que_text">
+                    <div class="que_text" style="font-size: 2vw;">
                     </div>
-                    <div class="option_list">
+                    <div class="option_list" style="font-size: 1.7vw;">
                     </div>
                 </section>
 
@@ -48,7 +48,7 @@
             </div>
 
             <!-- Result Box -->
-            <div class="result_box" style="margin-top:50px;">
+            <div class="result_box align-items-center justify-content-center" style="margin-top: 50px; margin-left: auto; margin-right: auto">
                 <div class="icon">
                     <i class="fas fa-crown"></i>
                 </div>
@@ -284,11 +284,11 @@
         }
 
         function startTimerLine(time) {
-            counterLine = setInterval(timer, 29);
+            counterLine = setInterval(timer, 165);
             function timer() {
                 time += 1; //upgrading time value with 1
-                time_line.style.width = time + "px"; //increasing width of time_line with px by time value
-                if (time > 549) { //if time value is greater than 549
+                time_line.style.width = time + "%"; //increasing width of time_line with px by time value
+                if (time > 99) { //if time value is greater than 549
                     clearInterval(counterLine); //clear counterLine
                 }
             }
