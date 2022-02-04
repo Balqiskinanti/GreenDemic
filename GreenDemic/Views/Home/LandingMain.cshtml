@@ -14,105 +14,107 @@
     }
 }
 
-<!--Pop up for tips-->
-<div class="popup-box" id="hid" style="display: block;">
-    <div class="transparent-layer"></div>
-    <div class="popup-inner" style="">
-        <div class="popup-msg" style="text-decoration:underline;">Tip of the day.</div>
-        <br />
-        <div class="popup-msg" id="text"></div>
+<div style="overflow-x: hidden;">
+    <!--Pop up for tips-->
+    <div class="popup-box" id="hid" style="display: block;">
+        <div class="transparent-layer"></div>
+        <div class="popup-inner" style="">
+            <div class="popup-msg" style="text-decoration:underline;">Tip of the day.</div>
+            <br />
+            <div class="popup-msg" id="text"></div>
 
-        <button class="next-step-btn" id="btnClick" onclick="self.close()">Cool!</button>
+            <button class="next-step-btn" id="btnClick" onclick="self.close()">Cool!</button>
+        </div>
     </div>
-</div>
 
-<div>
-    <div class="centralise">
-        <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_mj35fmqa.json" background="transparent" speed="1" style="width: 200px; height:200px; margin-left: auto; margin-right: auto; top: -50px" autoplay></lottie-player>
-    </div>
-    <h1 style="padding-top: 100px; padding-bottom: 50px; text-align: center; margin-left: auto; margin-right: auto; font-size: 5vw ">Greetings, @name 👋</h1>
-</div>
-
-<h2 class="container-fluid align-items-center justify-content-center" style="text-align: center; background-color: #6C826B; color: #fff; padding: 150px 90px; padding: 150px 90px; font-size: 8vw; margin-left: auto; margin-right: auto">What Do You want To Do Today?</h2>
-<div class="container-fluid d-flex align-items-center justify-content-center" style="padding:7rem;" id="features">
     <div class="row">
-        <div class="col-sm-4 align-items-center justify-content-center">
-            <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
-                <div class="card-body">
-                    <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_whfzz2v2.json" background="transparent" speed="1" style="width: 130px; height: 130px;" loop autoplay></lottie-player>
-                    <h5 class="card-title" style="font-size: 2vw;">
-                        Family Members
-                    </h5>
-                    <p class="card-text" style="font-size: 1.5vw;">Here you can add and view your family members. After all, a meal is better when you eat together. </p>
-                    <a href="~/Person/Index" class="btn">Let's go!</a>
-                </div>
-            </div>
+        <div class="col-md-1 centralise">
+            <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_mj35fmqa.json" background="transparent" speed="1" style="width: 250px; height:250px; margin-left: auto; margin-right: auto; top: -50px" autoplay></lottie-player>
         </div>
-        <div class="col-sm-4">
-            <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
-                <div class="card-body">
-                    <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uww81uys.json" background="transparent" speed="1" style="width: 80px; height: 80px;" loop autoplay></lottie-player>
+        <h1 style="padding-top: 100px; padding-bottom: 50px; text-align: center; margin-left: auto; margin-right: auto; font-size: 5vw ">Greetings, @name 👋</h1>
+    </div>
 
-                    <h5 class="card-title" style="font-size: 2vw;">
-                        Overview for current month and year summary
-                    </h5>
-                    <p class="card-text" style="font-size: 1.5vw;">View this months charts and year summary to visualise your calories</p>
-                    <a href="~/Home/Main" class="btn">Let's go!</a>
+    <h2 class="container-fluid align-items-center justify-content-center" style="text-align: center; background-color: #6C826B; color: #fff; padding: 150px 90px; padding: 150px 90px; font-size: 8vw; margin-left: auto; margin-right: auto">What Do You want To Do Today?</h2>
+    <div class="container-fluid d-flex align-items-center justify-content-center" style="padding:7rem;" id="features">
+        <div class="row">
+            <div class="col-sm-4 align-items-center justify-content-center">
+                <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                    <div class="card-body">
+                        <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_whfzz2v2.json" background="transparent" speed="1" style="width: 130px; height: 130px;" loop autoplay></lottie-player>
+                        <h5 class="card-title" style="font-size: 2vw;">
+                            Family Members
+                        </h5>
+                        <p class="card-text" style="font-size: 1.5vw;">Here you can add and view your family members. After all, a meal is better when you eat together. </p>
+                        <a href="~/Person/Index" class="btn">Let's go!</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
-                <div class="card-body">
-                    <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_qX4zwY.json" background="transparent" speed="1" style="width: 90px; height: 90px;" loop autoplay></lottie-player>
-                    <h5 class="card-title" style="font-size: 2vw;">
-                        Food
-                    </h5>
-                    <p class="card-text" style="font-size: 1.5vw;">Here you can create/set presets for shopping bags and add food items into it via scanning/ the barcode or entry </p>
-                    <a href="~/ShoppingBag/Index" class="btn">Let's go!</a>
+            <div class="col-sm-4">
+                <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                    <div class="card-body">
+                        <lottie-player src="https://assets4.lottiefiles.com/packages/lf20_uww81uys.json" background="transparent" speed="1" style="width: 80px; height: 80px;" loop autoplay></lottie-player>
+
+                        <h5 class="card-title" style="font-size: 2vw;">
+                            Overview for current month and year summary
+                        </h5>
+                        <p class="card-text" style="font-size: 1.5vw;">View this months charts and year summary to visualise your calories</p>
+                        <a href="~/Home/Main" class="btn">Let's go!</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <a href="~/Home/Quiz">
-            <div class="fab-wrapper">
-                <label class="fab" for="fabCheckbox" style="display: flex; justify-content: center; align-items: center;">
-                    <img src="~/images/games.svg" alt="Instagram logo" width="32" height="32" title="instagram">
-                </label>
+            <div class="col-sm-4">
+                <div class="card" style="border-radius: 30px; padding: 40px; box-shadow: 0px 3px 15px rgba(0,0,0,0.1);">
+                    <div class="card-body">
+                        <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_qX4zwY.json" background="transparent" speed="1" style="width: 90px; height: 90px;" loop autoplay></lottie-player>
+                        <h5 class="card-title" style="font-size: 2vw;">
+                            Food
+                        </h5>
+                        <p class="card-text" style="font-size: 1.5vw;">Here you can create/set presets for shopping bags and add food items into it via scanning/ the barcode or entry </p>
+                        <a href="~/ShoppingBag/Index" class="btn">Let's go!</a>
+                    </div>
+                </div>
             </div>
-        </a>
+            <a href="~/Home/Quiz">
+                <div class="fab-wrapper">
+                    <label class="fab" for="fabCheckbox" style="display: flex; justify-content: center; align-items: center;">
+                        <img src="~/images/games.svg" alt="Instagram logo" width="32" height="32" title="instagram">
+                    </label>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
+  
 
-@section Scripts {
-    <script>
-        if (localStorage.getItem('click') != "yes") {
-            setTimeout(function () {
-                document.getElementById("hid").style.visibility = "visible";
+    @section Scripts {
+        <script>
+            if (localStorage.getItem('click') != "yes") {
+                setTimeout(function () {
+                    document.getElementById("hid").style.visibility = "visible";
 
-                var header = document.getElementById("header");
-                header.style.backgroundColor = "";
-            }, 3000); // after 3 seconds
-        }
-        var btn = document.getElementById("btnClick");
-        btn.onclick = function () {
-            document.getElementById("hid").style.visibility = "hidden";
-            localStorage.setItem('click', "yes");
-        }
-        fetch("/res/tips.json")
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                var text = document.getElementById("text");
-                var num = Math.floor(Math.random() * data.tips.length);
-                console.log(num);
-                console.log(data);
-                console.log(data.tips);
-                text.innerHTML = data.tips[num];
-            });
-    </script>
-}
+                    var header = document.getElementById("header");
+                    header.style.backgroundColor = "";
+                }, 3000); // after 3 seconds
+            }
+            var btn = document.getElementById("btnClick");
+            btn.onclick = function () {
+                document.getElementById("hid").style.visibility = "hidden";
+                localStorage.setItem('click', "yes");
+            }
+            fetch("/res/tips.json")
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    var text = document.getElementById("text");
+                    var num = Math.floor(Math.random() * data.tips.length);
+                    console.log(num);
+                    console.log(data);
+                    console.log(data.tips);
+                    text.innerHTML = data.tips[num];
+                });
+        </script>
+    }
 
 
 
-            
