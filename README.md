@@ -1,3 +1,4 @@
+Please use this link to test: https://greendemic.azurewebsites.net/ 
 # GreenDemic
 GreenDemic is for families and individuals who want to keep track of their household food intake. Unlike other no-waste websites which only track the items in the fridge, our website helps reduce food wastage through counting calories.
 
@@ -57,7 +58,7 @@ No | Feature | Description
 7|_Shopping Bag Preset_| Allows users to set a shopping bag with food items that the family would commonly buy.
 8|_Admin Account_| Allows admin to have their unqiue account.
 9|_Admin Email Sending_| Allows admin to send emails to family account's email.
-10|_Admin Performance Tracker_| ALlows admin to track the performance of family accounts.
+10|_Admin Performance Tracker_| Allows admin to track the performance of family accounts.
 
 
 ### Credits
